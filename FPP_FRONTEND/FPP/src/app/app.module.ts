@@ -9,13 +9,15 @@ import { HomeComponent } from './home/home.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { LoginComponent } from './client/login/login.component';
 import { FormsModule } from '@angular/forms';
+import { SupLoginComponent } from './Supplier/sup-login/sup-login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     WelcomeComponent,
-    LoginComponent
+    LoginComponent,
+    SupLoginComponent
   ],
   imports: [
     BrowserModule,
@@ -33,6 +35,6 @@ import { FormsModule } from '@angular/forms';
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [LoginComponent]
+  entryComponents: [LoginComponent,SupLoginComponent]
 })
 export class AppModule { }
