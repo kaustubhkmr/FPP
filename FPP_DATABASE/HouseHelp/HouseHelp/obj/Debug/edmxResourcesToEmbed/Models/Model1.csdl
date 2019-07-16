@@ -1,0 +1,257 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FPPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="booking">
+    <Key>
+      <PropertyRef Name="b_id" />
+    </Key>
+    <Property Name="b_id" Type="Int64" Nullable="false" />
+    <Property Name="cust_id" Type="Int64" />
+    <Property Name="sup_id" Type="Int64" />
+    <Property Name="b_address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="b_city" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="b_state" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="b_time" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="b_date" Type="DateTime" Nullable="false" Precision="7" />
+    <Property Name="b_price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="payment_status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="completion_status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="req_time" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="req_date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="b_review" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="s_type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="completion_time" Type="DateTime" Precision="7" />
+    <Property Name="comments" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="customer" Relationship="Self.c_fk" FromRole="bookings" ToRole="customers" />
+    <NavigationProperty Name="supplier" Relationship="Self.s_fk" FromRole="bookings" ToRole="suppliers" />
+  </EntityType>
+  <EntityType Name="customer">
+    <Key>
+      <PropertyRef Name="cust_id" />
+    </Key>
+    <Property Name="cust_id" Type="Int64" Nullable="false" />
+    <Property Name="cust_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="cust_phone" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="cust_email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="cust_address" Type="String" MaxLength="400" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="cust_city" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="cust_state" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="cust_password" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="bookings" Relationship="Self.c_fk" FromRole="customers" ToRole="bookings" />
+  </EntityType>
+  <EntityType Name="sup_services">
+    <Key>
+      <PropertyRef Name="service_id" />
+    </Key>
+    <Property Name="service_id" Type="Int64" Nullable="false" />
+    <Property Name="sup_id" Type="Int64" />
+    <Property Name="service_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="supplier" Relationship="Self.FK__sup_servi__sup_i__6383C8BA" FromRole="sup_services" ToRole="suppliers" />
+  </EntityType>
+  <EntityType Name="supplier">
+    <Key>
+      <PropertyRef Name="sup_id" />
+    </Key>
+    <Property Name="sup_id" Type="Int64" Nullable="false" />
+    <Property Name="sup_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="sup_email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="sup_phone" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="sup_city" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="sup_state" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="sup_password" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="sup_rating" Type="Single" />
+    <Property Name="rating_count" Type="Int64" />
+    <NavigationProperty Name="bookings" Relationship="Self.s_fk" FromRole="suppliers" ToRole="bookings" />
+    <NavigationProperty Name="sup_services" Relationship="Self.FK__sup_servi__sup_i__6383C8BA" FromRole="suppliers" ToRole="sup_services" />
+    <Property Name="sup_address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <Association Name="c_fk">
+    <End Role="customers" Type="Self.customer" Multiplicity="0..1" />
+    <End Role="bookings" Type="Self.booking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="customers">
+        <PropertyRef Name="cust_id" />
+      </Principal>
+      <Dependent Role="bookings">
+        <PropertyRef Name="cust_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="s_fk">
+    <End Role="suppliers" Type="Self.supplier" Multiplicity="0..1" />
+    <End Role="bookings" Type="Self.booking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="suppliers">
+        <PropertyRef Name="sup_id" />
+      </Principal>
+      <Dependent Role="bookings">
+        <PropertyRef Name="sup_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__sup_servi__sup_i__6383C8BA">
+    <End Role="suppliers" Type="Self.supplier" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="sup_services" Type="Self.sup_services" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="suppliers">
+        <PropertyRef Name="sup_id" />
+      </Principal>
+      <Dependent Role="sup_services">
+        <PropertyRef Name="sup_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="FPPEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="bookings" EntityType="Self.booking" />
+    <EntitySet Name="customers" EntityType="Self.customer" />
+    <EntitySet Name="sup_services" EntityType="Self.sup_services" />
+    <EntitySet Name="suppliers" EntityType="Self.supplier" />
+    <AssociationSet Name="c_fk" Association="Self.c_fk">
+      <End Role="customers" EntitySet="customers" />
+      <End Role="bookings" EntitySet="bookings" />
+    </AssociationSet>
+    <AssociationSet Name="s_fk" Association="Self.s_fk">
+      <End Role="suppliers" EntitySet="suppliers" />
+      <End Role="bookings" EntitySet="bookings" />
+    </AssociationSet>
+    <AssociationSet Name="FK__sup_servi__sup_i__6383C8BA" Association="Self.FK__sup_servi__sup_i__6383C8BA">
+      <End Role="suppliers" EntitySet="suppliers" />
+      <End Role="sup_services" EntitySet="sup_services" />
+    </AssociationSet>
+    <FunctionImport Name="add_booking">
+      <Parameter Name="bid" Mode="In" Type="Int64" />
+      <Parameter Name="cust_id" Mode="In" Type="Int64" />
+      <Parameter Name="sup_id" Mode="In" Type="Int64" />
+      <Parameter Name="b_address" Mode="In" Type="String" />
+      <Parameter Name="b_city" Mode="In" Type="String" />
+      <Parameter Name="b_state" Mode="In" Type="String" />
+      <Parameter Name="b_time" Mode="In" Type="Time" />
+      <Parameter Name="b_date" Mode="In" Type="DateTime" />
+      <Parameter Name="req_time" Mode="In" Type="Time" />
+      <Parameter Name="req_date" Mode="In" Type="DateTime" />
+      <Parameter Name="s_type" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="add_comments">
+      <Parameter Name="bid" Mode="In" Type="Int64" />
+      <Parameter Name="comments" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="add_cust">
+      <Parameter Name="cust_name" Mode="In" Type="String" />
+      <Parameter Name="cust_phone" Mode="In" Type="String" />
+      <Parameter Name="cust_email" Mode="In" Type="String" />
+      <Parameter Name="cust_address" Mode="In" Type="String" />
+      <Parameter Name="cust_city" Mode="In" Type="String" />
+      <Parameter Name="cust_state" Mode="In" Type="String" />
+      <Parameter Name="cust_password" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="add_service">
+      <Parameter Name="sup_id" Mode="In" Type="Int64" />
+      <Parameter Name="service_name" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="add_sup">
+      <Parameter Name="sup_name" Mode="In" Type="String" />
+      <Parameter Name="sup_email" Mode="In" Type="String" />
+      <Parameter Name="sup_phone" Mode="In" Type="String" />
+      <Parameter Name="sup_city" Mode="In" Type="String" />
+      <Parameter Name="sup_state" Mode="In" Type="String" />
+      <Parameter Name="sup_password" Mode="In" Type="String" />
+      <Parameter Name="sup_address" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="add_user">
+      <Parameter Name="cust_name" Mode="In" Type="String" />
+      <Parameter Name="cust_phone" Mode="In" Type="String" />
+      <Parameter Name="cust_email" Mode="In" Type="String" />
+      <Parameter Name="cust_address" Mode="In" Type="String" />
+      <Parameter Name="cust_city" Mode="In" Type="String" />
+      <Parameter Name="cust_state" Mode="In" Type="String" />
+      <Parameter Name="cust_password" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="complete_booking">
+      <Parameter Name="bid" Mode="In" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="get_booking" ReturnType="Collection(FPPModel.get_booking_Result)">
+      <Parameter Name="bid" Mode="In" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="get_my_services" ReturnType="Collection(FPPModel.get_my_services_Result)">
+      <Parameter Name="sup_id" Mode="In" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="get_sup" ReturnType="Collection(FPPModel.get_sup_Result)">
+      <Parameter Name="sup_id" Mode="In" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="get_user" ReturnType="Collection(FPPModel.get_user_Result)">
+      <Parameter Name="cust_id" Mode="In" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="give_rating">
+      <Parameter Name="sup_id" Mode="In" Type="Int64" />
+      <Parameter Name="rating" Mode="In" Type="Single" />
+    </FunctionImport>
+    <FunctionImport Name="make_payment">
+      <Parameter Name="bid" Mode="In" Type="Int64" />
+      <Parameter Name="money" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="upd_cust">
+      <Parameter Name="cust_id" Mode="In" Type="Int64" />
+      <Parameter Name="cust_name" Mode="In" Type="String" />
+      <Parameter Name="cust_phone" Mode="In" Type="String" />
+      <Parameter Name="cust_email" Mode="In" Type="String" />
+      <Parameter Name="cust_address" Mode="In" Type="String" />
+      <Parameter Name="cust_city" Mode="In" Type="String" />
+      <Parameter Name="cust_state" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="upd_sup">
+      <Parameter Name="sup_id" Mode="In" Type="Int64" />
+      <Parameter Name="sup_name" Mode="In" Type="String" />
+      <Parameter Name="sup_email" Mode="In" Type="String" />
+      <Parameter Name="sup_phone" Mode="In" Type="String" />
+      <Parameter Name="sup_city" Mode="In" Type="String" />
+      <Parameter Name="sup_state" Mode="In" Type="String" />
+      <Parameter Name="sup_address" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="get_booking_Result">
+    <Property Type="Int64" Name="b_id" Nullable="false" />
+    <Property Type="Int64" Name="cust_id" Nullable="true" />
+    <Property Type="Int64" Name="sup_id" Nullable="true" />
+    <Property Type="String" Name="b_address" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="b_city" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="b_state" Nullable="false" MaxLength="100" />
+    <Property Type="Time" Name="b_time" Nullable="false" />
+    <Property Type="DateTime" Name="b_date" Nullable="false" />
+    <Property Type="Decimal" Name="b_price" Nullable="false" Precision="19" />
+    <Property Type="String" Name="payment_status" Nullable="false" MaxLength="1" />
+    <Property Type="String" Name="completion_status" Nullable="false" MaxLength="1" />
+    <Property Type="Time" Name="req_time" Nullable="false" />
+    <Property Type="DateTime" Name="req_date" Nullable="false" Precision="23" />
+    <Property Type="String" Name="b_review" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="s_type" Nullable="false" MaxLength="50" />
+    <Property Type="DateTime" Name="completion_time" Nullable="true" />
+    <Property Type="String" Name="comments" Nullable="true" MaxLength="200" />
+  </ComplexType>
+  <ComplexType Name="get_my_services_Result">
+    <Property Type="Int64" Name="service_id" Nullable="false" />
+    <Property Type="Int64" Name="sup_id" Nullable="true" />
+    <Property Type="String" Name="service_name" Nullable="false" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="get_sup_Result">
+    <Property Type="Int64" Name="sup_id" Nullable="false" />
+    <Property Type="String" Name="sup_name" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="sup_email" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="sup_phone" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="sup_city" Nullable="false" MaxLength="25" />
+    <Property Type="String" Name="sup_state" Nullable="false" MaxLength="25" />
+    <Property Type="String" Name="sup_password" Nullable="false" MaxLength="1000" />
+    <Property Type="Single" Name="sup_rating" Nullable="true" />
+    <Property Type="Int64" Name="rating_count" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="get_user_Result">
+    <Property Type="Int64" Name="cust_id" Nullable="false" />
+    <Property Type="String" Name="cust_name" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="cust_phone" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="cust_email" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="cust_address" Nullable="false" MaxLength="400" />
+    <Property Type="String" Name="cust_city" Nullable="false" MaxLength="25" />
+    <Property Type="String" Name="cust_state" Nullable="false" MaxLength="25" />
+    <Property Type="String" Name="cust_password" Nullable="false" MaxLength="1000" />
+  </ComplexType>
+</Schema>

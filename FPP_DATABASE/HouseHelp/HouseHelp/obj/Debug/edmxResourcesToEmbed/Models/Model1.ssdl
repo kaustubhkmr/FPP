@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FPPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="bookings">
+    <Key>
+      <PropertyRef Name="b_id" />
+    </Key>
+    <Property Name="b_id" Type="bigint" Nullable="false" />
+    <Property Name="cust_id" Type="bigint" />
+    <Property Name="sup_id" Type="bigint" />
+    <Property Name="b_address" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="b_city" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="b_state" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="b_time" Type="time" Precision="7" Nullable="false" />
+    <Property Name="b_date" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="b_price" Type="money" Nullable="false" />
+    <Property Name="payment_status" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="completion_status" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="req_time" Type="time" Precision="7" Nullable="false" />
+    <Property Name="req_date" Type="datetime" Nullable="false" />
+    <Property Name="b_review" Type="varchar" MaxLength="100" />
+    <Property Name="s_type" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="completion_time" Type="datetime2" Precision="7" />
+    <Property Name="comments" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="customers">
+    <Key>
+      <PropertyRef Name="cust_id" />
+    </Key>
+    <Property Name="cust_id" Type="bigint" Nullable="false" />
+    <Property Name="cust_name" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="cust_phone" Type="char" MaxLength="10" Nullable="false" />
+    <Property Name="cust_email" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="cust_address" Type="varchar" MaxLength="400" Nullable="false" />
+    <Property Name="cust_city" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="cust_state" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="cust_password" Type="varchar" MaxLength="1000" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sup_services">
+    <Key>
+      <PropertyRef Name="service_id" />
+    </Key>
+    <Property Name="service_id" Type="bigint" Nullable="false" />
+    <Property Name="sup_id" Type="bigint" />
+    <Property Name="service_name" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="suppliers">
+    <Key>
+      <PropertyRef Name="sup_id" />
+    </Key>
+    <Property Name="sup_id" Type="bigint" Nullable="false" />
+    <Property Name="sup_name" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="sup_email" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="sup_phone" Type="char" MaxLength="10" Nullable="false" />
+    <Property Name="sup_city" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="sup_state" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="sup_password" Type="varchar" MaxLength="1000" Nullable="false" />
+    <Property Name="sup_rating" Type="real" />
+    <Property Name="rating_count" Type="bigint" />
+    <Property Name="sup_address" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <Association Name="c_fk">
+    <End Role="customers" Type="Self.customers" Multiplicity="0..1" />
+    <End Role="bookings" Type="Self.bookings" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="customers">
+        <PropertyRef Name="cust_id" />
+      </Principal>
+      <Dependent Role="bookings">
+        <PropertyRef Name="cust_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__sup_servi__sup_i__6383C8BA">
+    <End Role="suppliers" Type="Self.suppliers" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="sup_services" Type="Self.sup_services" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="suppliers">
+        <PropertyRef Name="sup_id" />
+      </Principal>
+      <Dependent Role="sup_services">
+        <PropertyRef Name="sup_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="s_fk">
+    <End Role="suppliers" Type="Self.suppliers" Multiplicity="0..1" />
+    <End Role="bookings" Type="Self.bookings" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="suppliers">
+        <PropertyRef Name="sup_id" />
+      </Principal>
+      <Dependent Role="bookings">
+        <PropertyRef Name="sup_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="add_booking" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="bid" Type="bigint" Mode="In" />
+    <Parameter Name="cust_id" Type="bigint" Mode="In" />
+    <Parameter Name="sup_id" Type="bigint" Mode="In" />
+    <Parameter Name="b_address" Type="varchar" Mode="In" />
+    <Parameter Name="b_city" Type="varchar" Mode="In" />
+    <Parameter Name="b_state" Type="varchar" Mode="In" />
+    <Parameter Name="b_time" Type="time" Mode="In" />
+    <Parameter Name="b_date" Type="datetime2" Mode="In" />
+    <Parameter Name="req_time" Type="time" Mode="In" />
+    <Parameter Name="req_date" Type="datetime" Mode="In" />
+    <Parameter Name="s_type" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="add_comments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="bid" Type="bigint" Mode="In" />
+    <Parameter Name="comments" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="add_cust" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="cust_name" Type="varchar" Mode="In" />
+    <Parameter Name="cust_phone" Type="char" Mode="In" />
+    <Parameter Name="cust_email" Type="varchar" Mode="In" />
+    <Parameter Name="cust_address" Type="varchar" Mode="In" />
+    <Parameter Name="cust_city" Type="varchar" Mode="In" />
+    <Parameter Name="cust_state" Type="varchar" Mode="In" />
+    <Parameter Name="cust_password" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="add_service" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="sup_id" Type="bigint" Mode="In" />
+    <Parameter Name="service_name" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="add_sup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="sup_name" Type="varchar" Mode="In" />
+    <Parameter Name="sup_email" Type="varchar" Mode="In" />
+    <Parameter Name="sup_phone" Type="char" Mode="In" />
+    <Parameter Name="sup_city" Type="varchar" Mode="In" />
+    <Parameter Name="sup_state" Type="varchar" Mode="In" />
+    <Parameter Name="sup_password" Type="varchar" Mode="In" />
+    <Parameter Name="sup_address" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="add_user" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="cust_name" Type="varchar" Mode="In" />
+    <Parameter Name="cust_phone" Type="char" Mode="In" />
+    <Parameter Name="cust_email" Type="varchar" Mode="In" />
+    <Parameter Name="cust_address" Type="varchar" Mode="In" />
+    <Parameter Name="cust_city" Type="varchar" Mode="In" />
+    <Parameter Name="cust_state" Type="varchar" Mode="In" />
+    <Parameter Name="cust_password" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="complete_booking" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="bid" Type="bigint" Mode="In" />
+  </Function>
+  <Function Name="get_booking" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="bid" Type="bigint" Mode="In" />
+  </Function>
+  <Function Name="get_my_services" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="sup_id" Type="bigint" Mode="In" />
+  </Function>
+  <Function Name="get_sup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="sup_id" Type="bigint" Mode="In" />
+  </Function>
+  <Function Name="get_user" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="cust_id" Type="bigint" Mode="In" />
+  </Function>
+  <Function Name="give_rating" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="sup_id" Type="bigint" Mode="In" />
+    <Parameter Name="rating" Type="real" Mode="In" />
+  </Function>
+  <Function Name="make_payment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="bid" Type="bigint" Mode="In" />
+    <Parameter Name="money" Type="money" Mode="In" />
+  </Function>
+  <Function Name="upd_cust" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="cust_id" Type="bigint" Mode="In" />
+    <Parameter Name="cust_name" Type="varchar" Mode="In" />
+    <Parameter Name="cust_phone" Type="char" Mode="In" />
+    <Parameter Name="cust_email" Type="varchar" Mode="In" />
+    <Parameter Name="cust_address" Type="varchar" Mode="In" />
+    <Parameter Name="cust_city" Type="varchar" Mode="In" />
+    <Parameter Name="cust_state" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="upd_sup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="sup_id" Type="bigint" Mode="In" />
+    <Parameter Name="sup_name" Type="varchar" Mode="In" />
+    <Parameter Name="sup_email" Type="varchar" Mode="In" />
+    <Parameter Name="sup_phone" Type="char" Mode="In" />
+    <Parameter Name="sup_city" Type="varchar" Mode="In" />
+    <Parameter Name="sup_state" Type="varchar" Mode="In" />
+    <Parameter Name="sup_address" Type="varchar" Mode="In" />
+  </Function>
+  <EntityContainer Name="FPPModelStoreContainer">
+    <EntitySet Name="bookings" EntityType="Self.bookings" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="customers" EntityType="Self.customers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sup_services" EntityType="Self.sup_services" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="suppliers" EntityType="Self.suppliers" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="c_fk" Association="Self.c_fk">
+      <End Role="customers" EntitySet="customers" />
+      <End Role="bookings" EntitySet="bookings" />
+    </AssociationSet>
+    <AssociationSet Name="FK__sup_servi__sup_i__6383C8BA" Association="Self.FK__sup_servi__sup_i__6383C8BA">
+      <End Role="suppliers" EntitySet="suppliers" />
+      <End Role="sup_services" EntitySet="sup_services" />
+    </AssociationSet>
+    <AssociationSet Name="s_fk" Association="Self.s_fk">
+      <End Role="suppliers" EntitySet="suppliers" />
+      <End Role="bookings" EntitySet="bookings" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -10,6 +10,9 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { LoginComponent } from './client/login/login.component';
 import { FormsModule } from '@angular/forms';
 import { SupLoginComponent } from './Supplier/sup-login/sup-login.component';
+import { PwdcheckDirective } from './Supplier/sup-login/pwdcheck.directive';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { SupinsertService } from './Services/supinsert.service';
 
 @NgModule({
   declarations: [
@@ -17,7 +20,8 @@ import { SupLoginComponent } from './Supplier/sup-login/sup-login.component';
     HomeComponent,
     WelcomeComponent,
     LoginComponent,
-    SupLoginComponent
+    SupLoginComponent,
+    PwdcheckDirective
   ],
   imports: [
     BrowserModule,
@@ -32,8 +36,9 @@ import { SupLoginComponent } from './Supplier/sup-login/sup-login.component';
     MatRadioModule,
     MatSelectModule,
     FormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [SupinsertService],
   bootstrap: [AppComponent],
   entryComponents: [LoginComponent,SupLoginComponent]
 })
