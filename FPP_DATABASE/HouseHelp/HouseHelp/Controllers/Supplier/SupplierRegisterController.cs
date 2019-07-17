@@ -27,9 +27,16 @@ namespace HouseHelp.Controllers.Supplier
         }
 
         // POST: api/SupplierRegister
-        public int Post([FromBody] supplier sup)
+        public HttpResponseMessage Post([FromBody] supplier sup)
         {
-            return fpp.add_sup(sup.sup_name, sup.sup_email, sup.sup_phone, sup.sup_city, sup.sup_state, sup.sup_password,sup.sup_address);
+            int res= fpp.add_sup(sup.sup_name, sup.sup_email, sup.sup_phone, sup.sup_city, sup.sup_state, sup.sup_password,sup.sup_address);
+            if (res == 1)
+            {
+                var result = fpp.suppliers.Where(p => p.sup_phone == sup.sup_phone).FirstOrDefault();
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+
+            }
+            return null;
         }
 
         // PUT: api/SupplierRegister/5
