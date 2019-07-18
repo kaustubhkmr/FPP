@@ -15,6 +15,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { SupinsertService } from './Services/supinsert.service';
 import { SupDashboardComponent } from './Supplier/sup-dashboard/sup-dashboard.component';
 import { SuploginService } from './Services/suplogin.service';
+import { CpwdcheckDirective } from './client/login/cpwdcheck.directive';
+import { CustDashboardComponent } from './client/cust-dashboard/cust-dashboard/cust-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { SuploginService } from './Services/suplogin.service';
     LoginComponent,
     SupLoginComponent,
     PwdcheckDirective,
-    SupDashboardComponent
+    SupDashboardComponent,
+    CpwdcheckDirective,
+    CustDashboardComponent
   ],
   imports: [
     BrowserModule,
