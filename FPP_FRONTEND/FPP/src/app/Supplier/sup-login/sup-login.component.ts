@@ -20,7 +20,7 @@ export class SupLoginComponent implements OnInit {
   loginSignUp: boolean = true
   loginLogin: boolean = true;
 
-  constructor(public dialogRef: MatDialogRef<SupLoginComponent>, private sup_ins: SupinsertService, private _snackBar: MatSnackBar, private rt: Router,private log_sup:SuploginService) { }
+  constructor(public dialogRef: MatDialogRef<SupLoginComponent>, private sup_ins: SupinsertService, private _snackBar: MatSnackBar, private rt: Router, private log_sup: SuploginService) { }
 
   ngOnInit() {
 
@@ -46,7 +46,7 @@ export class SupLoginComponent implements OnInit {
   supLogin() {
     this.loginLogin = !this.loginLogin;
   }
-  onSubmit(data,f:NgForm) {
+  onSubmit(data, f: NgForm) {
     const md5 = new Md5();
 
     data.sup_password = md5.appendStr(data.sup_password).end()
@@ -83,7 +83,7 @@ export class SupLoginComponent implements OnInit {
     });
   }
 
-  onLogin(data,f:NgForm){
+  onLogin(data, f: NgForm) {
 
     const md5 = new Md5();
 
@@ -91,16 +91,21 @@ export class SupLoginComponent implements OnInit {
     this.log_sup.login(data).subscribe(p => {
 
       console.log(p);
-      if(p!=null)
-      localStorage.setItem("sup_id", p["sup_id"]);
+      if (p != null) {
+        localStorage.setItem("sup_id", p["sup_id"]);
+        this._snackBar.open("Logged  In", "", {
+             duration: 2000,
+           });
+        this.rt.navigate(['/sup-dashboard']);
 
-      else
-      {
+      }
+
+      else {
         f.reset();
 
 
         this._snackBar.open("Error Logging In. Please check your email or password", "", {
-          duration: 2000,
+          duration: 1000,
         });
       }
 
@@ -115,14 +120,13 @@ export class SupLoginComponent implements OnInit {
       });
 
     }, () => {
-      console.log("Completed");
+      //console.log("Completed");
 
-      this._snackBar.open("Logged  In", "", {
-        duration: 2000,
-      });
+      // this._snackBar.open("Logged  In", "", {
+      //   duration: 2000,
+      // });
 
-      this.dialogRef.close();
-      this.rt.navigate(['/sup-dashboard']);
+      // this.dialogRef.close();
 
     });
 

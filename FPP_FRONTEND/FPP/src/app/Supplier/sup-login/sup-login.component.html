@@ -1,10 +1,20 @@
 <div *ngIf="loginSignUp && loginLogin" mat-dialog-content>
-  <button mat-raised-button color="warn" (click)="supSignUp()">Sign Up</button>
-  <button mat-raised-button color="warn" style="margin-left: 50px" (click)="supLogin()">Login</button>
+    <img height="200px" width="300px" src="assets/people.gif">
+    <br>
+  <button mat-raised-button color="warn" style="margin-left: 20px; height: 50px;width: 100px;" (click)="supSignUp()">Sign Up</button>
+  <button mat-raised-button color="warn" style="margin-left: 50px; height: 50px;width: 100px;" (click)="supLogin()">Login</button>
 </div>
-<div *ngIf="!loginSignUp" mat-dialog-content>
-  <h1 mat-dialog-title
-    style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; text-align: center">Sign Up</h1>
+<div *ngIf="!loginSignUp" style="height: 700px" mat-dialog-content>
+    <div mat-dialog-title mat-dialog-actions>
+        Sign Up 
+        <img height="50px" width="100px" src="assets/loginloading.gif">
+      <span style="margin-left: 180px">
+        <button mat-raised-button color="warn" (click)="supSignUp()">Back</button>
+        <button mat-raised-button color="warn" style="margin-left:20px" type="submit" [disabled]="supRegForm.invalid"
+          on-click="onSubmit(supRegForm.value,supRegForm)">Join</button>
+      </span>
+    </div>
+  <br/>
   <form class="example-form" #supRegForm="ngForm" appPwdcheck (ngSubmit)="onSubmit(supRegForm.value)">
     <!---->
     <div class="cross-validation"
@@ -139,25 +149,11 @@
       </div>
 
     </mat-form-field>
-    <br />
-    <br />
-    <!-- <mat-radio-group aria-label="Select an option">
-              <mat-radio-button value="1">Male</mat-radio-button>
-              <mat-radio-button value="2">Female</mat-radio-button>
-            </mat-radio-group> -->
-
-
-
   </form>
 
-  <div mat-dialog-actions>
-    <button mat-raised-button color="warn" (click)="supSignUp()">Back</button>
-    <button mat-raised-button color="warn" style="margin-left:20px" type="submit" [disabled]="supRegForm.invalid"
-      on-click="onSubmit(supRegForm.value,supRegForm)">Join</button>
-  </div>
 </div>
 <div *ngIf="!loginLogin">
-  <h1 mat-dialog-title>Login</h1>
+  <h1 mat-dialog-title>Login  <img height="50px" width="100px" src="assets/loginloading.gif"></h1>
   <form class="example-form" #supLoginForm="ngForm" (ngSubmit)="onSubmit(supLoginForm.value)">
     <mat-form-field class="example-full-width">
       <input type="email" ngModel name="log_email" #log_email="ngModel" required matInput placeholder="Email">
