@@ -1,3 +1,5 @@
+CREATE DATABASE fpp;
+
 USE fpp
 
 --extra details like email or phone number can be added
