@@ -3,7 +3,14 @@
       <button mat-raised-button color="warn" style="margin-left: 50px" (click)="clientLogin()">Login</button>
 </div>
 <div *ngIf = "!loginSignUp"  mat-dialog-content>
-    <h1 mat-dialog-title>Sign Up</h1>
+      <div mat-dialog-title mat-dialog-actions>
+          Sign Up
+        <span style="margin-left: 280px">
+          <button mat-raised-button color="warn" (click)= "clientSignUp()">Back</button>
+          <button mat-raised-button color="warn" style="margin-left: 20px;">Join</button>
+        </span>
+      </div>
+    <br/>
     <form class="example-form">
         <mat-form-field class="example-full-width">
           <input type="text" matInput placeholder="Name">
@@ -27,7 +34,7 @@
             <mat-label>State</mat-label>
             <mat-select>
               <mat-option *ngFor="let state of states" [value]="state.value">
-                {{states.viewValue}}
+                {{state.viewValue}}
               </mat-option>
             </mat-select>
         </mat-form-field>
@@ -38,10 +45,6 @@
             <mat-radio-button value="2">Female</mat-radio-button>
           </mat-radio-group>
       </form>
-      <div mat-dialog-actions>
-        <button mat-raised-button color="warn" (click)= "clientSignUp()">Back</button>
-        <button mat-raised-button color="warn" style="margin-left: 20px">Join</button>
-      </div>
 </div>
 <div *ngIf="!loginLogin">
     <h1 mat-dialog-title>Login</h1>
