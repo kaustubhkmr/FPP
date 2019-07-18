@@ -19,6 +19,10 @@ export class HomeComponent implements OnInit {
       this.rt.navigate(['/sup-dashboard']);
 
     }
+    else if(localStorage.getItem("cust_id") != null){
+      console.log(localStorage.getItem("cust_id"))
+      this.rt.navigate(['/cust-dashboard']);
+    }
     
   }
   openDialog(): void {

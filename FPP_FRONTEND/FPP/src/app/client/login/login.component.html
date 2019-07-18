@@ -7,57 +7,171 @@
           Sign Up
         <span style="margin-left: 280px">
           <button mat-raised-button color="warn" (click)= "clientSignUp()">Back</button>
-          <button mat-raised-button color="warn" style="margin-left: 20px;">Join</button>
+          <button mat-raised-button color="warn" style="margin-left: 20px;" [disabled]="custRegForm.invalid"
+          on-click="onSubmit(custRegForm.value,custRegForm)">Join</button>
         </span>
       </div>
     <br/>
-    <form class="example-form">
+    <form class="example-form" #custRegForm="ngForm" appCpwdcheck (ngSubmit)="onSubmit(custRegForm.value)">
+
+        <div class="cross-validation"
+        [class.cross-validation-error]="custRegForm.errors?.Cpwdcheck && (cpwd.pristine || cpwd.dirty)">
+
         <mat-form-field class="example-full-width">
-          <input type="text" matInput placeholder="Name">
+          <input type="text" matInput placeholder="Name" name="cust_name" required pattern="[a-zA-Z ]*" ngModel
+          #name="ngModel">
         </mat-form-field>
+        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+
+            <div *ngIf="name.errors.required">
+              Name is required.
+            </div>
+    
+            <div *ngIf="name.errors.pattern">
+              Enter a valid name.
+            </div>
+    
+    
+    
+          </div>
+    
+
         <mat-form-field class="example-full-width">
-            <input type="password" matInput placeholder="password">
+            <input type="password" matInput placeholder="password" name="cust_password" ngModel required minlength="8"
+            #pwd="ngModel" value="">
         </mat-form-field>
+
+        <div *ngIf="pwd.invalid && (pwd.dirty || pwd.touched)" class="alert alert-danger">
+
+            <div *ngIf="pwd.errors.required">
+              Password is required.
+            </div>
+    
+            <div *ngIf="pwd.errors.minlength">
+              Password must be atleast 8 characters long
+            </div>
+    
+    
+    
+          </div>
+          <mat-form-field class="example-full-width">
+              <input type="password" matInput placeholder="Confirm Password" name="cust_cpwd" ngModel #cpwd="ngModel" value="">
+            </mat-form-field>
+
+            <div *ngIf="custRegForm.errors?.Cpwdcheck && (cpwd.pristine || cpwd.dirty)"
+        class="cross-validation-error-message alert alert-danger">
+        Passwords dont match.
+      </div>
+      <!--Closing div for cpwd-->
+    </div>
+
+          
         <mat-form-field class="example-full-width">
-          <input type="text" matInput placeholder="Address">
+          <input type="text" matInput placeholder="Address" ngModel required name="cust_address" #address="ngModel">
         </mat-form-field>
+        <div *ngIf="address.invalid && (address.dirty || address.touched)" class="alert alert-danger">
+
+            <div *ngIf="address.errors.required">
+              Address is required.
+            </div>
+          </div>
         <mat-form-field class="example-full-width">
-          <input type = "text" matInput placeholder="Phone Number">
+          <input type = "text" matInput placeholder="Phone Number"ngModel name="cust_phone" required minlength="10"
+          maxlength="10" #phone="ngModel">
         </mat-form-field>
+        <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="alert alert-danger">
+
+            <div *ngIf="phone.errors.required">
+              Phone Number is required.
+            </div>
+      
+            <div *ngIf="phone.errors.minlength">
+              Enter a valid phone number.
+            </div>
+      
+            <div *ngIf="phone.errors.maxlength">
+              Enter a valid phone number.
+      
+            </div>
+      
+      
+      
+          </div>
         <mat-form-field class="example-full-width">
-            <input type="email" matInput placeholder="Email">
+            <input type="email" matInput placeholder="Email" required ngModel name="cust_email" #email="ngModel">
         </mat-form-field>
+        <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+
+            <div *ngIf="email.errors.required">
+              Email is required.
+            </div>
+      
+      
+      
+      
+          </div>
         <mat-form-field class="example-full-width">
-            <input type="text" matInput placeholder="City">
+            <input type="text" matInput placeholder="City" required ngModel name="cust_city" #city="ngModel">
         </mat-form-field>
+        <div *ngIf="city.invalid && (city.dirty || city.touched)" class="alert alert-danger">
+
+            <div *ngIf="city.errors.required">
+              City is required.
+            </div>
+      
+      
+          </div>
         <mat-form-field>
             <mat-label>State</mat-label>
-            <mat-select>
+            <mat-select required ngModel name="cust_state" #state>
               <mat-option *ngFor="let state of states" [value]="state.value">
                 {{state.viewValue}}
               </mat-option>
             </mat-select>
+            <div *ngIf="state.invalid && (state.dirty || state.touched)" class="alert alert-danger">
+
+                <div *ngIf="state.errors.required">
+                  State is required.
+                </div>
+        
+        
+              </div>
         </mat-form-field>
         <br/>
         <br/>
+        <!--
         <mat-radio-group aria-label="Select an option">
             <mat-radio-button value="1">Male</mat-radio-button>
             <mat-radio-button value="2">Female</mat-radio-button>
           </mat-radio-group>
+        -->
       </form>
 </div>
 <div *ngIf="!loginLogin">
     <h1 mat-dialog-title>Login</h1>
-    <form class="example-form">
+    <form class="example-form" #custLoginForm="ngForm" (ngSubmit)="onSubmit(custLoginForm.value)">
       <mat-form-field class="example-full-width">
-          <input type="email" matInput placeholder="Email">
+          <input type="email" matInput placeholder="Email" ngModel name="log_email" #log_email="ngModel" required matInput placeholder="Email">
         </mat-form-field>
+        <div *ngIf="log_email.invalid && (log_email.dirty || log_email.touched)" class="alert alert-danger">
+
+            <div *ngIf="log_email.errors.required">
+              Email is required.
+            </div>
+            </div>
         <mat-form-field class="example-full-width">
-            <input type="password" matInput placeholder="password">
+            <input type="password" matInput placeholder="password" ngModel required name="log_password" #log_password="ngModel">
       </mat-form-field>
+      <div *ngIf="log_password.invalid && (log_password.dirty || log_password.touched)" class="alert alert-danger">
+
+          <div *ngIf="log_password.errors.required">
+            Password is required.
+          </div>
+        </div>
     </form>
     <div mat-dialog-actions>
         <button mat-raised-button color="warn" (click)= "clientLogin()">Back</button>
-        <button mat-raised-button color="warn" style="margin-left: 20px">Login</button>
+        <button mat-raised-button color="warn" style="margin-left: 20px" type="submit" [disabled]="custLoginForm.invalid"
+        on-click="onLogin(custLoginForm.value,custLoginForm)">Login</button>
     </div>
 </div>
