@@ -172,6 +172,7 @@
     <Compile Include="Controllers\Customer\CustRegisterController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SupLoginController.cs" />
+    <Compile Include="Controllers\Supplier\DashboardController.cs" />
     <Compile Include="Controllers\Supplier\SupplierRegisterController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">

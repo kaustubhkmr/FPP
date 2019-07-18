@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DashboardService } from 'src/app/Services/dashboard.service';
 
 @Component({
   selector: 'app-sup-dashboard',
@@ -8,16 +9,20 @@ import { Router } from '@angular/router';
 })
 export class SupDashboardComponent implements OnInit {
 
-  constructor(private rt:Router) { }
-
+  constructor(private rt:Router, private service: DashboardService) { }
+  supplierObj;
   ngOnInit() {
+    if(localStorage.getItem("sup_id") != null) {
+    this.service.getSupplierData(localStorage.getItem("sup_id")).subscribe((supplierData)=>{
+      this.supplierObj = supplierData;
+      console.log(this.supplierObj);
+    })
+  }
   }
 
   logout(){
     localStorage.removeItem("sup_id")
     this.rt.navigate(['/home'])
-
-
   }
 
 }
