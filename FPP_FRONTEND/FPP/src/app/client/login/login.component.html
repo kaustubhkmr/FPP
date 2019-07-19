@@ -1,11 +1,14 @@
 <div *ngIf = "loginSignUp && loginLogin"  mat-dialog-content>
-      <button mat-raised-button color="warn" (click)= "clientSignUp()">Sign Up</button>
-      <button mat-raised-button color="warn" style="margin-left: 50px" (click)="clientLogin()">Login</button>
+    <img height="200px" width="300px" src="assets/people.gif">
+    <br>
+      <button mat-raised-button color="warn" style="margin-left: 20px; height: 50px;width: 100px;" (click)= "clientSignUp()">Sign Up</button>
+      <button mat-raised-button color="warn" style="margin-left: 50px; height: 50px;width: 100px;" (click)="clientLogin()">Login</button>
 </div>
 <div *ngIf = "!loginSignUp"  mat-dialog-content>
       <div mat-dialog-title mat-dialog-actions>
           Sign Up
-        <span style="margin-left: 280px">
+          <img height="50px" width="250px" src="assets/loginloading.gif">
+        <span style="margin-left: 30px">
           <button mat-raised-button color="warn" (click)= "clientSignUp()">Back</button>
           <button mat-raised-button color="warn" style="margin-left: 20px;" [disabled]="custRegForm.invalid"
           on-click="onSubmit(custRegForm.value,custRegForm)">Join</button>
@@ -148,7 +151,7 @@
       </form>
 </div>
 <div *ngIf="!loginLogin">
-    <h1 mat-dialog-title>Login</h1>
+    <h1 mat-dialog-title>Login <img height="50px" width="250px" src="assets/loginloading.gif"></h1>
     <form class="example-form" #custLoginForm="ngForm" (ngSubmit)="onSubmit(custLoginForm.value)">
       <mat-form-field class="example-full-width">
           <input type="email" matInput placeholder="Email" ngModel name="log_email" #log_email="ngModel" required matInput placeholder="Email">

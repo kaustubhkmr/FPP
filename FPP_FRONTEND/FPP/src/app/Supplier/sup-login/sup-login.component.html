@@ -7,8 +7,8 @@
 <div *ngIf="!loginSignUp" style="height: 700px" mat-dialog-content>
     <div mat-dialog-title mat-dialog-actions>
         Sign Up 
-        <img height="50px" width="100px" src="assets/loginloading.gif">
-      <span style="margin-left: 180px">
+        <img height="50px" width="250px" src="assets/loginloading.gif">
+      <span style="margin-left: 30px">
         <button mat-raised-button color="warn" (click)="supSignUp()">Back</button>
         <button mat-raised-button color="warn" style="margin-left:20px" type="submit" [disabled]="supRegForm.invalid"
           on-click="onSubmit(supRegForm.value,supRegForm)">Join</button>
@@ -153,7 +153,7 @@
 
 </div>
 <div *ngIf="!loginLogin">
-  <h1 mat-dialog-title>Login  <img height="50px" width="100px" src="assets/loginloading.gif"></h1>
+  <h1 mat-dialog-title>Login  <img height="50px" width="250px" src="assets/loginloading.gif"></h1>
   <form class="example-form" #supLoginForm="ngForm" (ngSubmit)="onSubmit(supLoginForm.value)">
     <mat-form-field class="example-full-width">
       <input type="email" ngModel name="log_email" #log_email="ngModel" required matInput placeholder="Email">
