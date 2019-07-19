@@ -96,6 +96,7 @@ export class SupLoginComponent implements OnInit {
         this._snackBar.open("Logged  In", "", {
              duration: 2000,
            });
+        this.dialogRef.close();
         this.rt.navigate(['/sup-dashboard']);
 
       }
@@ -118,15 +119,6 @@ export class SupLoginComponent implements OnInit {
       this._snackBar.open("Error Logging In. Please check your email or password", "", {
         duration: 2000,
       });
-
-    }, () => {
-      //console.log("Completed");
-
-      // this._snackBar.open("Logged  In", "", {
-      //   duration: 2000,
-      // });
-
-      // this.dialogRef.close();
 
     });
 

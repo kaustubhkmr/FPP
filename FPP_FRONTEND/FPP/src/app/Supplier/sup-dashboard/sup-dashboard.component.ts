@@ -11,6 +11,8 @@ export class SupDashboardComponent implements OnInit {
 
   constructor(private rt:Router, private service: DashboardService) { }
   supplierObj;
+  showView=0;
+  showCompleteProfile=true;
   ngOnInit() {
     if(localStorage.getItem("sup_id") != null) {
     this.service.getSupplierData(localStorage.getItem("sup_id")).subscribe((supplierData)=>{
@@ -25,4 +27,21 @@ export class SupDashboardComponent implements OnInit {
     this.rt.navigate(['/home'])
   }
 
+  clickJob(){
+    this.showView=1;
+  }
+
+  clickJobActive(){
+    this.showView=2;
+  }
+
+  clickJobCompleted(){
+    this.showView=3;
+  }
+  clickJobMyProfile(){
+    this.showView=4;
+  }
+  clickDashBoard(){
+    this.showView=0;
+  }
 }
