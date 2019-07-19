@@ -1,22 +1,23 @@
-<mat-toolbar class="mat-elevation-z5" color="" style="background: azure; position:sticky;top: 0">
+<mat-toolbar class="mat-elevation-z5 " color="" style="background: azure;">
 
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="#">
         <img alt="" src="https://images-na.ssl-images-amazon.com/images/I/51UxJNUFa4L.png" height="30" width=30>
       </a>
+      <span style="text-align:start">Welcome Supplier</span>
+
     </div>
   </div>
-  <span style="text-align:start">Welcome Supplier</span>
 
   <!-- This fills the remaining space of the current row -->
   <span class="example-fill-remaining-space" style="flex: 1 1 auto"></span>
 
   <!--add some links on these spans-->
-  <a *ngIf = "showCompleteProfile"style="text-decoration: none;cursor: pointer"><span class="example-spacer" style="padding-right: 30px;color: red"
-    (click)="clickDashBoard()">Please complete your profile</span></a>
-  <a *ngIf = "showView != 0"style="text-decoration: none;cursor: pointer;"><span class="example-spacer" style="padding-right: 30px"
-    (click)="clickDashBoard()">My Dashboard</span></a>
+  <a *ngIf="showCompleteProfile" style="text-decoration: none;cursor: pointer"><span class="example-spacer"
+      style="padding-right: 30px;color: red" (click)="clickDashBoard()">Please complete your profile</span></a>
+  <a *ngIf="showView != 0" style="text-decoration: none;cursor: pointer;"><span class="example-spacer"
+      style="padding-right: 30px" (click)="clickDashBoard()">My Dashboard</span></a>
   <a style="text-decoration: none;cursor: pointer;"><span class="example-space" style="padding-right: 30px"
       on-click="logout()">Logout</span></a>
 
@@ -28,7 +29,8 @@
       <mat-grid-tile>
         <mat-card class="cardColorStyle mat-elevation-z5">
           <img height=70% width=100% src="assets/question.png">
-          <button matBadge="15" matBadgeColor="warn" mat-raised-button style="width: 100%;margin-top:12px; " (click)="clickJob()">
+          <button matBadge="15" matBadgeColor="warn" mat-raised-button style="width: 100%;margin-top:12px; "
+            (click)="clickJob()">
             <h2>
               Job Request
             </h2>
@@ -38,7 +40,8 @@
       <mat-grid-tile>
         <mat-card class="cardColorStyle mat-elevation-z5">
           <img height=70% width=100% src="assets/volunteer.png">
-          <button matBadge="15" matBadgeColor="warn" mat-raised-button style="width: 100%;margin-top:12px; " (click)="clickJobActive()">
+          <button matBadge="15" matBadgeColor="warn" mat-raised-button style="width: 100%;margin-top:12px; "
+            (click)="clickJobActive()">
             <h2>
               Job Active
             </h2>
@@ -48,7 +51,8 @@
       <mat-grid-tile>
         <mat-card class="cardColorStyle mat-elevation-z5">
           <img height=70% width=100% src="assets/contact.png">
-          <button matBadge="15" matBadgeColor="warn" mat-raised-button style="width: 100%;margin-top:12px; " (click)="clickJobCompleted()">
+          <button matBadge="15" matBadgeColor="warn" mat-raised-button style="width: 100%;margin-top:12px; "
+            (click)="clickJobCompleted()">
             <h2>
               Job Completed
             </h2>
@@ -58,7 +62,8 @@
       <mat-grid-tile>
         <mat-card class="cardColorStyle mat-elevation-z5">
           <img height=70% width=100% src="assets/boy.png">
-          <button matBadge="1" matBadgeColor="warn" mat-raised-button style="width: 100%;margin-top:12px; " (click)="clickJobMyProfile()">
+          <button matBadge="1" matBadgeColor="warn" mat-raised-button style="width: 100%;margin-top:12px; "
+            (click)="clickJobMyProfile()">
             <h2>
               My Profile
             </h2>
@@ -68,7 +73,7 @@
       <mat-grid-tile>
         <mat-card class="cardColorStyle mat-elevation-z5 cardServiceDrop" style="background: 'assets/'">
           <h3 height=70% style="color: rgb(0, 0, 0);font-weight: 600">
-            Services Offered By<br/>
+            Services Offered By<br />
             Name Of the sevice providers
           </h3>
           <mat-card-actions style="margin-left: 80px;margin-top: 80px">
@@ -181,6 +186,119 @@
 <div *ngIf="showView == 3">
   jobs completed works
 </div>
-<div *ngIf="showView == 4">
-  jobs profile works
+<div *ngIf="showView == 4" class="" style="padding-bottom: 200px;  ">
+  <mat-card class="mat-elevation-z5" style="width:100%; top: 10%; bottom: 0 ;position: absolute; ">
+    <mat-grid-list cols="3" rowHeight="fit" [gutterSize]="'20px'" style="height: 100%;">
+
+      <mat-grid-tile colspan="2">
+        <mat-card class="cardColorStyle mat-elevation-z5" >
+
+          <mat-card class="mat-elevation-z5">
+            <h2 align="center" style="font-weight: 600">Profile</h2>
+          </mat-card>
+          <div class="row" style="margin-top:10px">
+            <div class="col-md-12" style="text-align: right;bottom: 0">
+              <button mat-raised-button color="warn">Edit Profile</button>
+            </div>
+          </div>
+          <mat-card class="mat-elevation-z5" style="margin-top:20px;">
+
+            <mat-card-content>
+              <div class="row">
+                <div class="col-md-6" style="text-align: center;font-weight: 500;">
+                  <h5>Name</h5>
+                </div>
+                <div class="col-md-6" style="text-align: center">
+                  <h5>{{supplierObj.sup_name}}</h5>
+                </div>
+
+              </div>
+              <mat-divider [inset]="true" style="margin-top:15px;margin-bottom:15px"></mat-divider>
+
+              <div class="row" style="margin-top:30px">
+                <div class="col-md-6" style="text-align: center;font-weight: 500">
+                  <h5>Email</h5>
+                </div>
+                <div class="col-md-6" style="text-align: center">
+                  <h5>{{supplierObj.sup_email}}</h5>
+                </div>
+
+              </div>
+              <mat-divider [inset]="true" style="margin-top:15px;margin-bottom:15px"></mat-divider>
+
+
+              <div class="row" style="margin-top:30px">
+                <div class="col-md-6" style="text-align: center;font-weight: 500">
+                  <h5>Phone</h5>
+                </div>
+                <div class="col-md-6" style="text-align: center">
+                  <h5>{{supplierObj.sup_phone}}</h5>
+                </div>
+              </div>
+              <mat-divider [inset]="true" style="margin-top:15px;margin-bottom:15px"></mat-divider>
+
+
+              <div class="row" style="margin-top:30px">
+                <div class="col-md-6" style="text-align: center;font-weight: 500">
+                  <h5>State</h5>
+                </div>
+                <div class="col-md-6" style="text-align: center">
+                  <h5>{{supplierObj.sup_state}}</h5>
+                </div>
+
+              </div>
+              <mat-divider [inset]="true" style="margin-top:15px;margin-bottom:15px"></mat-divider>
+
+              <div class="row" style="margin-top:30px">
+                <div class="col-md-6" style="text-align: center;font-weight: 500">
+                  <h5>City</h5>
+                </div>
+                <div class="col-md-6" style="text-align: center">
+                  <h5>{{supplierObj.sup_city}}</h5>
+                </div>
+
+              </div>
+              <mat-divider [inset]="true" style="margin-top:15px;margin-bottom:15px"></mat-divider>
+
+              <div class="row" style="margin-top:30px">
+                <div class="col-md-6" style="text-align: center;font-weight: 500">
+                  <h5>Address</h5>
+                </div>
+                <div class="col-md-6" style="text-align: center">
+                  <h5>{{supplierObj.sup_address}}</h5>
+                </div>
+
+              </div>
+              <mat-divider [inset]="true" style="margin-top:15px;margin-bottom:15px"></mat-divider>
+
+              <!-- <div class="row" style="margin-top:30px">
+                <div class="col-md-6" style="text-align: center;font-weight: 500">
+                  <h5>Rating</h5>
+                </div>
+                <div class="col-md-6" style="text-align: center">
+                  <h5 *ngIf="supplierObj.sup_rating!=null">{{supplierObj.sup_rating}}</h5>
+                  <h5 *ngIf="supplierObj.sup_rating==null">No Rating Yet</h5>
+                </div>
+
+              </div> -->
+
+
+            </mat-card-content>
+          </mat-card>
+
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-card class="cardColorStyle mat-elevation-z5" >
+          <h4 align="center">Services</h4>
+          <div class="row" style="margin-top:10px">
+            <div class="col-md-12" style="text-align: center;bottom: 0; padding-left: 10px; padding-right: 10px">
+              <button mat-raised-button color="warn" style="width:100%">Add Service</button>
+            </div>
+          </div>
+        </mat-card>
+      </mat-grid-tile>
+
+    </mat-grid-list>
+  </mat-card>
 </div>

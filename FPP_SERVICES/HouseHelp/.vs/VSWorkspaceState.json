@@ -3,8 +3,9 @@
     "",
     "\\HouseHelp",
     "\\HouseHelp\\Controllers",
-    "\\HouseHelp\\Controllers\\Supplier"
+    "\\HouseHelp\\Controllers\\Supplier",
+    "\\HouseHelp\\Models"
   ],
-  "SelectedNode": "\\HouseHelp.sln",
+  "SelectedNode": "\\HouseHelp\\Models\\Model1.edmx",
   "PreviewInSolutionExplorer": false
 }
