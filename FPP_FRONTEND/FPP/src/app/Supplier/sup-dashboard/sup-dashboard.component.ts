@@ -19,6 +19,12 @@ export class SupDashboardComponent implements OnInit {
       this.supplierObj = supplierData;
       console.log(this.supplierObj);
     })
+
+    
+  }
+  else{
+    this.rt.navigate(['/home'])
+
   }
   }
 
