@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 import { NgModule } from '@angular/core';
 import {MatButtonModule, MatCheckboxModule, MatCardModule,MatFormFieldModule, MatDialogModule,
-  MatInputModule,MatRadioModule,MatSelectModule, MatSnackBarModule, MatSnackBarRef, MatSnackBar, MatDialogRef, MatDialog,MatToolbarModule, MatGridListModule, MatBadgeModule} from '@angular/material';
+  MatInputModule,MatRadioModule,MatSelectModule, MatSnackBarModule, MatSnackBarRef, MatSnackBar, MatDialogRef, MatDialog,MatToolbarModule, MatGridListModule, MatBadgeModule, MatStepperModule} from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -16,7 +16,7 @@ import { SupinsertService } from './Services/supinsert.service';
 import { SupDashboardComponent } from './Supplier/sup-dashboard/sup-dashboard.component';
 import { SuploginService } from './Services/suplogin.service';
 import { CpwdcheckDirective } from './client/login/cpwdcheck.directive';
-import { CustDashboardComponent } from './client/cust-dashboard/cust-dashboard/cust-dashboard.component';
+import { ClientDashboardComponent } from './client/client-dashboard/client-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +28,7 @@ import { CustDashboardComponent } from './client/cust-dashboard/cust-dashboard/c
     PwdcheckDirective,
     SupDashboardComponent,
     CpwdcheckDirective,
-    CustDashboardComponent
+    ClientDashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +47,8 @@ import { CustDashboardComponent } from './client/cust-dashboard/cust-dashboard/c
     MatSnackBarModule,
     MatToolbarModule,
     MatGridListModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatStepperModule
   ],
   providers: [SupinsertService,MatSnackBar,MatDialog,SuploginService],
   bootstrap: [AppComponent],

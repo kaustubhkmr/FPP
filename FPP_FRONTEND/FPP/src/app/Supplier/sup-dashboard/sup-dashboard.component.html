@@ -13,10 +13,10 @@
   <span class="example-fill-remaining-space" style="flex: 1 1 auto"></span>
 
   <!--add some links on these spans-->
-  <a *ngIf = "showCompleteProfile"style="text-decoration: none;cursor: pointer"><span class="example-spacer" style="padding-right: 30px;color: red"
-    (click)="clickDashBoard()">Please complete your profile</span></a>
-  <a *ngIf = "showView != 0"style="text-decoration: none;cursor: pointer;"><span class="example-spacer" style="padding-right: 30px"
-    (click)="clickDashBoard()">My Dashboard</span></a>
+  <a *ngIf="showCompleteProfile" style="text-decoration: none;cursor: pointer"><span class="example-spacer"
+      style="padding-right: 30px;color: red" (click)="clickDashBoard()">Please complete your profile</span></a>
+  <a *ngIf="showView != 0" style="text-decoration: none;cursor: pointer;"><span class="example-spacer"
+      style="padding-right: 30px" (click)="clickDashBoard()">My Dashboard</span></a>
   <a style="text-decoration: none;cursor: pointer;"><span class="example-space" style="padding-right: 30px"
       on-click="logout()">Logout</span></a>
 
@@ -26,9 +26,21 @@
   <mat-card class="mat-elevation-z5" style="background-color: rgb(255, 80, 80);height: 100%;margin-top: 10px;">
     <mat-grid-list cols="5" rowHeight="5:5" [gutterSize]="'20px'">
       <mat-grid-tile>
+        <mat-card class="cardColorStyle mat-elevation-z5 cardServiceDrop" style="background: 'assets/'">
+          <h3 height=70% style="color: rgb(0, 0, 0);font-weight: 600">
+            Services Offered By<br />
+            Name Of the sevice providers
+          </h3>
+          <mat-card-actions style="margin-left: 80px;margin-top: 80px">
+            <img height=100px width=100px src="assets/bouncing-arrow.gif">
+          </mat-card-actions>
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile>
         <mat-card class="cardColorStyle mat-elevation-z5">
           <img height=70% width=100% src="assets/question.png">
-          <button matBadge="15" matBadgeColor="warn" mat-raised-button style="width: 100%;margin-top:12px; " (click)="clickJob()">
+          <button matBadge="15" matBadgeColor="warn" mat-raised-button style="width: 100%;margin-top:12px; "
+            (click)="clickJob()">
             <h2>
               Job Request
             </h2>
@@ -37,8 +49,9 @@
       </mat-grid-tile>
       <mat-grid-tile>
         <mat-card class="cardColorStyle mat-elevation-z5">
-          <img height=70% width=100% src="assets/volunteer.png">
-          <button matBadge="15" matBadgeColor="warn" mat-raised-button style="width: 100%;margin-top:12px; " (click)="clickJobActive()">
+          <img height=70% width=100% src="assets/customer-service.png">
+          <button matBadge="15" matBadgeColor="warn" mat-raised-button style="width: 100%;margin-top:12px; "
+            (click)="clickJobActive()">
             <h2>
               Job Active
             </h2>
@@ -48,7 +61,8 @@
       <mat-grid-tile>
         <mat-card class="cardColorStyle mat-elevation-z5">
           <img height=70% width=100% src="assets/contact.png">
-          <button matBadge="15" matBadgeColor="warn" mat-raised-button style="width: 100%;margin-top:12px; " (click)="clickJobCompleted()">
+          <button matBadge="15" matBadgeColor="warn" mat-raised-button style="width: 100%;margin-top:12px; "
+            (click)="clickJobCompleted()">
             <h2>
               Job Completed
             </h2>
@@ -58,22 +72,12 @@
       <mat-grid-tile>
         <mat-card class="cardColorStyle mat-elevation-z5">
           <img height=70% width=100% src="assets/boy.png">
-          <button matBadge="1" matBadgeColor="warn" mat-raised-button style="width: 100%;margin-top:12px; " (click)="clickJobMyProfile()">
+          <button matBadge="1" matBadgeColor="warn" mat-raised-button style="width: 100%;margin-top:12px; "
+            (click)="clickJobMyProfile()">
             <h2>
               My Profile
             </h2>
           </button>
-        </mat-card>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <mat-card class="cardColorStyle mat-elevation-z5 cardServiceDrop" style="background: 'assets/'">
-          <h3 height=70% style="color: rgb(0, 0, 0);font-weight: 600">
-            Services Offered By<br/>
-            Name Of the sevice providers
-          </h3>
-          <mat-card-actions style="margin-left: 80px;margin-top: 80px">
-            <img height=100px width=100px src="assets/bouncing-arrow.gif">
-          </mat-card-actions>
         </mat-card>
       </mat-grid-tile>
     </mat-grid-list>

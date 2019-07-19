@@ -68,7 +68,6 @@
     <FunctionImportMapping FunctionImportName="add_cust" FunctionName="FPPModel.Store.add_cust" />
     <FunctionImportMapping FunctionImportName="add_service" FunctionName="FPPModel.Store.add_service" />
     <FunctionImportMapping FunctionImportName="add_sup" FunctionName="FPPModel.Store.add_sup" />
-    <FunctionImportMapping FunctionImportName="add_user" FunctionName="FPPModel.Store.add_user" />
     <FunctionImportMapping FunctionImportName="complete_booking" FunctionName="FPPModel.Store.complete_booking" />
     <FunctionImportMapping FunctionImportName="get_booking" FunctionName="FPPModel.Store.get_booking">
       <ResultMapping>

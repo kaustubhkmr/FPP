@@ -75,7 +75,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__sup_servi__sup_i__6383C8BA">
+        <Association Name="FK__sup_servi__sup_i__4CA06362">
           <End Role="suppliers" Type="Self.suppliers" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -140,15 +140,6 @@
           <Parameter Name="sup_password" Type="varchar" Mode="In" />
           <Parameter Name="sup_address" Type="varchar" Mode="In" />
         </Function>
-        <Function Name="add_user" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="cust_name" Type="varchar" Mode="In" />
-          <Parameter Name="cust_phone" Type="char" Mode="In" />
-          <Parameter Name="cust_email" Type="varchar" Mode="In" />
-          <Parameter Name="cust_address" Type="varchar" Mode="In" />
-          <Parameter Name="cust_city" Type="varchar" Mode="In" />
-          <Parameter Name="cust_state" Type="varchar" Mode="In" />
-          <Parameter Name="cust_password" Type="varchar" Mode="In" />
-        </Function>
         <Function Name="complete_booking" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="bid" Type="bigint" Mode="In" />
         </Function>
@@ -199,7 +190,7 @@
             <End Role="customers" EntitySet="customers" />
             <End Role="bookings" EntitySet="bookings" />
           </AssociationSet>
-          <AssociationSet Name="FK__sup_servi__sup_i__6383C8BA" Association="Self.FK__sup_servi__sup_i__6383C8BA">
+          <AssociationSet Name="FK__sup_servi__sup_i__4CA06362" Association="Self.FK__sup_servi__sup_i__4CA06362">
             <End Role="suppliers" EntitySet="suppliers" />
             <End Role="sup_services" EntitySet="sup_services" />
           </AssociationSet>
@@ -539,7 +530,6 @@
           <FunctionImportMapping FunctionImportName="add_cust" FunctionName="FPPModel.Store.add_cust" />
           <FunctionImportMapping FunctionImportName="add_service" FunctionName="FPPModel.Store.add_service" />
           <FunctionImportMapping FunctionImportName="add_sup" FunctionName="FPPModel.Store.add_sup" />
-          <FunctionImportMapping FunctionImportName="add_user" FunctionName="FPPModel.Store.add_user" />
           <FunctionImportMapping FunctionImportName="complete_booking" FunctionName="FPPModel.Store.complete_booking" />
           <FunctionImportMapping FunctionImportName="get_booking" FunctionName="FPPModel.Store.get_booking">
             <ResultMapping>

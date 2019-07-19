@@ -1,0 +1,9 @@
+.cardColorStyle{
+    background-color: azure;
+    width: 100%; height: 100%;
+}
+
+.cardServiceDrop{
+    background-image: url("/../assets/servicesHelper.gif");
+    background-size: cover;
+}

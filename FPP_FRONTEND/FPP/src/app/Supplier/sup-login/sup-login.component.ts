@@ -66,7 +66,7 @@ export class SupLoginComponent implements OnInit {
       f.reset();
 
 
-      this._snackBar.open("Error Inserting the values", "", {
+      this._snackBar.open("Error Inserting the values. Account already exists", "", {
         duration: 2000,
       });
 
