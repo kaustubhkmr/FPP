@@ -20,9 +20,9 @@ namespace HouseHelp.Controllers.Supplier
         }
 
         // GET: api/Dashboard/5
-        public get_sup_Result Get(int id)
+        public supplier Get(int id)
         {
-            return db.get_sup(id).FirstOrDefault();
+            return db.suppliers.Where(s=>s.sup_id==id).FirstOrDefault();
         }
 
         // POST: api/Dashboard

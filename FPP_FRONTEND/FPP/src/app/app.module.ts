@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 import { NgModule } from '@angular/core';
 import {MatButtonModule, MatCheckboxModule, MatCardModule,MatFormFieldModule, MatDialogModule,
-  MatInputModule,MatRadioModule,MatSelectModule, MatSnackBarModule, MatSnackBarRef, MatSnackBar, MatDialogRef, MatDialog,MatToolbarModule, MatGridListModule, MatBadgeModule, MatStepperModule} from '@angular/material';
+  MatInputModule,MatRadioModule,MatSelectModule, MatSnackBarModule, MatSnackBarRef, MatSnackBar, MatDialogRef, MatDialog,MatToolbarModule, MatGridListModule, MatBadgeModule, MatDividerModule, MatStepperModule} from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -48,7 +48,8 @@ import { ClientDashboardComponent } from './client/client-dashboard/client-dashb
     MatToolbarModule,
     MatGridListModule,
     MatBadgeModule,
-    MatStepperModule
+    MatStepperModule,
+    MatDividerModule
   ],
   providers: [SupinsertService,MatSnackBar,MatDialog,SuploginService],
   bootstrap: [AppComponent],
