@@ -295,7 +295,7 @@
               <button mat-raised-button color="warn" style="width:100%" (click)="openAddServiceDialog()">Add Service</button>
             </div>
             <div style="margin: 20px">
-              <mat-chip-list>
+              <mat-chip-list *ngIf="serviceData">
                 <mat-chip *ngFor="let service of serviceData" color="primary" selected><img height=50px width=50px src="assets/{{service.icon}}">{{service.name}}</mat-chip>
               </mat-chip-list>
             </div>

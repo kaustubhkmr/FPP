@@ -114,6 +114,16 @@
           <Parameter Name="req_date" Type="datetime" Mode="In" />
           <Parameter Name="s_type" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="add_bookings" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cust_id" Type="bigint" Mode="In" />
+          <Parameter Name="sup_id" Type="bigint" Mode="In" />
+          <Parameter Name="b_address" Type="varchar" Mode="In" />
+          <Parameter Name="b_city" Type="varchar" Mode="In" />
+          <Parameter Name="b_state" Type="varchar" Mode="In" />
+          <Parameter Name="b_time" Type="time" Mode="In" />
+          <Parameter Name="b_date" Type="datetime2" Mode="In" />
+          <Parameter Name="s_type" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="add_comments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="bid" Type="bigint" Mode="In" />
           <Parameter Name="comments" Type="varchar" Mode="In" />
@@ -145,6 +155,12 @@
         </Function>
         <Function Name="get_booking" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="bid" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="get_booking_suppliers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="service_name" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="get_booking_suppliers1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="service_name" Type="varchar" Mode="In" />
         </Function>
         <Function Name="get_my_services" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="sup_id" Type="bigint" Mode="In" />
@@ -421,7 +437,23 @@
           <Parameter Name="sup_id" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="get_supplier1" ReturnType="Collection(FPPModel.get_supplier1_Result)">
+          <Parameter Name="sup_id" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="get_booking_suppliers" ReturnType="Collection(FPPModel.get_booking_suppliers_Result)">
+          <Parameter Name="service_name" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="get_booking_suppliers1" ReturnType="Collection(FPPModel.get_booking_suppliers1_Result)">
+          <Parameter Name="service_name" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="add_bookings">
+            <Parameter Name="cust_id" Mode="In" Type="Int64" />
             <Parameter Name="sup_id" Mode="In" Type="Int64" />
+            <Parameter Name="b_address" Mode="In" Type="String" />
+            <Parameter Name="b_city" Mode="In" Type="String" />
+            <Parameter Name="b_state" Mode="In" Type="String" />
+            <Parameter Name="b_time" Mode="In" Type="Time" />
+            <Parameter Name="b_date" Mode="In" Type="DateTime" />
+            <Parameter Name="s_type" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="get_booking_Result">
@@ -475,6 +507,23 @@
           <Property Type="String" Name="service_name" Nullable="false" MaxLength="100" />
         </ComplexType>
         <ComplexType Name="get_supplier1_Result">
+          <Property Type="Int64" Name="sup_id" Nullable="false" />
+          <Property Type="String" Name="sup_name" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="sup_email" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="sup_phone" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="sup_city" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="sup_state" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="sup_password" Nullable="false" MaxLength="1000" />
+          <Property Type="Single" Name="sup_rating" Nullable="true" />
+          <Property Type="Int64" Name="rating_count" Nullable="true" />
+          <Property Type="String" Name="sup_address" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="get_booking_suppliers_Result">
+          <Property Type="Int64" Name="sup_id" Nullable="false" />
+          <Property Type="String" Name="sup_name" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="sup_state" Nullable="false" MaxLength="25" />
+        </ComplexType>
+        <ComplexType Name="get_booking_suppliers1_Result">
           <Property Type="Int64" Name="sup_id" Nullable="false" />
           <Property Type="String" Name="sup_name" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="sup_email" Nullable="false" MaxLength="100" />
@@ -650,6 +699,32 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_booking_suppliers" FunctionName="FPPModel.Store.get_booking_suppliers">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FPPModel.get_booking_suppliers_Result">
+                <ScalarProperty Name="sup_id" ColumnName="sup_id" />
+                <ScalarProperty Name="sup_name" ColumnName="sup_name" />
+                <ScalarProperty Name="sup_state" ColumnName="sup_state" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_booking_suppliers1" FunctionName="FPPModel.Store.get_booking_suppliers1">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FPPModel.get_booking_suppliers1_Result">
+                <ScalarProperty Name="sup_id" ColumnName="sup_id" />
+                <ScalarProperty Name="sup_name" ColumnName="sup_name" />
+                <ScalarProperty Name="sup_email" ColumnName="sup_email" />
+                <ScalarProperty Name="sup_phone" ColumnName="sup_phone" />
+                <ScalarProperty Name="sup_city" ColumnName="sup_city" />
+                <ScalarProperty Name="sup_state" ColumnName="sup_state" />
+                <ScalarProperty Name="sup_password" ColumnName="sup_password" />
+                <ScalarProperty Name="sup_rating" ColumnName="sup_rating" />
+                <ScalarProperty Name="rating_count" ColumnName="rating_count" />
+                <ScalarProperty Name="sup_address" ColumnName="sup_address" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="add_bookings" FunctionName="FPPModel.Store.add_bookings" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -109,6 +109,16 @@
     <Parameter Name="req_date" Type="datetime" Mode="In" />
     <Parameter Name="s_type" Type="varchar" Mode="In" />
   </Function>
+  <Function Name="add_bookings" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="cust_id" Type="bigint" Mode="In" />
+    <Parameter Name="sup_id" Type="bigint" Mode="In" />
+    <Parameter Name="b_address" Type="varchar" Mode="In" />
+    <Parameter Name="b_city" Type="varchar" Mode="In" />
+    <Parameter Name="b_state" Type="varchar" Mode="In" />
+    <Parameter Name="b_time" Type="time" Mode="In" />
+    <Parameter Name="b_date" Type="datetime2" Mode="In" />
+    <Parameter Name="s_type" Type="varchar" Mode="In" />
+  </Function>
   <Function Name="add_comments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="bid" Type="bigint" Mode="In" />
     <Parameter Name="comments" Type="varchar" Mode="In" />
@@ -140,6 +150,12 @@
   </Function>
   <Function Name="get_booking" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="bid" Type="bigint" Mode="In" />
+  </Function>
+  <Function Name="get_booking_suppliers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="service_name" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="get_booking_suppliers1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="service_name" Type="varchar" Mode="In" />
   </Function>
   <Function Name="get_my_services" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="sup_id" Type="bigint" Mode="In" />

@@ -33,7 +33,7 @@ namespace HouseHelp.Controllers.Supplier
         //}
 
         // PUT: api/EditSup/5
-        public supplier Put(int id, [FromBody]JObject s)
+        public get_supplier1_Result Put(int id, [FromBody]JObject s)
         {
 
            var name = s["sup_name"].ToString();
@@ -43,19 +43,15 @@ namespace HouseHelp.Controllers.Supplier
             var city = s["sup_city"].ToString();
             var state = s["sup_state"].ToString();
 
-            supplier sup = db.suppliers.Where(m => m.sup_id == id).FirstOrDefault();
-            sup.sup_name = name;
-            sup.sup_email = email;
-            sup.sup_phone = phone;
-            sup.sup_address = address;
-            sup.sup_city = city;
-            sup.sup_state = state;
-            // return sup;
-            if (db.SaveChanges() > 0)
-                return sup;
-            else
-                return null;
+            int res = db.upd_sup(id,name,email,phone,city,state,address);
+            if (res == 1)
+                return db.get_supplier1(id).FirstOrDefault();
 
+            else
+                return null; 
+
+
+           
 
         }
 

@@ -90,8 +90,8 @@
 
 <div *ngIf="showView == 1" style="margin-top:10px">
     <mat-card class="mat-elevation-z5">
-        <mat-horizontal-stepper #stepper>
-            <mat-step>
+        <mat-horizontal-stepper [linear]="true" #stepper>
+            <mat-step [completed]="selectedService" [editable]="step1Editable">
                 <ng-template matStepLabel>Select your service</ng-template>
                 <mat-card class="mat-elevation-z5"
                     style="background-color: rgb(156, 156, 156);height: 100%;margin-top: 10px;">
@@ -107,7 +107,7 @@
                     </mat-grid-list>
                 </mat-card>
             </mat-step>
-            <mat-step>
+            <mat-step [completed]="isBookingFormFilled" [editable]="step2Editable">
                 <ng-template matStepLabel>Fill Details</ng-template>
                 <mat-grid-list cols="3" rowHeight="1:1" [gutterSize]="'10px'">
                     <mat-grid-tile *ngIf="selectedService">
@@ -121,127 +121,134 @@
                         <mat-card class="cardColorStyleService mat-elevation-z5">
                             <mat-card-title>Enter Booking Details</mat-card-title>
 
-                            
+
                             <mat-card-content class="container">
 
 
                                 <div class="row">
-                                
+
                                     <div class="col-md-6">
-                                <form class="example-form" #bookingForm="ngForm"
-                                    (ngSubmit)="onSubmit(bookingForm.value)">
-                                    <mat-form-field class="example-full-width">
-                                        <input type="text" matInput placeholder="Service Type" [ngModel]="selectedService.name"
-                                            name="s_type" [disabled]="true">
-                                    </mat-form-field>
-                                    <mat-form-field class="example-full-width">
-                                        <input type="text" matInput placeholder="Booking Address" ngModel
-                                            name="b_address" #b_address="ngModel" required>
-                                    </mat-form-field>
+                                        <form class="example-form" #bookingForm="ngForm"
+                                            (ngSubmit)="onSubmit(bookingForm.value)">
+                                            <mat-form-field class="example-full-width">
+                                                <input type="text" matInput placeholder="Service Type"
+                                                    [ngModel]="selectedService.name" name="s_type" [disabled]="true">
+                                            </mat-form-field>
+                                            <mat-form-field class="example-full-width">
+                                                <input type="text" matInput placeholder="Booking Address" ngModel
+                                                    name="b_address" #b_address="ngModel" required>
+                                            </mat-form-field>
 
-                                    <div *ngIf="b_address.invalid && (b_address.dirty || b_address.touched)"
-                                        class="alert alert-danger">
+                                            <div *ngIf="b_address.invalid && (b_address.dirty || b_address.touched)"
+                                                class="alert alert-danger">
 
-                                        <div *ngIf="b_address.errors.required">
-                                            Booking Address is required.
-                                        </div>
-                                    </div>
-                                    <mat-form-field class="example-full-width">
-                                        <input type="text" matInput placeholder="City" ngModel required name="b_city"
-                                            #b_city="ngModel">
-                                    </mat-form-field>
-                                    <div *ngIf="b_city.invalid && (b_city.dirty || b_city.touched)"
-                                        class="alert alert-danger">
+                                                <div *ngIf="b_address.errors.required">
+                                                    Booking Address is required.
+                                                </div>
+                                            </div>
+                                            <mat-form-field class="example-full-width">
+                                                <input type="text" matInput placeholder="City" ngModel required
+                                                    name="b_city" #b_city="ngModel">
+                                            </mat-form-field>
+                                            <div *ngIf="b_city.invalid && (b_city.dirty || b_city.touched)"
+                                                class="alert alert-danger">
 
-                                        <div *ngIf="b_city.errors.required">
-                                            City is required.
-                                        </div>
-                                    </div>
-                                    
-                                    <mat-form-field class="example-full-width">
-                                        <mat-label>State</mat-label>
-                                        <mat-select required ngModel name="b_state" #state>
-                                            <mat-option *ngFor="let state of states" [value]="state.value">
-                                                {{state.viewValue}}
-                                            </mat-option>
-                                        </mat-select>
-                                        <div *ngIf="state.invalid && (state.dirty || state.touched)"
-                                            class="alert alert-danger">
-
-                                            <div *ngIf="state.errors.required">
-                                                State is required.
+                                                <div *ngIf="b_city.errors.required">
+                                                    City is required.
+                                                </div>
                                             </div>
 
+                                            <mat-form-field class="example-full-width">
+                                                <mat-label>State</mat-label>
+                                                <mat-select required ngModel name="b_state" #state>
+                                                    <mat-option *ngFor="let state of states" [value]="state.value">
+                                                        {{state.viewValue}}
+                                                    </mat-option>
+                                                </mat-select>
+                                                <div *ngIf="state.invalid && (state.dirty || state.touched)"
+                                                    class="alert alert-danger">
 
-                                        </div>
-                                    </mat-form-field>
-                                    <mat-form-field class="example-full-width">
-                                            <input type="time" matInput placeholder="Booking Time" ngModel required name="b_time"
-                                                #b_time="ngModel">
-                                        </mat-form-field>
-                                        <div *ngIf="b_time.invalid && (b_time.dirty || b_time.touched)"
-                                            class="alert alert-danger">
-    
-                                            <div *ngIf="b_time.errors.required">
-                                                Booking Time is required.
+                                                    <div *ngIf="state.errors.required">
+                                                        State is required.
+                                                    </div>
+
+
+                                                </div>
+                                            </mat-form-field>
+                                            <mat-form-field class="example-full-width">
+                                                <input type="time" matInput placeholder="Booking Time" ngModel required
+                                                    name="b_time" #b_time="ngModel">
+                                            </mat-form-field>
+                                            <div *ngIf="b_time.invalid && (b_time.dirty || b_time.touched)"
+                                                class="alert alert-danger">
+
+                                                <div *ngIf="b_time.errors.required">
+                                                    Booking Time is required.
+                                                </div>
                                             </div>
-                                        </div>
 
-                                    <mat-form-field class="example-full-width">
-                                        <input type="date" matInput placeholder="Date" ngModel required name="b_date"
-                                            #b_date="ngModel">
-                                    </mat-form-field>
-                                    <div *ngIf="b_date.invalid && (b_date.dirty || b_date.touched)"
-                                        class="alert alert-danger">
+                                            <mat-form-field class="example-full-width">
+                                                <input type="date" matInput placeholder="Date" ngModel required
+                                                    name="b_date" #b_date="ngModel">
+                                            </mat-form-field>
+                                            <div *ngIf="b_date.invalid && (b_date.dirty || b_date.touched)"
+                                                class="alert alert-danger">
 
-                                        <div *ngIf="b_date.errors.required">
-                                            Date is required.
-                                        </div>
+                                                <div *ngIf="b_date.errors.required">
+                                                    Date is required.
+                                                </div>
+                                            </div>
+                                            <mat-form-field class="example-full-width">
+                                                <input type="text" matInput placeholder="Service Price" [ngModel]="100"
+                                                    name="b_price" [disabled]="true">
+                                            </mat-form-field>
+                                        </form>
+
                                     </div>
-                                    <mat-form-field class="example-full-width">
-                                            <input type="text" matInput placeholder="Service Price" [ngModel]="100"
-                                                name="b_price" [disabled]="true">
-                                        </mat-form-field>
-                                </form>
-                            
-                            </div>
 
-                            <div class="col-md-6" *ngIf="bookingForm.valid" >
-                                <form class="example-form" #supplierSelectForm="ngForm"
-                                (ngSubmit)="onSubmit(supplierSelectForm.value)">
-                                <mat-form-field class="example-full-width">
-                                        <mat-label>Supplier</mat-label>
-                                        <mat-select required ngModel name="sup_id" #sup_id>
-                                            <mat-option *ngFor="let state of states" [value]="state.value">
-                                                {{state.viewValue}}
-                                            </mat-option>
-                                        </mat-select>
-                                        <div *ngIf="sup_id.invalid && (sup_id.dirty || sup_id.touched)"
-                                            class="alert alert-danger">
+                                    <div class="col-md-6" *ngIf="bookingForm.valid">
+                                        <form class="example-form" #supplierSelectForm="ngForm"
+                                            (ngSubmit)="onSubmit(supplierSelectForm.value)">
+                                            <mat-form-field class="example-full-width">
+                                                <mat-label>Supplier</mat-label>
+                                                <mat-select required ngModel name="sup_id" #sup_id>
+                                                    <mat-option *ngFor="let sup of bookingSuppliers"
+                                                        [value]="sup?.sup_id">
+                                                        {{sup?.sup_name}}
+                                                    </mat-option>
+                                                </mat-select>
+                                                <div *ngIf="sup_id.invalid && (sup_id.dirty || sup_id.touched)"
+                                                    class="alert alert-danger">
 
-                                            <div *ngIf="sup_id.errors.required">
-                                                 Please Select a Supplier
-                                            </div>
+                                                    <div *ngIf="sup_id.errors.required">
+                                                        Please Select a Supplier
+                                                    </div>
 
 
-                                        </div>
-                                    </mat-form-field>
+                                                </div>
+                                            </mat-form-field>
 
-                            </form>
-                            </div>
 
-                            </div>
+
+                                        </form>
+                                        <button mat-raised-button color="warn"
+                                            [disabled]="supplierSelectForm?.invalid&&bookingForm?.invalid"
+                                            (click)="nextStep(bookingForm.value,supplierSelectForm.value,stepper)">Next</button>
+
+                                    </div>
+
+                                </div>
                             </mat-card-content>
-                       
+
                         </mat-card>
                     </mat-grid-tile>
                 </mat-grid-list>
             </mat-step>
             <mat-step>
                 <ng-template matStepLabel>Done</ng-template>
-                You are now done.
+                Booking is Confirmed. Go to Dashboard
                 <div>
-                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button (click)="clickDashBoard()">Go To Dashboard</button>
                 </div>
             </mat-step>
         </mat-horizontal-stepper>

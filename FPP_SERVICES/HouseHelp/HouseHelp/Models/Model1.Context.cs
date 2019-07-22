@@ -360,5 +360,60 @@ namespace HouseHelp.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_supplier1_Result>("get_supplier1", sup_idParameter);
         }
+    
+        public virtual ObjectResult<get_booking_suppliers_Result> get_booking_suppliers(string service_name)
+        {
+            var service_nameParameter = service_name != null ?
+                new ObjectParameter("service_name", service_name) :
+                new ObjectParameter("service_name", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_booking_suppliers_Result>("get_booking_suppliers", service_nameParameter);
+        }
+    
+        public virtual ObjectResult<get_booking_suppliers1_Result> get_booking_suppliers1(string service_name)
+        {
+            var service_nameParameter = service_name != null ?
+                new ObjectParameter("service_name", service_name) :
+                new ObjectParameter("service_name", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_booking_suppliers1_Result>("get_booking_suppliers1", service_nameParameter);
+        }
+    
+        public virtual int add_bookings(Nullable<long> cust_id, Nullable<long> sup_id, string b_address, string b_city, string b_state, Nullable<System.TimeSpan> b_time, Nullable<System.DateTime> b_date, string s_type)
+        {
+            var cust_idParameter = cust_id.HasValue ?
+                new ObjectParameter("cust_id", cust_id) :
+                new ObjectParameter("cust_id", typeof(long));
+    
+            var sup_idParameter = sup_id.HasValue ?
+                new ObjectParameter("sup_id", sup_id) :
+                new ObjectParameter("sup_id", typeof(long));
+    
+            var b_addressParameter = b_address != null ?
+                new ObjectParameter("b_address", b_address) :
+                new ObjectParameter("b_address", typeof(string));
+    
+            var b_cityParameter = b_city != null ?
+                new ObjectParameter("b_city", b_city) :
+                new ObjectParameter("b_city", typeof(string));
+    
+            var b_stateParameter = b_state != null ?
+                new ObjectParameter("b_state", b_state) :
+                new ObjectParameter("b_state", typeof(string));
+    
+            var b_timeParameter = b_time.HasValue ?
+                new ObjectParameter("b_time", b_time) :
+                new ObjectParameter("b_time", typeof(System.TimeSpan));
+    
+            var b_dateParameter = b_date.HasValue ?
+                new ObjectParameter("b_date", b_date) :
+                new ObjectParameter("b_date", typeof(System.DateTime));
+    
+            var s_typeParameter = s_type != null ?
+                new ObjectParameter("s_type", s_type) :
+                new ObjectParameter("s_type", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("add_bookings", cust_idParameter, sup_idParameter, b_addressParameter, b_cityParameter, b_stateParameter, b_timeParameter, b_dateParameter, s_typeParameter);
+        }
     }
 }

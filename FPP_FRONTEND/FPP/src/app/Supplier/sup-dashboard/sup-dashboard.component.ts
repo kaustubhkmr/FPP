@@ -44,6 +44,7 @@ export class SupDashboardComponent implements OnInit, OnChanges{
   }
 
   getProfileData(){
+    this.serviceData = [];
     this.service.getServiceData(localStorage.getItem("sup_id")).subscribe((serviceObj:object[])=>{
         this.serviceDataTable = serviceObj;
         this.serviceDataTable.forEach((e)=>{
@@ -92,6 +93,7 @@ export class SupDashboardComponent implements OnInit, OnChanges{
   });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      this.getProfileData();
     })
   }
 }

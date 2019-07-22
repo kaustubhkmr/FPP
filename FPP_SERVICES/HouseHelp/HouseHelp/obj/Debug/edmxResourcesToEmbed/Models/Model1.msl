@@ -159,5 +159,31 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="get_booking_suppliers" FunctionName="FPPModel.Store.get_booking_suppliers">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FPPModel.get_booking_suppliers_Result">
+          <ScalarProperty Name="sup_id" ColumnName="sup_id" />
+          <ScalarProperty Name="sup_name" ColumnName="sup_name" />
+          <ScalarProperty Name="sup_state" ColumnName="sup_state" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="get_booking_suppliers1" FunctionName="FPPModel.Store.get_booking_suppliers1">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FPPModel.get_booking_suppliers1_Result">
+          <ScalarProperty Name="sup_id" ColumnName="sup_id" />
+          <ScalarProperty Name="sup_name" ColumnName="sup_name" />
+          <ScalarProperty Name="sup_email" ColumnName="sup_email" />
+          <ScalarProperty Name="sup_phone" ColumnName="sup_phone" />
+          <ScalarProperty Name="sup_city" ColumnName="sup_city" />
+          <ScalarProperty Name="sup_state" ColumnName="sup_state" />
+          <ScalarProperty Name="sup_password" ColumnName="sup_password" />
+          <ScalarProperty Name="sup_rating" ColumnName="sup_rating" />
+          <ScalarProperty Name="rating_count" ColumnName="rating_count" />
+          <ScalarProperty Name="sup_address" ColumnName="sup_address" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="add_bookings" FunctionName="FPPModel.Store.add_bookings" />
   </EntityContainerMapping>
 </Mapping>
