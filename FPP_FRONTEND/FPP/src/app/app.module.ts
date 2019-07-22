@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 import { NgModule } from '@angular/core';
 import {MatButtonModule, MatCheckboxModule, MatCardModule,MatFormFieldModule, MatDialogModule,
-  MatInputModule,MatRadioModule,MatSelectModule, MatSnackBarModule, MatSnackBarRef, MatSnackBar, MatDialogRef, MatDialog,MatToolbarModule, MatGridListModule, MatBadgeModule, MatDividerModule, MatStepperModule} from '@angular/material';
+  MatInputModule,MatRadioModule,MatSelectModule, MatSnackBarModule, MatSnackBarRef, MatSnackBar, MatDialogRef, MatDialog,MatToolbarModule, MatGridListModule, MatBadgeModule, MatDividerModule, MatStepperModule, MatChipsModule} from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -17,6 +17,8 @@ import { SupDashboardComponent } from './Supplier/sup-dashboard/sup-dashboard.co
 import { SuploginService } from './Services/suplogin.service';
 import { CpwdcheckDirective } from './client/login/cpwdcheck.directive';
 import { ClientDashboardComponent } from './client/client-dashboard/client-dashboard.component';
+import { ClientEditComponent } from './Supplier/client-edit/client-edit.component';
+import { SupAddServiceDiagComponent } from './Supplier/sup-add-service-diag/sup-add-service-diag.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { ClientDashboardComponent } from './client/client-dashboard/client-dashb
     PwdcheckDirective,
     SupDashboardComponent,
     CpwdcheckDirective,
-    ClientDashboardComponent
+    ClientDashboardComponent,
+    ClientEditComponent,
+    SupAddServiceDiagComponent
   ],
   imports: [
     BrowserModule,
@@ -49,10 +53,11 @@ import { ClientDashboardComponent } from './client/client-dashboard/client-dashb
     MatGridListModule,
     MatBadgeModule,
     MatStepperModule,
-    MatDividerModule
+    MatDividerModule,
+    MatChipsModule
   ],
   providers: [SupinsertService,MatSnackBar,MatDialog,SuploginService],
   bootstrap: [AppComponent],
-  entryComponents: [LoginComponent,SupLoginComponent]
+  entryComponents: [LoginComponent,SupLoginComponent,ClientEditComponent,SupAddServiceDiagComponent]
 })
 export class AppModule { }
