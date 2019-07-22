@@ -1,13 +1,15 @@
-<mat-toolbar class="mat-elevation-z5" color="" style="background: azure; position:sticky;top: 0">
+<mat-toolbar class="mat-elevation-z5" color="" style="background: azure; position:sticky;">
 
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" href="#">
                 <img alt="" src="https://images-na.ssl-images-amazon.com/images/I/51UxJNUFa4L.png" height="30" width=30>
             </a>
+            <span style="text-align:start">Welcome Client</span>
+
         </div>
+
     </div>
-    <span style="text-align:start">Welcome Client</span>
 
     <!-- This fills the remaining space of the current row -->
     <span class="example-fill-remaining-space" style="flex: 1 1 auto"></span>
@@ -30,54 +32,55 @@
             <mat-grid-tile>
                 <mat-card class="cardColorStyle mat-elevation-z5">
                     <img height=70% width=100% src="assets/add-friend.png">
-                    <button mat-raised-button style="width: 100%;margin-top:15px; " (click)="clickNewBooking()">
-                        <h3>
+                    <button mat-raised-button style="height:50px;width: 100%;margin-top:15px; "
+                        (click)="clickNewBooking()">
+                        <h4>
                             New Booking
-                        </h3>
+                        </h4>
                     </button>
                 </mat-card>
             </mat-grid-tile>
             <mat-grid-tile>
                 <mat-card class="cardColorStyle mat-elevation-z5">
                     <img height=70% width=100% src="assets/question.png">
-                    <button matBadge="15" matBadgeColor="warn" mat-raised-button style="width: 100%;margin-top:15px; "
-                        (click)="clickJob()">
-                        <h3>
+                    <button matBadge="15" matBadgeColor="warn" mat-raised-button
+                        style="height:50px;width: 100%;margin-top:15px; " (click)="clickJob()">
+                        <h4>
                             Pending Booking
-                        </h3>
+                        </h4>
                     </button>
                 </mat-card>
             </mat-grid-tile>
             <mat-grid-tile>
                 <mat-card class="cardColorStyle mat-elevation-z5">
                     <img height=70% width=100% src="assets/customer-service.png">
-                    <button matBadge="15" matBadgeColor="warn" mat-raised-button style="width: 100%;margin-top:15px; "
-                        (click)="clickJobActive()">
-                        <h3>
+                    <button matBadge="15" matBadgeColor="warn" mat-raised-button
+                        style="height:50px;width: 100%;margin-top:15px; " (click)="clickJobActive()">
+                        <h4>
                             Active Booking
-                        </h3>
+                        </h4>
                     </button>
                 </mat-card>
             </mat-grid-tile>
             <mat-grid-tile>
                 <mat-card class="cardColorStyle mat-elevation-z5">
                     <img height=70% width=100% src="assets/contact.png">
-                    <button matBadge="15" matBadgeColor="warn" mat-raised-button style="width: 100%;margin-top:15px; "
-                        (click)="clickJobCompleted()">
-                        <h3>
+                    <button matBadge="15" matBadgeColor="warn" mat-raised-button
+                        style="height:50px;width:100%;margin-top:15px; " (click)="clickJobCompleted()">
+                        <h4>
                             Completed Booking
-                        </h3>
+                        </h4>
                     </button>
                 </mat-card>
             </mat-grid-tile>
             <mat-grid-tile>
                 <mat-card class="cardColorStyle mat-elevation-z5">
                     <img height=70% width=100% src="assets/boy.png">
-                    <button matBadge="1" matBadgeColor="warn" mat-raised-button style="width: 100%;margin-top:15px; "
-                        (click)="clickJobMyProfile()">
-                        <h3>
+                    <button matBadge="1" matBadgeColor="warn" mat-raised-button
+                        style="height:50px;width: 100%;margin-top:15px; " (click)="clickJobMyProfile()">
+                        <h4>
                             My Profile
-                        </h3>
+                        </h4>
                     </button>
                 </mat-card>
             </mat-grid-tile>
@@ -85,7 +88,7 @@
     </mat-card>
 </div>
 
-<div *ngIf="showView == 1">
+<div *ngIf="showView == 1" style="margin-top:10px">
     <mat-card class="mat-elevation-z5">
         <mat-horizontal-stepper #stepper>
             <mat-step>
@@ -93,111 +96,146 @@
                 <mat-card class="mat-elevation-z5"
                     style="background-color: rgb(156, 156, 156);height: 100%;margin-top: 10px;">
                     <mat-grid-list cols="4" rowHeight="1:1" [gutterSize]="'20px'">
-                        <mat-grid-tile>
+                        <mat-grid-tile *ngFor="let service of serviceModel.value">
                             <mat-card class="cardColorStyle mat-elevation-z5">
-                                <h4>Driver<button style="margin-left: 120px;" mat-mini-fab matStepperNext
-                                        color="warn">Book</button></h4>
-                                <img height=50% width=60% src="assets/taxi-driver.png">
-                                <mat-card-content>Trained Drivers at an affordable pricing of
-                                    ₹99/Hr. At your doorstep in 30mins. 24/7 Services. Pre-Screened Drivers.
-                                    Pay For What You Use.</mat-card-content>
-                            </mat-card>
-                        </mat-grid-tile>
-                        <mat-grid-tile>
-                            <mat-card class="cardColorStyle mat-elevation-z5">
-                                <h4>Mechanic<button style="margin-left: 100px;" mat-mini-fab matStepperNext
-                                        color="warn">Book</button></h4>
-                                <img height=50% width=60% src="assets/mechanic.png">
-                                <mat-card-content>Get Roadside Assistance & other Garage
-                                    Service at ZERO Subscription All Vehicles. Available 24X7.
-                                    Get Mechanic is 20 Mins. Best Roadside Assistance.</mat-card-content>
-                            </mat-card>
-                        </mat-grid-tile>
-                        <mat-grid-tile>
-                            <mat-card class="cardColorStyle mat-elevation-z5">
-                                <h4>Hair Dresser<button style="margin-left: 80px;" mat-mini-fab matStepperNext
-                                        color="warn">Book</button></h4>
-                                <img height=50% width=60% src="assets/hairdresser.png">
-                                <mat-card-content>Our essensuals hairdressers benefit from the internationally
-                                    recognised TONI&GUY and are trained in both cut and colour.
-                                    We offer a wide range of cutting and colouring techniques</mat-card-content>
-                            </mat-card>
-                        </mat-grid-tile>
-                        <mat-grid-tile>
-                            <mat-card class="cardColorStyle mat-elevation-z5">
-                                <h4>Gardener<button style="margin-left: 100px;" mat-mini-fab matStepperNext
-                                        color="warn">Book</button></h4>
-                                <img height=50% width=60% src="assets/gardener.png">
-                                <mat-card-content>Our gardening services include the following features:
-                                    Pruning of shrubs, bushes and trees.Maintenance of lawns, flowerbeds,
-                                    shrubbery, trees and greenery. </mat-card-content>
-                            </mat-card>
-                        </mat-grid-tile>
-                        <mat-grid-tile>
-                            <mat-card class="cardColorStyle mat-elevation-z5">
-                                <h4>Electrician<button style="margin-left: 100px;" mat-mini-fab matStepperNext
-                                        color="warn">Book</button></h4>
-                                <img height=50% width=60% src="assets/electrician.png">
-                                <mat-card-content>Get Star-Rated Electricians Near You
-                                    within 2 hours for services at best prices.</mat-card-content>
-                            </mat-card>
-                        </mat-grid-tile>
-                        <mat-grid-tile>
-                            <mat-card class="cardColorStyle mat-elevation-z5">
-                                <h4>Doctor<button style="margin-left: 120px;" mat-mini-fab matStepperNext
-                                        color="warn">Book</button></h4>
-                                <img height=50% width=60% src="assets/doctor.png">
-                                <mat-card-content>All our doctors are highly professional with years
-                                    medical experience. We aim to provide you an easy and hassle-free
-                                    consultation at home at your doorstep.</mat-card-content>
-                            </mat-card>
-                        </mat-grid-tile>
-                        <mat-grid-tile>
-                            <mat-card class="cardColorStyle mat-elevation-z5">
-                                <h4>Chemist<button style="margin-left: 120px;" mat-mini-fab matStepperNext
-                                        color="warn">Book</button></h4>
-                                <img height=50% width=60% src="assets/chemist.png">
-                                <mat-card-content>Pharmaceutical Ordering and Support for
-                                    Pharmacies and Health Systems.</mat-card-content>
-                            </mat-card>
-                        </mat-grid-tile>
-                        <mat-grid-tile>
-                            <mat-card class="cardColorStyle mat-elevation-z5">
-                                <h4>Carpenter<button style="margin-left: 100px;" mat-mini-fab matStepperNext
-                                        color="warn">Book</button></h4>
-                                <img height=50% width=60% src="assets/carpenter.png">
-                                <mat-card-content>Get Star-Rated Carpenters Near You within 2
-                                    hours for services at best prices..</mat-card-content>
-                            </mat-card>
-                        </mat-grid-tile>
-                        <mat-grid-tile>
-                            <mat-card class="cardColorStyle mat-elevation-z5">
-                                <h4>Builder<button style="margin-left: 120px;" mat-mini-fab matStepperNext
-                                        color="warn">Book</button></h4>
-                                <img height=50% width=60% src="assets/builder.png">
-                                <mat-card-content>You will find many links to help you with your construction/remodeling
-                                    projects.
-                                </mat-card-content>
-                            </mat-card>
-                        </mat-grid-tile>
-                        <mat-grid-tile>
-                            <mat-card class="cardColorStyle mat-elevation-z5">
-                                <h4>Gym<button style="margin-left: 140px;" mat-mini-fab matStepperNext
-                                        color="warn">Book</button></h4>
-                                <img height=50% width=60% src="assets/athlete.png">
-                                <mat-card-content>Successfully delivered a complete fitness lifestyle to our members.
-                                </mat-card-content>
+                                <h4>{{service.name}}<button style="margin-left: 120px;" mat-mini-fab matStepperNext
+                                        color="warn" (click)="serviceSelected(service.id)">Book</button></h4>
+                                <img height=50% width=60% src="assets/{{service.icon}}">
+                                <mat-card-content>{{service.message}}</mat-card-content>
                             </mat-card>
                         </mat-grid-tile>
                     </mat-grid-list>
                 </mat-card>
             </mat-step>
             <mat-step>
-                <ng-template matStepLabel>Done</ng-template>
-                You are now done.
-                <div>
-                    <button mat-button matStepperPrevious>Back</button>
-                </div>
+                <ng-template matStepLabel>Fill Details</ng-template>
+                <mat-grid-list cols="3" rowHeight="1:1" [gutterSize]="'10px'">
+                    <mat-grid-tile *ngIf="selectedService">
+                        <mat-card class="cardColorStyleService mat-elevation-z5">
+                            <h4>{{selectedService.name}}</h4>
+                            <img height=50% width=60% src="assets/{{selectedService.icon}}">
+                            <mat-card-content>{{selectedService.message}}</mat-card-content>
+                        </mat-card>
+                    </mat-grid-tile>
+                    <mat-grid-tile colspan="2" *ngIf="selectedService">
+                        <mat-card class="cardColorStyleService mat-elevation-z5">
+                            <mat-card-title>Enter Booking Details</mat-card-title>
+
+                            
+                            <mat-card-content class="container">
+
+
+                                <div class="row">
+                                
+                                    <div class="col-md-6">
+                                <form class="example-form" #bookingForm="ngForm"
+                                    (ngSubmit)="onSubmit(bookingForm.value)">
+                                    <mat-form-field class="example-full-width">
+                                        <input type="text" matInput placeholder="Service Type" [ngModel]="selectedService.name"
+                                            name="s_type" [disabled]="true">
+                                    </mat-form-field>
+                                    <mat-form-field class="example-full-width">
+                                        <input type="text" matInput placeholder="Booking Address" ngModel
+                                            name="b_address" #b_address="ngModel" required>
+                                    </mat-form-field>
+
+                                    <div *ngIf="b_address.invalid && (b_address.dirty || b_address.touched)"
+                                        class="alert alert-danger">
+
+                                        <div *ngIf="b_address.errors.required">
+                                            Booking Address is required.
+                                        </div>
+                                    </div>
+                                    <mat-form-field class="example-full-width">
+                                        <input type="text" matInput placeholder="City" ngModel required name="b_city"
+                                            #b_city="ngModel">
+                                    </mat-form-field>
+                                    <div *ngIf="b_city.invalid && (b_city.dirty || b_city.touched)"
+                                        class="alert alert-danger">
+
+                                        <div *ngIf="b_city.errors.required">
+                                            City is required.
+                                        </div>
+                                    </div>
+                                    
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>State</mat-label>
+                                        <mat-select required ngModel name="b_state" #state>
+                                            <mat-option *ngFor="let state of states" [value]="state.value">
+                                                {{state.viewValue}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <div *ngIf="state.invalid && (state.dirty || state.touched)"
+                                            class="alert alert-danger">
+
+                                            <div *ngIf="state.errors.required">
+                                                State is required.
+                                            </div>
+
+
+                                        </div>
+                                    </mat-form-field>
+                                    <mat-form-field class="example-full-width">
+                                            <input type="time" matInput placeholder="Booking Time" ngModel required name="b_time"
+                                                #b_time="ngModel">
+                                        </mat-form-field>
+                                        <div *ngIf="b_time.invalid && (b_time.dirty || b_time.touched)"
+                                            class="alert alert-danger">
+    
+                                            <div *ngIf="b_time.errors.required">
+                                                Booking Time is required.
+                                            </div>
+                                        </div>
+
+                                    <mat-form-field class="example-full-width">
+                                        <input type="date" matInput placeholder="Date" ngModel required name="b_date"
+                                            #b_date="ngModel">
+                                    </mat-form-field>
+                                    <div *ngIf="b_date.invalid && (b_date.dirty || b_date.touched)"
+                                        class="alert alert-danger">
+
+                                        <div *ngIf="b_date.errors.required">
+                                            Date is required.
+                                        </div>
+                                    </div>
+                                    <mat-form-field class="example-full-width">
+                                            <input type="text" matInput placeholder="Service Price" [ngModel]="100"
+                                                name="b_price" [disabled]="true">
+                                        </mat-form-field>
+                                </form>
+                            
+                            </div>
+
+                            <div class="col-md-6" *ngIf="bookingForm.valid" >
+                                <form class="example-form" #supplierSelectForm="ngForm"
+                                (ngSubmit)="onSubmit(supplierSelectForm.value)">
+                                <mat-form-field class="example-full-width">
+                                        <mat-label>Supplier</mat-label>
+                                        <mat-select required ngModel name="sup_id" #sup_id>
+                                            <mat-option *ngFor="let state of states" [value]="state.value">
+                                                {{state.viewValue}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <div *ngIf="sup_id.invalid && (sup_id.dirty || sup_id.touched)"
+                                            class="alert alert-danger">
+
+                                            <div *ngIf="sup_id.errors.required">
+                                                 Please Select a Supplier
+                                            </div>
+
+
+                                        </div>
+                                    </mat-form-field>
+
+                            </form>
+                            </div>
+
+                            </div>
+                            </mat-card-content>
+                       
+                        </mat-card>
+                    </mat-grid-tile>
+                </mat-grid-list>
             </mat-step>
             <mat-step>
                 <ng-template matStepLabel>Done</ng-template>

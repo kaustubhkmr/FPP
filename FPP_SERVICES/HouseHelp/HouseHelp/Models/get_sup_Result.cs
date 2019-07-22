@@ -20,9 +20,6 @@ namespace HouseHelp.Models
         public string sup_city { get; set; }
         public string sup_state { get; set; }
         public string sup_password { get; set; }
-        public string sup_address { get; set; }
-
-
         public Nullable<float> sup_rating { get; set; }
         public Nullable<long> rating_count { get; set; }
     }
