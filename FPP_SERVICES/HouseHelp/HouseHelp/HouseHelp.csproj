@@ -170,6 +170,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\Customer\CustLoginController.cs" />
     <Compile Include="Controllers\Customer\CustRegisterController.cs" />
+    <Compile Include="Controllers\Customer\GetBookingSuppliersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SupLoginController.cs" />
     <Compile Include="Controllers\Supplier\AddServiceController.cs" />
