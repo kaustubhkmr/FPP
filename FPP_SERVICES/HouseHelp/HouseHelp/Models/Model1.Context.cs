@@ -342,5 +342,23 @@ namespace HouseHelp.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("upd_sup", sup_idParameter, sup_nameParameter, sup_emailParameter, sup_phoneParameter, sup_cityParameter, sup_stateParameter, sup_addressParameter);
         }
+    
+        public virtual ObjectResult<get_supplierd_services_Result> get_supplierd_services(Nullable<long> sup_id)
+        {
+            var sup_idParameter = sup_id.HasValue ?
+                new ObjectParameter("sup_id", sup_id) :
+                new ObjectParameter("sup_id", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_supplierd_services_Result>("get_supplierd_services", sup_idParameter);
+        }
+    
+        public virtual ObjectResult<get_supplier1_Result> get_supplier1(Nullable<long> sup_id)
+        {
+            var sup_idParameter = sup_id.HasValue ?
+                new ObjectParameter("sup_id", sup_id) :
+                new ObjectParameter("sup_id", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_supplier1_Result>("get_supplier1", sup_idParameter);
+        }
     }
 }

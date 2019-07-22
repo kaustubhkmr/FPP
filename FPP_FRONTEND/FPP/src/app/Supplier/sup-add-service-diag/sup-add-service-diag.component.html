@@ -1,0 +1,11 @@
+    <div style="overflow-y:scroll;height: 400px;" mat-dialog-content>
+    <div mat-dialog-title>
+        Add Service
+    </div>
+    <mat-card *ngFor="let service of serviceModel.value" style="height:200px ;width:200px;margin-top: 15px;" class= "mat-elevation-z5">
+        <h5>{{service.name}}<button style="margin-left:10px" mat-mini-fab
+            color="warn" (click)="serviceSelected(service.id)">Add</button></h5>
+        <img height=80% width=100% src="assets/{{service.icon}}">
+    </mat-card>
+    </div>
+    

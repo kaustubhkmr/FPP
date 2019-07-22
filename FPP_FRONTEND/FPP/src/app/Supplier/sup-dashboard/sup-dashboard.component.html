@@ -198,7 +198,7 @@
           </mat-card>
           <div class="row" style="margin-top:10px">
             <div class="col-md-12" style="text-align: right;bottom: 0">
-              <button mat-raised-button color="warn">Edit Profile</button>
+              <button mat-raised-button color="warn" on-click="openEditDialog()">Edit Profile</button>
             </div>
           </div>
           <mat-card class="mat-elevation-z5" style="margin-top:20px;">
@@ -209,7 +209,7 @@
                   <h5>Name</h5>
                 </div>
                 <div class="col-md-6" style="text-align: center">
-                  <h5>{{supplierObj.sup_name}}</h5>
+                  <h5>{{supplierObj?.sup_name}}</h5>
                 </div>
 
               </div>
@@ -220,7 +220,7 @@
                   <h5>Email</h5>
                 </div>
                 <div class="col-md-6" style="text-align: center">
-                  <h5>{{supplierObj.sup_email}}</h5>
+                  <h5>{{supplierObj?.sup_email}}</h5>
                 </div>
 
               </div>
@@ -232,7 +232,7 @@
                   <h5>Phone</h5>
                 </div>
                 <div class="col-md-6" style="text-align: center">
-                  <h5>{{supplierObj.sup_phone}}</h5>
+                  <h5>{{supplierObj?.sup_phone}}</h5>
                 </div>
               </div>
               <mat-divider [inset]="true" style="margin-top:15px;margin-bottom:15px"></mat-divider>
@@ -243,7 +243,7 @@
                   <h5>State</h5>
                 </div>
                 <div class="col-md-6" style="text-align: center">
-                  <h5>{{supplierObj.sup_state}}</h5>
+                  <h5>{{supplierObj?.sup_state}}</h5>
                 </div>
 
               </div>
@@ -254,7 +254,7 @@
                   <h5>City</h5>
                 </div>
                 <div class="col-md-6" style="text-align: center">
-                  <h5>{{supplierObj.sup_city}}</h5>
+                  <h5>{{supplierObj?.sup_city}}</h5>
                 </div>
 
               </div>
@@ -265,7 +265,7 @@
                   <h5>Address</h5>
                 </div>
                 <div class="col-md-6" style="text-align: center">
-                  <h5>{{supplierObj.sup_address}}</h5>
+                  <h5>{{supplierObj?.sup_address}}</h5>
                 </div>
 
               </div>
@@ -293,7 +293,12 @@
           <h4 align="center">Services</h4>
           <div class="row" style="margin-top:10px">
             <div class="col-md-12" style="text-align: center;bottom: 0; padding-left: 10px; padding-right: 10px">
-              <button mat-raised-button color="warn" style="width:100%">Add Service</button>
+              <button mat-raised-button color="warn" style="width:100%" (click)="openAddServiceDialog()">Add Service</button>
+            </div>
+            <div style="margin: 20px">
+              <mat-chip-list>
+                <mat-chip *ngFor="let service of serviceData" color="primary" selected><img height=50px width=50px src="assets/{{service.icon}}">{{service.name}}</mat-chip>
+              </mat-chip-list>
             </div>
           </div>
         </mat-card>

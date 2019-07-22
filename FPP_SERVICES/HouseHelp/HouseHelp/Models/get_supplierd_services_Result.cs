@@ -11,16 +11,10 @@ namespace HouseHelp.Models
 {
     using System;
     
-    public partial class get_sup_Result
+    public partial class get_supplierd_services_Result
     {
-        public long sup_id { get; set; }
-        public string sup_name { get; set; }
-        public string sup_email { get; set; }
-        public string sup_phone { get; set; }
-        public string sup_city { get; set; }
-        public string sup_state { get; set; }
-        public string sup_password { get; set; }
-        public Nullable<float> sup_rating { get; set; }
-        public Nullable<long> rating_count { get; set; }
+        public long service_id { get; set; }
+        public Nullable<long> sup_id { get; set; }
+        public string service_name { get; set; }
     }
 }

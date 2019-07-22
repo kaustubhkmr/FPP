@@ -14,30 +14,35 @@ namespace HouseHelp.Controllers.Supplier
     {
         FPPEntities db = new FPPEntities();
         // GET: api/Dashboard
-        public IEnumerable<string> Get()
-        {
-            return null;
-        }
+        //public IEnumerable<string> Get()
+        //{
+        //    return null;
+        //}
 
         // GET: api/Dashboard/5
-        public supplier Get(int id)
+        //public supplier Get(int id)
+        //{
+        //    return db.suppliers.Where(s=>s.sup_id==id).FirstOrDefault();
+        //}
+        public get_supplier1_Result Get(int id)
         {
-            return db.suppliers.Where(s=>s.sup_id==id).FirstOrDefault();
+            return db.get_supplier1(id).FirstOrDefault();
         }
 
-        // POST: api/Dashboard
-        public void Post([FromBody]string value)
-        {
-        }
 
-        // PUT: api/Dashboard/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
+        //// POST: api/Dashboard
+        //public void Post([FromBody]string value)
+        //{
+        //}
 
-        // DELETE: api/Dashboard/5
-        public void Delete(int id)
-        {
-        }
+        //// PUT: api/Dashboard/5
+        //public void Put(int id, [FromBody]string value)
+        //{
+        //}
+
+        //// DELETE: api/Dashboard/5
+        //public void Delete(int id)
+        //{
+        //}
     }
 }

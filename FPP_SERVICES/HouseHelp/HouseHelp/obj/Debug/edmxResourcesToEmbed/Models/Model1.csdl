@@ -208,6 +208,12 @@
       <Parameter Name="sup_state" Mode="In" Type="String" />
       <Parameter Name="sup_address" Mode="In" Type="String" />
     </FunctionImport>
+    <FunctionImport Name="get_supplierd_services" ReturnType="Collection(FPPModel.get_supplierd_services_Result)">
+      <Parameter Name="sup_id" Mode="In" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="get_supplier1" ReturnType="Collection(FPPModel.get_supplier1_Result)">
+      <Parameter Name="sup_id" Mode="In" Type="Int64" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="get_booking_Result">
     <Property Type="Int64" Name="b_id" Nullable="false" />
@@ -253,5 +259,22 @@
     <Property Type="String" Name="cust_city" Nullable="false" MaxLength="25" />
     <Property Type="String" Name="cust_state" Nullable="false" MaxLength="25" />
     <Property Type="String" Name="cust_password" Nullable="false" MaxLength="1000" />
+  </ComplexType>
+  <ComplexType Name="get_supplierd_services_Result">
+    <Property Type="Int64" Name="service_id" Nullable="false" />
+    <Property Type="Int64" Name="sup_id" Nullable="true" />
+    <Property Type="String" Name="service_name" Nullable="false" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="get_supplier1_Result">
+    <Property Type="Int64" Name="sup_id" Nullable="false" />
+    <Property Type="String" Name="sup_name" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="sup_email" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="sup_phone" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="sup_city" Nullable="false" MaxLength="25" />
+    <Property Type="String" Name="sup_state" Nullable="false" MaxLength="25" />
+    <Property Type="String" Name="sup_password" Nullable="false" MaxLength="1000" />
+    <Property Type="Single" Name="sup_rating" Nullable="true" />
+    <Property Type="Int64" Name="rating_count" Nullable="true" />
+    <Property Type="String" Name="sup_address" Nullable="true" MaxLength="100" />
   </ComplexType>
 </Schema>

@@ -11,7 +11,7 @@ namespace HouseHelp.Models
 {
     using System;
     
-    public partial class get_sup_Result
+    public partial class get_supplier1_Result
     {
         public long sup_id { get; set; }
         public string sup_name { get; set; }
@@ -22,5 +22,6 @@ namespace HouseHelp.Models
         public string sup_password { get; set; }
         public Nullable<float> sup_rating { get; set; }
         public Nullable<long> rating_count { get; set; }
+        public string sup_address { get; set; }
     }
 }
