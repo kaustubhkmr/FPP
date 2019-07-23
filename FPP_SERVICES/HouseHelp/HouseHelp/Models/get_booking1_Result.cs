@@ -10,9 +10,8 @@
 namespace HouseHelp.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class booking
+    public partial class get_booking1_Result
     {
         public long b_id { get; set; }
         public Nullable<long> cust_id { get; set; }
@@ -32,8 +31,5 @@ namespace HouseHelp.Models
         public Nullable<System.DateTime> completion_time { get; set; }
         public string comments { get; set; }
         public string b_accepted { get; set; }
-    
-        public virtual customer customer { get; set; }
-        public virtual supplier supplier { get; set; }
     }
 }

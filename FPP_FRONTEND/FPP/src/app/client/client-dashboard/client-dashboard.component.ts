@@ -3,8 +3,11 @@ import { Router } from '@angular/router';
 import { ServiceModelData } from 'src/app/service-model';
 import { ConcatSource } from 'webpack-sources';
 import { GetBookingSupplierService } from 'src/app/Services/get-booking-supplier.service';
-import { MatStepper } from '@angular/material';
+import { MatStepper, MatDialog } from '@angular/material';
 import { AddBookingService } from 'src/app/Services/add-booking.service';
+import { NgForm } from '@angular/forms';
+import { EditClientComponent } from '../edit-client/edit-client.component';
+import { ClientDashboardService } from 'src/app/Services/client-dashboard.service';
 
 @Component({
   selector: 'app-client-dashboard',
@@ -19,11 +22,17 @@ export class ClientDashboardComponent implements OnInit {
   step1Editable:boolean=true;
   step2Editable:boolean=true;
  bookingSuppliers;
+ clientObj:Object;
+ showCompleteProfile=true;
+ clientData:Object;
 
-  constructor(private router:Router,public serviceModel:ServiceModelData,public getBookingSup:GetBookingSupplierService, public makeBooking:AddBookingService) { }
+
+
+  constructor(private router:Router,public serviceModel:ServiceModelData,public getBookingSup:GetBookingSupplierService, public makeBooking:AddBookingService,private dialog:MatDialog,private service:ClientDashboardService) { }
 
   ngOnInit() {
     console.log(this.isServiceSelected);
+    this.getDataClient();
   }
 
   states: object[] = [
@@ -39,6 +48,26 @@ export class ClientDashboardComponent implements OnInit {
     localStorage.removeItem("cust_id")
     this.router.navigate(['/home'])
   }
+
+  ngOnChanges(){
+    this.getDataClient();
+    
+  }
+
+  getDataClient(){
+    
+    if(localStorage.getItem("cust_id") != null) {
+      this.service.getClientData(localStorage.getItem("cust_id")).subscribe((clientData)=>{
+        this.clientObj = clientData;
+        console.log(clientData)
+        console.log(this.clientObj)
+      })   
+    }
+    else{
+      this.router.navigate(['/home'])
+  
+    }
+  }
   clickNewBooking(){
     this.showView = 1;
     this.isServiceSelected=false;
@@ -49,7 +78,15 @@ export class ClientDashboardComponent implements OnInit {
     this.showView = 0;
     this.isServiceSelected=false;
   }
-  serviceSelected(id){
+  clickJobMyProfile(){
+    this.showView=4;
+    this.isServiceSelected=false;
+
+  }
+  serviceSelected(id,bform:NgForm){
+    console.log(this.serviceModel.value[id])
+    if(bform!=undefined)
+    bform.reset();
     this.selectedService = this.serviceModel.value[id];
     this.getBookingSup.getBookingSupplier(id).subscribe(p=>{this.bookingSuppliers=p;
       this.isServiceSelected=true;
@@ -76,5 +113,17 @@ export class ClientDashboardComponent implements OnInit {
      else
      console.log("error")
   },e=>console.log(e))
+  }
+
+  openEditDialog(){
+    const dialogRef = this.dialog.open(EditClientComponent, {
+      data:{'clientData':this.clientObj}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.getDataClient()
+    });
+
   }
 }

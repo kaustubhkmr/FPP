@@ -26,6 +26,7 @@
           <Property Name="s_type" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="completion_time" Type="datetime2" Precision="7" />
           <Property Name="comments" Type="varchar" MaxLength="200" />
+          <Property Name="b_accepted" Type="varchar" MaxLength="5" />
         </EntityType>
         <EntityType Name="customers">
           <Key>
@@ -162,6 +163,9 @@
         <Function Name="get_booking_suppliers1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="service_name" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="get_booking1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="bid" Type="bigint" Mode="In" />
+        </Function>
         <Function Name="get_my_services" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="sup_id" Type="bigint" Mode="In" />
         </Function>
@@ -248,6 +252,7 @@
           <Property Name="comments" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="customer" Relationship="Self.c_fk" FromRole="bookings" ToRole="customers" />
           <NavigationProperty Name="supplier" Relationship="Self.s_fk" FromRole="bookings" ToRole="suppliers" />
+          <Property Name="b_accepted" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="customer">
           <Key>
@@ -455,6 +460,9 @@
             <Parameter Name="b_date" Mode="In" Type="DateTime" />
             <Parameter Name="s_type" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="get_booking1" ReturnType="Collection(FPPModel.get_booking1_Result)">
+            <Parameter Name="bid" Mode="In" Type="Int64" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="get_booking_Result">
           <Property Type="Int64" Name="b_id" Nullable="false" />
@@ -535,6 +543,26 @@
           <Property Type="Int64" Name="rating_count" Nullable="true" />
           <Property Type="String" Name="sup_address" Nullable="true" MaxLength="100" />
         </ComplexType>
+        <ComplexType Name="get_booking1_Result">
+          <Property Type="Int64" Name="b_id" Nullable="false" />
+          <Property Type="Int64" Name="cust_id" Nullable="true" />
+          <Property Type="Int64" Name="sup_id" Nullable="true" />
+          <Property Type="String" Name="b_address" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="b_city" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="b_state" Nullable="false" MaxLength="100" />
+          <Property Type="Time" Name="b_time" Nullable="false" />
+          <Property Type="DateTime" Name="b_date" Nullable="false" />
+          <Property Type="Decimal" Name="b_price" Nullable="false" Precision="19" />
+          <Property Type="String" Name="payment_status" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="completion_status" Nullable="false" MaxLength="1" />
+          <Property Type="Time" Name="req_time" Nullable="false" />
+          <Property Type="DateTime" Name="req_date" Nullable="false" Precision="23" />
+          <Property Type="String" Name="b_review" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="s_type" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="completion_time" Nullable="true" />
+          <Property Type="String" Name="comments" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="b_accepted" Nullable="true" MaxLength="5" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -544,6 +572,7 @@
           <EntitySetMapping Name="bookings">
             <EntityTypeMapping TypeName="FPPModel.booking">
               <MappingFragment StoreEntitySet="bookings">
+                <ScalarProperty Name="b_accepted" ColumnName="b_accepted" />
                 <ScalarProperty Name="b_id" ColumnName="b_id" />
                 <ScalarProperty Name="cust_id" ColumnName="cust_id" />
                 <ScalarProperty Name="sup_id" ColumnName="sup_id" />
@@ -725,6 +754,30 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="add_bookings" FunctionName="FPPModel.Store.add_bookings" />
+          <FunctionImportMapping FunctionImportName="get_booking1" FunctionName="FPPModel.Store.get_booking1">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FPPModel.get_booking1_Result">
+                <ScalarProperty Name="b_id" ColumnName="b_id" />
+                <ScalarProperty Name="cust_id" ColumnName="cust_id" />
+                <ScalarProperty Name="sup_id" ColumnName="sup_id" />
+                <ScalarProperty Name="b_address" ColumnName="b_address" />
+                <ScalarProperty Name="b_city" ColumnName="b_city" />
+                <ScalarProperty Name="b_state" ColumnName="b_state" />
+                <ScalarProperty Name="b_time" ColumnName="b_time" />
+                <ScalarProperty Name="b_date" ColumnName="b_date" />
+                <ScalarProperty Name="b_price" ColumnName="b_price" />
+                <ScalarProperty Name="payment_status" ColumnName="payment_status" />
+                <ScalarProperty Name="completion_status" ColumnName="completion_status" />
+                <ScalarProperty Name="req_time" ColumnName="req_time" />
+                <ScalarProperty Name="req_date" ColumnName="req_date" />
+                <ScalarProperty Name="b_review" ColumnName="b_review" />
+                <ScalarProperty Name="s_type" ColumnName="s_type" />
+                <ScalarProperty Name="completion_time" ColumnName="completion_time" />
+                <ScalarProperty Name="comments" ColumnName="comments" />
+                <ScalarProperty Name="b_accepted" ColumnName="b_accepted" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

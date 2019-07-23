@@ -21,6 +21,7 @@ import { ClientEditComponent } from './Supplier/client-edit/client-edit.componen
 import { SupAddServiceDiagComponent } from './Supplier/sup-add-service-diag/sup-add-service-diag.component';
 import { JobRequestComponent } from './Supplier/job-request/job-request.component';
 import { JobCompletedComponent } from './Supplier/job-completed/job-completed.component';
+import { EditClientComponent } from './client/edit-client/edit-client.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { JobCompletedComponent } from './Supplier/job-completed/job-completed.co
     ClientEditComponent,
     SupAddServiceDiagComponent,
     JobRequestComponent,
-    JobCompletedComponent
+    JobCompletedComponent,
+    EditClientComponent
   ],
   imports: [
     BrowserModule,
@@ -64,6 +66,6 @@ import { JobCompletedComponent } from './Supplier/job-completed/job-completed.co
   ],
   providers: [SupinsertService,MatSnackBar,MatDialog,SuploginService],
   bootstrap: [AppComponent],
-  entryComponents: [LoginComponent,SupLoginComponent,ClientEditComponent,SupAddServiceDiagComponent]
+  entryComponents: [LoginComponent,SupLoginComponent,ClientEditComponent,SupAddServiceDiagComponent,EditClientComponent]
 })
 export class AppModule { }

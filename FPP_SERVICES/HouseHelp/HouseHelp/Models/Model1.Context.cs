@@ -415,5 +415,14 @@ namespace HouseHelp.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("add_bookings", cust_idParameter, sup_idParameter, b_addressParameter, b_cityParameter, b_stateParameter, b_timeParameter, b_dateParameter, s_typeParameter);
         }
+    
+        public virtual ObjectResult<get_booking1_Result> get_booking1(Nullable<long> bid)
+        {
+            var bidParameter = bid.HasValue ?
+                new ObjectParameter("bid", bid) :
+                new ObjectParameter("bid", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_booking1_Result>("get_booking1", bidParameter);
+        }
     }
 }
