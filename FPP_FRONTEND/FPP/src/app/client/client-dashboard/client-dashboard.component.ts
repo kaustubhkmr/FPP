@@ -50,13 +50,10 @@ export class ClientDashboardComponent implements OnInit {
     this.isServiceSelected=false;
   }
   serviceSelected(id){
-    console.log(this.serviceModel.value[id])
-    
     this.selectedService = this.serviceModel.value[id];
     this.getBookingSup.getBookingSupplier(id).subscribe(p=>{this.bookingSuppliers=p;
       this.isServiceSelected=true;
-
-
+      console.log(this.bookingSuppliers);
     }, e=>console.log(e));
 
   }

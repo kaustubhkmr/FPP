@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 import { NgModule } from '@angular/core';
 import {MatButtonModule, MatCheckboxModule, MatCardModule,MatFormFieldModule, MatDialogModule,
-  MatInputModule,MatRadioModule,MatSelectModule, MatSnackBarModule, MatSnackBarRef, MatSnackBar, MatDialogRef, MatDialog,MatToolbarModule, MatGridListModule, MatBadgeModule, MatDividerModule, MatStepperModule, MatChipsModule} from '@angular/material';
+  MatInputModule,MatRadioModule,MatSelectModule, MatSnackBarModule, MatSnackBarRef, MatSnackBar, MatDialogRef, MatDialog,MatToolbarModule, MatGridListModule, MatBadgeModule, MatDividerModule, MatStepperModule, MatChipsModule, MatSortModule, MatTableModule} from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -19,6 +19,8 @@ import { CpwdcheckDirective } from './client/login/cpwdcheck.directive';
 import { ClientDashboardComponent } from './client/client-dashboard/client-dashboard.component';
 import { ClientEditComponent } from './Supplier/client-edit/client-edit.component';
 import { SupAddServiceDiagComponent } from './Supplier/sup-add-service-diag/sup-add-service-diag.component';
+import { JobRequestComponent } from './Supplier/job-request/job-request.component';
+import { JobCompletedComponent } from './Supplier/job-completed/job-completed.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { SupAddServiceDiagComponent } from './Supplier/sup-add-service-diag/sup-
     CpwdcheckDirective,
     ClientDashboardComponent,
     ClientEditComponent,
-    SupAddServiceDiagComponent
+    SupAddServiceDiagComponent,
+    JobRequestComponent,
+    JobCompletedComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +58,9 @@ import { SupAddServiceDiagComponent } from './Supplier/sup-add-service-diag/sup-
     MatBadgeModule,
     MatStepperModule,
     MatDividerModule,
-    MatChipsModule
+    MatChipsModule,
+    MatSortModule,
+    MatTableModule
   ],
   providers: [SupinsertService,MatSnackBar,MatDialog,SuploginService],
   bootstrap: [AppComponent],

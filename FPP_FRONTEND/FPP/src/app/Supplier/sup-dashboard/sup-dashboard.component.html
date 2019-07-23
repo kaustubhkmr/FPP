@@ -178,13 +178,12 @@
 
 </div>
 <div *ngIf="showView == 1">
-  jobs view works
+  <app-job-request></app-job-request>
 </div>
 <div *ngIf="showView == 2">
-  jobs active works
 </div>
 <div *ngIf="showView == 3">
-  jobs completed works
+  <app-job-completed></app-job-completed>
 </div>
 <div *ngIf="showView == 4" class="" style="padding-bottom: 200px;  ">
   <mat-card class="mat-elevation-z5" style="width:100%; top: 10%; bottom: 0 ;position: absolute; ">

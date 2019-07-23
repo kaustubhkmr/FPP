@@ -1,0 +1,81 @@
+<mat-card class="mat-elevation-z5 cardColorStyle">
+    <div mat-card-title>Job Request</div>
+    <div style="width: 100%">
+        <mat-form-field>
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        </mat-form-field>
+
+        <div class="mat-elevation-z8">
+
+            <table mat-table [dataSource]="dataSource" matSort>
+
+                <!-- ID Column -->
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                    <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+                </ng-container>
+
+                <!-- Progress Column -->
+                <ng-container matColumnDef="b_address">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Progress </th>
+                    <td mat-cell *matCellDef="let row"> {{row.b_address}}% </td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="b_city">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> City </th>
+                    <td mat-cell *matCellDef="let row"> {{row.b_city}} </td>
+                </ng-container>
+
+                <!-- Color Column -->
+                <ng-container matColumnDef="b_state">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> State </th>
+                    <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.b_state}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="payment_status">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Payment Status </th>
+                    <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.payment_status}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="completion_status">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Completion Status </th>
+                    <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.completion_status}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="req_time">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Request Time </th>
+                    <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.req_time}} </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="req_date">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Request Date </th>
+                    <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.req_date}} </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="s_type">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Service Type </th>
+                    <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.s_type}} </td>
+                </ng-container>
+
+
+
+                <ng-container matColumnDef="completion_time">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Completion Time </th>
+                    <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.completion_time}} </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="b_price">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Price </th>
+                    <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.b_price}} </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+                </tr>
+            </table>
+        </div>
+    </div>
+</mat-card>
