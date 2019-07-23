@@ -16,17 +16,12 @@ namespace HouseHelp.Controllers
     {
         FPPEntities fpp = new FPPEntities();
 
-        public HttpResponseMessage Post([FromBody] JObject log)
+        public sup_login_Result Post([FromBody] JObject log)
         {
-            var email = log["log_email"].ToString()
-                ;
+            var email = log["log_email"].ToString();
             var pwd = log["log_password"].ToString();
 
-            var res = fpp.suppliers.Where(p => p.sup_email == email ).Where(p => p.sup_password == pwd).FirstOrDefault();
-            return Request.CreateResponse(HttpStatusCode.OK, res);
-           
-
-            
+            return fpp.sup_login(email,pwd).FirstOrDefault();
         }
 
 

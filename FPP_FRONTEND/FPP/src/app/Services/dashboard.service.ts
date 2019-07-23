@@ -19,4 +19,17 @@ export class DashboardService {
   getServiceData(id){
     return this.http.get("http://localhost/HouseHelp/api/AddService/"+id);
   }
+
+  getBookingData(id){
+    return this.http.get("http://localhost/HouseHelp/api/GetSupplierBooking/"+id);
+  }
+
+  updateBookingConfirmation(id,data){
+    return this.http.put("http://localhost/HouseHelp/api/AcceptBooking/"+id,data);
+  }
+
+  updateBookingCompletion(id,data){
+    return this.http.put("http://localhost/HouseHelp/api/CompleteBooking/"+id,data);
+  }
+
 }

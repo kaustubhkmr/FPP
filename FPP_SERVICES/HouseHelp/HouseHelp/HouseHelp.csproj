@@ -175,9 +175,12 @@
     <Compile Include="Controllers\Customer\GetBookingSuppliersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SupLoginController.cs" />
+    <Compile Include="Controllers\Supplier\AcceptBookingController.cs" />
     <Compile Include="Controllers\Supplier\AddServiceController.cs" />
+    <Compile Include="Controllers\Supplier\CompleteBookingController.cs" />
     <Compile Include="Controllers\Supplier\DashboardController.cs" />
     <Compile Include="Controllers\Supplier\EditSupController.cs" />
+    <Compile Include="Controllers\Supplier\GetSupplierBookingController.cs" />
     <Compile Include="Controllers\Supplier\SupplierRegisterController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -187,6 +190,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\customer.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\cust_login_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\get_booking1_Result.cs">
@@ -208,6 +214,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\get_supplierd_services_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\get_supplier_bookings_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\get_sup_Result.cs">
@@ -232,6 +241,9 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\supplier.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sup_login_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sup_services.cs">

@@ -81,7 +81,6 @@ export class SupDashboardComponent implements OnInit, OnChanges{
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       this.getDataSup()
     });
 
@@ -92,7 +91,6 @@ export class SupDashboardComponent implements OnInit, OnChanges{
       data:{'supData':this.supplierObj}
   });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       this.getProfileData();
     })
   }

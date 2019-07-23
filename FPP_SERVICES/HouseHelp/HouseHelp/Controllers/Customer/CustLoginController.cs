@@ -15,16 +15,13 @@ namespace HouseHelp.Controllers.Customer
     public class CustLoginController : ApiController
     {
         FPPEntities fpp = new FPPEntities();
-        public HttpResponseMessage Post([FromBody] JObject log)
+        public cust_login_Result Post([FromBody] JObject log)
         {
             var email = log["log_email"].ToString()
                 ;
             var pwd = log["log_password"].ToString();
 
-            var res = fpp.customers.Where(p => p.cust_email == email).Where(p => p.cust_password == pwd).FirstOrDefault();
-            return Request.CreateResponse(HttpStatusCode.OK, res);
-
-
+            return fpp.cust_login(email, pwd).FirstOrDefault();
 
         }
 

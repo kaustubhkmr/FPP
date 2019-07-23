@@ -264,17 +264,13 @@ namespace HouseHelp.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("give_rating", sup_idParameter, ratingParameter);
         }
     
-        public virtual int make_payment(Nullable<long> bid, Nullable<decimal> money)
+        public virtual int make_payment(Nullable<long> bid)
         {
             var bidParameter = bid.HasValue ?
                 new ObjectParameter("bid", bid) :
                 new ObjectParameter("bid", typeof(long));
     
-            var moneyParameter = money.HasValue ?
-                new ObjectParameter("money", money) :
-                new ObjectParameter("money", typeof(decimal));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("make_payment", bidParameter, moneyParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("make_payment", bidParameter);
         }
     
         public virtual int upd_cust(Nullable<long> cust_id, string cust_name, string cust_phone, string cust_email, string cust_address, string cust_city, string cust_state)
@@ -423,6 +419,54 @@ namespace HouseHelp.Models
                 new ObjectParameter("bid", typeof(long));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_booking1_Result>("get_booking1", bidParameter);
+        }
+    
+        public virtual ObjectResult<get_supplier_bookings_Result> get_supplier_bookings(Nullable<long> sup_id)
+        {
+            var sup_idParameter = sup_id.HasValue ?
+                new ObjectParameter("sup_id", sup_id) :
+                new ObjectParameter("sup_id", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_supplier_bookings_Result>("get_supplier_bookings", sup_idParameter);
+        }
+    
+        public virtual ObjectResult<cust_login_Result> cust_login(string email, string pwd)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            var pwdParameter = pwd != null ?
+                new ObjectParameter("pwd", pwd) :
+                new ObjectParameter("pwd", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<cust_login_Result>("cust_login", emailParameter, pwdParameter);
+        }
+    
+        public virtual ObjectResult<sup_login_Result> sup_login(string email, string pwd)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            var pwdParameter = pwd != null ?
+                new ObjectParameter("pwd", pwd) :
+                new ObjectParameter("pwd", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sup_login_Result>("sup_login", emailParameter, pwdParameter);
+        }
+    
+        public virtual int upd_booking_status(Nullable<long> b_id, string b_status)
+        {
+            var b_idParameter = b_id.HasValue ?
+                new ObjectParameter("b_id", b_id) :
+                new ObjectParameter("b_id", typeof(long));
+    
+            var b_statusParameter = b_status != null ?
+                new ObjectParameter("b_status", b_status) :
+                new ObjectParameter("b_status", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("upd_booking_status", b_idParameter, b_statusParameter);
         }
     }
 }

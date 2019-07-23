@@ -1,0 +1,16 @@
+<form class="example-form" #enterBidForm="ngForm" (ngSubmit)="onSubmit(enterBidForm.value)">
+    <div mat-card-title> Enter Booking Id To Complete </div>
+    <br />
+    <mat-form-field class="example-full-width">
+        <input type="number" matInput name="b_id" placeholder="Booking Id" required ngModel #bid="ngModel">
+    </mat-form-field>
+
+    <div *ngIf="bid.invalid && (bid.dirty || bid.touched)" class="alert alert-danger">
+
+        <div *ngIf="bid.errors.required">
+            Booking Id is required to complete.
+        </div>
+    </div>
+</form>
+<button mat-raised-button color="warn" type="submit" matInput [disabled]="enterBidForm.invalid"
+    (click)="onSubmit(enterBidForm.value,enterBidForm)">Submit</button>

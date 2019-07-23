@@ -210,5 +210,60 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="get_supplier_bookings" FunctionName="FPPModel.Store.get_supplier_bookings">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FPPModel.get_supplier_bookings_Result">
+          <ScalarProperty Name="b_id" ColumnName="b_id" />
+          <ScalarProperty Name="cust_id" ColumnName="cust_id" />
+          <ScalarProperty Name="sup_id" ColumnName="sup_id" />
+          <ScalarProperty Name="b_address" ColumnName="b_address" />
+          <ScalarProperty Name="b_city" ColumnName="b_city" />
+          <ScalarProperty Name="b_state" ColumnName="b_state" />
+          <ScalarProperty Name="b_time" ColumnName="b_time" />
+          <ScalarProperty Name="b_date" ColumnName="b_date" />
+          <ScalarProperty Name="b_price" ColumnName="b_price" />
+          <ScalarProperty Name="payment_status" ColumnName="payment_status" />
+          <ScalarProperty Name="completion_status" ColumnName="completion_status" />
+          <ScalarProperty Name="req_time" ColumnName="req_time" />
+          <ScalarProperty Name="req_date" ColumnName="req_date" />
+          <ScalarProperty Name="b_review" ColumnName="b_review" />
+          <ScalarProperty Name="s_type" ColumnName="s_type" />
+          <ScalarProperty Name="completion_time" ColumnName="completion_time" />
+          <ScalarProperty Name="comments" ColumnName="comments" />
+          <ScalarProperty Name="b_accepted" ColumnName="b_accepted" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="cust_login" FunctionName="FPPModel.Store.cust_login">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FPPModel.cust_login_Result">
+          <ScalarProperty Name="cust_id" ColumnName="cust_id" />
+          <ScalarProperty Name="cust_name" ColumnName="cust_name" />
+          <ScalarProperty Name="cust_phone" ColumnName="cust_phone" />
+          <ScalarProperty Name="cust_email" ColumnName="cust_email" />
+          <ScalarProperty Name="cust_address" ColumnName="cust_address" />
+          <ScalarProperty Name="cust_city" ColumnName="cust_city" />
+          <ScalarProperty Name="cust_state" ColumnName="cust_state" />
+          <ScalarProperty Name="cust_password" ColumnName="cust_password" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sup_login" FunctionName="FPPModel.Store.sup_login">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FPPModel.sup_login_Result">
+          <ScalarProperty Name="sup_id" ColumnName="sup_id" />
+          <ScalarProperty Name="sup_name" ColumnName="sup_name" />
+          <ScalarProperty Name="sup_email" ColumnName="sup_email" />
+          <ScalarProperty Name="sup_phone" ColumnName="sup_phone" />
+          <ScalarProperty Name="sup_city" ColumnName="sup_city" />
+          <ScalarProperty Name="sup_state" ColumnName="sup_state" />
+          <ScalarProperty Name="sup_password" ColumnName="sup_password" />
+          <ScalarProperty Name="sup_rating" ColumnName="sup_rating" />
+          <ScalarProperty Name="rating_count" ColumnName="rating_count" />
+          <ScalarProperty Name="sup_address" ColumnName="sup_address" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="upd_booking_status" FunctionName="FPPModel.Store.upd_booking_status" />
   </EntityContainerMapping>
 </Mapping>

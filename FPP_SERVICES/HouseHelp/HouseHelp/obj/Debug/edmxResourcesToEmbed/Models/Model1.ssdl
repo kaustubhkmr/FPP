@@ -71,7 +71,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__sup_servi__sup_i__6383C8BA">
+  <Association Name="FK__sup_servi__sup_i__4CA06362">
     <End Role="suppliers" Type="Self.suppliers" Multiplicity="0..1">
       <OnDelete Action="Cascade" />
     </End>
@@ -149,6 +149,10 @@
   <Function Name="complete_booking" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="bid" Type="bigint" Mode="In" />
   </Function>
+  <Function Name="cust_login" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="email" Type="varchar" Mode="In" />
+    <Parameter Name="pwd" Type="varchar" Mode="In" />
+  </Function>
   <Function Name="get_booking" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="bid" Type="bigint" Mode="In" />
   </Function>
@@ -167,6 +171,9 @@
   <Function Name="get_sup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="sup_id" Type="bigint" Mode="In" />
   </Function>
+  <Function Name="get_supplier_bookings" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="sup_id" Type="bigint" Mode="In" />
+  </Function>
   <Function Name="get_supplier1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="sup_id" Type="bigint" Mode="In" />
   </Function>
@@ -182,7 +189,14 @@
   </Function>
   <Function Name="make_payment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="bid" Type="bigint" Mode="In" />
-    <Parameter Name="money" Type="money" Mode="In" />
+  </Function>
+  <Function Name="sup_login" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="email" Type="varchar" Mode="In" />
+    <Parameter Name="pwd" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="upd_booking_status" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="b_id" Type="bigint" Mode="In" />
+    <Parameter Name="b_status" Type="varchar" Mode="In" />
   </Function>
   <Function Name="upd_cust" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="cust_id" Type="bigint" Mode="In" />
@@ -211,7 +225,7 @@
       <End Role="customers" EntitySet="customers" />
       <End Role="bookings" EntitySet="bookings" />
     </AssociationSet>
-    <AssociationSet Name="FK__sup_servi__sup_i__6383C8BA" Association="Self.FK__sup_servi__sup_i__6383C8BA">
+    <AssociationSet Name="FK__sup_servi__sup_i__4CA06362" Association="Self.FK__sup_servi__sup_i__4CA06362">
       <End Role="suppliers" EntitySet="suppliers" />
       <End Role="sup_services" EntitySet="sup_services" />
     </AssociationSet>
