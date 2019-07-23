@@ -21,6 +21,7 @@
     <Property Name="s_type" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="completion_time" Type="datetime2" Precision="7" />
     <Property Name="comments" Type="varchar" MaxLength="200" />
+    <Property Name="b_accepted" Type="varchar" MaxLength="5" />
   </EntityType>
   <EntityType Name="customers">
     <Key>
@@ -156,6 +157,9 @@
   </Function>
   <Function Name="get_booking_suppliers1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="service_name" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="get_booking1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="bid" Type="bigint" Mode="In" />
   </Function>
   <Function Name="get_my_services" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="sup_id" Type="bigint" Mode="In" />

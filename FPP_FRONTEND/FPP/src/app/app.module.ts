@@ -19,6 +19,7 @@ import { CpwdcheckDirective } from './client/login/cpwdcheck.directive';
 import { ClientDashboardComponent } from './client/client-dashboard/client-dashboard.component';
 import { ClientEditComponent } from './Supplier/client-edit/client-edit.component';
 import { SupAddServiceDiagComponent } from './Supplier/sup-add-service-diag/sup-add-service-diag.component';
+import { EditClientComponent } from './client/edit-client/edit-client.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { SupAddServiceDiagComponent } from './Supplier/sup-add-service-diag/sup-
     CpwdcheckDirective,
     ClientDashboardComponent,
     ClientEditComponent,
-    SupAddServiceDiagComponent
+    SupAddServiceDiagComponent,
+    EditClientComponent
   ],
   imports: [
     BrowserModule,
@@ -58,6 +60,6 @@ import { SupAddServiceDiagComponent } from './Supplier/sup-add-service-diag/sup-
   ],
   providers: [SupinsertService,MatSnackBar,MatDialog,SuploginService],
   bootstrap: [AppComponent],
-  entryComponents: [LoginComponent,SupLoginComponent,ClientEditComponent,SupAddServiceDiagComponent]
+  entryComponents: [LoginComponent,SupLoginComponent,ClientEditComponent,SupAddServiceDiagComponent,EditClientComponent]
 })
 export class AppModule { }

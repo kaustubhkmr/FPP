@@ -23,6 +23,7 @@
     <Property Name="comments" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="customer" Relationship="Self.c_fk" FromRole="bookings" ToRole="customers" />
     <NavigationProperty Name="supplier" Relationship="Self.s_fk" FromRole="bookings" ToRole="suppliers" />
+    <Property Name="b_accepted" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="customer">
     <Key>
@@ -230,6 +231,9 @@
       <Parameter Name="b_date" Mode="In" Type="DateTime" />
       <Parameter Name="s_type" Mode="In" Type="String" />
     </FunctionImport>
+    <FunctionImport Name="get_booking1" ReturnType="Collection(FPPModel.get_booking1_Result)">
+      <Parameter Name="bid" Mode="In" Type="Int64" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="get_booking_Result">
     <Property Type="Int64" Name="b_id" Nullable="false" />
@@ -309,5 +313,25 @@
     <Property Type="Single" Name="sup_rating" Nullable="true" />
     <Property Type="Int64" Name="rating_count" Nullable="true" />
     <Property Type="String" Name="sup_address" Nullable="true" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="get_booking1_Result">
+    <Property Type="Int64" Name="b_id" Nullable="false" />
+    <Property Type="Int64" Name="cust_id" Nullable="true" />
+    <Property Type="Int64" Name="sup_id" Nullable="true" />
+    <Property Type="String" Name="b_address" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="b_city" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="b_state" Nullable="false" MaxLength="100" />
+    <Property Type="Time" Name="b_time" Nullable="false" />
+    <Property Type="DateTime" Name="b_date" Nullable="false" />
+    <Property Type="Decimal" Name="b_price" Nullable="false" Precision="19" />
+    <Property Type="String" Name="payment_status" Nullable="false" MaxLength="1" />
+    <Property Type="String" Name="completion_status" Nullable="false" MaxLength="1" />
+    <Property Type="Time" Name="req_time" Nullable="false" />
+    <Property Type="DateTime" Name="req_date" Nullable="false" Precision="23" />
+    <Property Type="String" Name="b_review" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="s_type" Nullable="false" MaxLength="50" />
+    <Property Type="DateTime" Name="completion_time" Nullable="true" />
+    <Property Type="String" Name="comments" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="b_accepted" Nullable="true" MaxLength="5" />
   </ComplexType>
 </Schema>
