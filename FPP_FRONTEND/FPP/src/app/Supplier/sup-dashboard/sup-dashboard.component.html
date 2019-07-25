@@ -1,11 +1,11 @@
 <mat-toolbar class="mat-elevation-z5 " color="" style="background: azure;">
 
-  <div class="container-fluid">
+  <div *ngIf="supplierObj" class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="#">
         <img alt="" src="https://images-na.ssl-images-amazon.com/images/I/51UxJNUFa4L.png" height="30" width=30>
       </a>
-      <span style="text-align:start">Welcome Supplier</span>
+      <span style="text-align:start">Welcome {{supplierObj.sup_name}}</span>
 
     </div>
   </div>
@@ -15,7 +15,7 @@
 
   <!--add some links on these spans-->
   <a *ngIf="showCompleteProfile" style="text-decoration: none;cursor: pointer"><span class="example-spacer"
-      style="padding-right: 30px;color: red" (click)="clickDashBoard()">Please complete your profile</span></a>
+      style="padding-right: 30px;color: red" (click)="clickJobMyProfile()">Please complete your profile</span></a>
   <a *ngIf="showView != 0" style="text-decoration: none;cursor: pointer;"><span class="example-spacer"
       style="padding-right: 30px" (click)="clickDashBoard()">My Dashboard</span></a>
   <a style="text-decoration: none;cursor: pointer;"><span class="example-space" style="padding-right: 30px"
@@ -23,14 +23,14 @@
 
 </mat-toolbar>
 
-<div *ngIf="showView == 0">
+<div *ngIf="showView == 0 && supplierObj">
   <mat-card class="mat-elevation-z5" style="background-color: rgb(255, 120, 120);height: 100%;margin-top: 10px;">
     <mat-grid-list cols="5" rowHeight="5:5" [gutterSize]="'20px'">
       <mat-grid-tile>
         <mat-card class="cardColorStyle mat-elevation-z5 cardServiceDrop" style="background: 'assets/'">
           <h3 height=70% style="color: rgb(0, 0, 0);font-weight: 600">
             Services Offered By<br />
-            Name Of the sevice providers
+            {{supplierObj.sup_name}}
           </h3>
           <mat-card-actions style="margin-left: 80px;margin-top: 20px">
             <img height=100px width=100px src="assets/bouncing-arrow.gif">
@@ -40,7 +40,7 @@
       <mat-grid-tile>
         <mat-card class="cardColorStyle mat-elevation-z5">
           <img height=70% width=100% src="assets/question.png">
-          <button matBadge="15" matBadgeColor="warn" mat-raised-button style="width: 100%;margin-top:12px; "
+          <button mat-raised-button style="width: 100%;margin-top:12px; "
             (click)="clickJob()">
             <h2>
               Job Request
@@ -51,7 +51,7 @@
       <mat-grid-tile>
         <mat-card class="cardColorStyle mat-elevation-z5">
           <img height=70% width=100% src="assets/customer-service.png">
-          <button matBadge="15" matBadgeColor="warn" mat-raised-button style="width: 100%;margin-top:12px; "
+          <button mat-raised-button style="width: 100%;margin-top:12px; "
             (click)="clickJobActive()">
             <h2>
               Job Active
@@ -62,7 +62,7 @@
       <mat-grid-tile>
         <mat-card class="cardColorStyle mat-elevation-z5">
           <img height=70% width=100% src="assets/contact.png">
-          <button matBadge="15" matBadgeColor="warn" mat-raised-button style="width: 100%;margin-top:12px; "
+          <button  mat-raised-button style="width: 100%;margin-top:12px; "
             (click)="clickJobCompleted()">
             <h2>
               Job Completed
@@ -73,7 +73,7 @@
       <mat-grid-tile>
         <mat-card class="cardColorStyle mat-elevation-z5">
           <img height=70% width=100% src="assets/boy.png">
-          <button matBadge="1" matBadgeColor="warn" mat-raised-button style="width: 100%;margin-top:12px; "
+          <button  mat-raised-button style="width: 100%;margin-top:12px; "
             (click)="clickJobMyProfile()">
             <h2>
               My Profile
@@ -87,92 +87,15 @@
 
 
 
-  <mat-card class="mat-elevation-z5" style="background-color: rgb(156, 156, 156);height: 100%;margin-top: 10px;">
+  <mat-card class="mat-elevation-z5" style="background-color: #9c9c9c;height: 100%;margin-top: 10px;">
     <mat-grid-list cols="5" rowHeight="1:1" [gutterSize]="'20px'">
-      <mat-grid-tile>
-        <mat-card class="cardColorStyle mat-elevation-z5">
-          <h4>Driver</h4>
-          <img height=50% width=60% src="assets/taxi-driver.png">
-          <mat-card-content>Trained Drivers at an affordable pricing of
-            ₹99/Hr. At your doorstep in 30mins. 24/7 Services. Pre-Screened Drivers.
-            Pay For What You Use.</mat-card-content>
-        </mat-card>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <mat-card class="cardColorStyle mat-elevation-z5">
-          <h4>Mechanic</h4>
-          <img height=50% width=60% src="assets/mechanic.png">
-          <mat-card-content>Get Roadside Assistance & other Garage
-            Service at ZERO Subscription All Vehicles. Available 24X7.
-            Get Mechanic is 20 Mins. Best Roadside Assistance.</mat-card-content>
-        </mat-card>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <mat-card class="cardColorStyle mat-elevation-z5">
-          <h4>Hair Dresser</h4>
-          <img height=50% width=60% src="assets/hairdresser.png">
-          <mat-card-content>Our essensuals hairdressers benefit from the internationally
-            recognised TONI&GUY and are trained in both cut and colour.
-            We offer a wide range of cutting and colouring techniques</mat-card-content>
-        </mat-card>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <mat-card class="cardColorStyle mat-elevation-z5">
-          <h4>Gardener</h4>
-          <img height=50% width=60% src="assets/gardener.png">
-          <mat-card-content>Our gardening services include the following features:
-            Pruning of shrubs, bushes and trees.Maintenance of lawns, flowerbeds,
-            shrubbery, trees and greenery. </mat-card-content>
-        </mat-card>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <mat-card class="cardColorStyle mat-elevation-z5">
-          <h4>Electrician</h4>
-          <img height=50% width=60% src="assets/electrician.png">
-          <mat-card-content>Get Star-Rated Electricians Near You
-            within 2 hours for services at best prices.</mat-card-content>
-        </mat-card>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <mat-card class="cardColorStyle mat-elevation-z5">
-          <h4>Doctor</h4>
-          <img height=50% width=60% src="assets/doctor.png">
-          <mat-card-content>All our doctors are highly professional with years
-            medical experience. We aim to provide you an easy and hassle-free
-            consultation at home at your doorstep.</mat-card-content>
-        </mat-card>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <mat-card class="cardColorStyle mat-elevation-z5">
-          <h4>Chemist</h4>
-          <img height=50% width=60% src="assets/chemist.png">
-          <mat-card-content>Pharmaceutical Ordering and Support for
-            Pharmacies and Health Systems.</mat-card-content>
-        </mat-card>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <mat-card class="cardColorStyle mat-elevation-z5">
-          <h4>Carpenter</h4>
-          <img height=50% width=60% src="assets/carpenter.png">
-          <mat-card-content>Get Star-Rated Carpenters Near You within 2
-            hours for services at best prices..</mat-card-content>
-        </mat-card>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <mat-card class="cardColorStyle mat-elevation-z5">
-          <h4>Builder</h4>
-          <img height=50% width=60% src="assets/builder.png">
-          <mat-card-content>You will find many links to help you with your construction/remodeling projects.
-          </mat-card-content>
-        </mat-card>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <mat-card class="cardColorStyle mat-elevation-z5">
-          <h4>Gym</h4>
-          <img height=50% width=60% src="assets/athlete.png">
-          <mat-card-content>Successfully delivered a complete fitness lifestyle to our members. </mat-card-content>
-        </mat-card>
-      </mat-grid-tile>
+        <mat-grid-tile *ngFor="let service of serviceData">
+            <mat-card class="cardColorStyle mat-elevation-z5">
+              <h4>{{service.name}}</h4>
+              <img height=50% width=60% src="assets/{{service.icon}}">
+              <mat-card-content>{{service.message}}</mat-card-content>
+            </mat-card>
+          </mat-grid-tile>
     </mat-grid-list>
   </mat-card>
 

@@ -21,7 +21,9 @@ export class EnterBookingIdComponent implements OnInit {
       localStorage.setItem("comp_status","T");
       this.dialogRef.close();
     }
-    else
+    else{
+      localStorage.setItem("comp_status","F");
       this.dialogRef.close();
+    }
   }
 }

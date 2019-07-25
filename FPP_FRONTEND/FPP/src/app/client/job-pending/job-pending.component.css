@@ -1,0 +1,32 @@
+
+table {
+    width: 100%;
+  }
+  
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  
+
+  .cardColorStyle{
+    background-color: azure;
+    height: 100%;
+    margin: 10px;
+    margin-right: 10px;
+}
+
+td.mat-cell:last-of-type, td.mat-footer-cell:last-of-type, th.mat-header-cell:last-of-type {
+  padding-right: 0px;
+  width: 11%;
+}
+
+.blinkingRed{
+  animation:blinkingTextRed 2s infinite;
+}
+@keyframes blinkingTextRed{
+  0%{     color: rgb(255, 0, 0);    }
+  49%{    color: transparent; }
+  50%{    color: rgb(255, 0, 0); }
+  100%{   color: rgb(255, 0, 0);    }
+}

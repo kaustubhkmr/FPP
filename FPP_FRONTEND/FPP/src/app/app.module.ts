@@ -24,6 +24,9 @@ import { JobCompletedComponent } from './Supplier/job-completed/job-completed.co
 import { EditClientComponent } from './client/edit-client/edit-client.component';
 import { JobActiveComponent } from './Supplier/job-active/job-active.component';
 import { EnterBookingIdComponent } from './Supplier/enter-booking-id/enter-booking-id.component';
+import { JobPendingComponent } from './client/job-pending/job-pending.component';
+import { JobOngoingComponent } from './client/job-ongoing/job-ongoing.component';
+import { JobDoneComponent } from './client/job-done/job-done.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +45,10 @@ import { EnterBookingIdComponent } from './Supplier/enter-booking-id/enter-booki
     JobCompletedComponent,
     EditClientComponent,
     JobActiveComponent,
-    EnterBookingIdComponent
+    EnterBookingIdComponent,
+    JobPendingComponent,
+    JobOngoingComponent,
+    JobDoneComponent
   ],
   imports: [
     BrowserModule,

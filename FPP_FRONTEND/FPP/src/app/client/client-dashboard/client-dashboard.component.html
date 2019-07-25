@@ -1,11 +1,11 @@
 <mat-toolbar class="mat-elevation-z5" color="" style="background: azure; position:sticky;">
 
-    <div class="container-fluid">
+    <div *ngIf="clientObj" class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" href="#">
                 <img alt="" src="https://images-na.ssl-images-amazon.com/images/I/51UxJNUFa4L.png" height="30" width=30>
             </a>
-            <span style="text-align:start">Welcome Client</span>
+            <span style="text-align:start">Welcome {{clientObj.cust_name}}</span>
 
         </div>
 
@@ -15,8 +15,6 @@
     <span class="example-fill-remaining-space" style="flex: 1 1 auto"></span>
 
     <!--add some links on these spans-->
-    <a *ngIf="showCompleteProfile" style="text-decoration: none;cursor: pointer"><span class="example-spacer"
-            style="padding-right: 30px;color: red" (click)="clickDashBoard()">Please complete your profile</span></a>
     <a *ngIf="showView != 0" style="text-decoration: none;cursor: pointer;"><span class="example-spacer"
             style="padding-right: 30px" (click)="clickDashBoard()">Dashboard</span></a>
     <a style="text-decoration: none;cursor: pointer;"><span class="example-space" style="padding-right: 30px"
@@ -26,8 +24,8 @@
 
 
 
-<div *ngIf="showView==0">
-    <mat-card class="mat-elevation-z5" style="background-color: rgb(255, 80, 80);height: 100%;margin-top: 10px;">
+<div *ngIf="showView==0" >
+    <mat-card class="mat-elevation-z5" style="background-color:rgb(255, 120, 120);height: 100%;margin-top: 10px;">
         <mat-grid-list cols="5" rowHeight="5:5" [gutterSize]="'20px'">
             <mat-grid-tile>
                 <mat-card class="cardColorStyle mat-elevation-z5">
@@ -43,7 +41,7 @@
             <mat-grid-tile>
                 <mat-card class="cardColorStyle mat-elevation-z5">
                     <img height=70% width=100% src="assets/question.png">
-                    <button matBadge="15" matBadgeColor="warn" mat-raised-button
+                    <button mat-raised-button
                         style="height:50px;width: 100%;margin-top:15px; " (click)="clickJob()">
                         <h4>
                             Pending Booking
@@ -54,7 +52,7 @@
             <mat-grid-tile>
                 <mat-card class="cardColorStyle mat-elevation-z5">
                     <img height=70% width=100% src="assets/customer-service.png">
-                    <button matBadge="15" matBadgeColor="warn" mat-raised-button
+                    <button mat-raised-button
                         style="height:50px;width: 100%;margin-top:15px; " (click)="clickJobActive()">
                         <h4>
                             Active Booking
@@ -65,7 +63,7 @@
             <mat-grid-tile>
                 <mat-card class="cardColorStyle mat-elevation-z5">
                     <img height=70% width=100% src="assets/contact.png">
-                    <button matBadge="15" matBadgeColor="warn" mat-raised-button
+                    <button mat-raised-button
                         style="height:50px;width:100%;margin-top:15px; " (click)="clickJobCompleted()">
                         <h4>
                             Completed Booking
@@ -76,7 +74,7 @@
             <mat-grid-tile>
                 <mat-card class="cardColorStyle mat-elevation-z5">
                     <img height=70% width=100% src="assets/boy.png">
-                    <button matBadge="1" matBadgeColor="warn" mat-raised-button
+                    <button mat-raised-button
                         style="height:50px;width: 100%;margin-top:15px; " (click)="clickJobMyProfile()">
                         <h4>
                             My Profile
@@ -256,7 +254,17 @@
     </mat-card>
 </div>
 
-<div *ngIf="showView == 4" style="padding-bottom: 200px; ">
+<div *ngIf="showView == 2">
+    <app-job-pending></app-job-pending>
+</div>
+<div *ngIf="showView == 3">
+    <app-job-ongoing></app-job-ongoing>
+</div>
+<div *ngIf="showView == 4">
+    <app-job-done></app-job-done>
+</div>
+
+<div *ngIf="showView == 5" style="padding-bottom: 200px; ">
     <mat-card class="mat-elevation-z5" style="width:100%; top: 10%; bottom: 0 ;position: absolute; ">
         <mat-grid-list cols="3" rowHeight="fit" [gutterSize]="'20px'" style="height: 100%;">
     

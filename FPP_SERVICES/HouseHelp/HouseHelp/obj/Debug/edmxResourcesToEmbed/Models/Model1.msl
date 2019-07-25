@@ -265,5 +265,29 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="upd_booking_status" FunctionName="FPPModel.Store.upd_booking_status" />
+    <FunctionImportMapping FunctionImportName="get_client_bookings" FunctionName="FPPModel.Store.get_client_bookings">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FPPModel.get_client_bookings_Result">
+          <ScalarProperty Name="b_id" ColumnName="b_id" />
+          <ScalarProperty Name="cust_id" ColumnName="cust_id" />
+          <ScalarProperty Name="sup_id" ColumnName="sup_id" />
+          <ScalarProperty Name="b_address" ColumnName="b_address" />
+          <ScalarProperty Name="b_city" ColumnName="b_city" />
+          <ScalarProperty Name="b_state" ColumnName="b_state" />
+          <ScalarProperty Name="b_time" ColumnName="b_time" />
+          <ScalarProperty Name="b_date" ColumnName="b_date" />
+          <ScalarProperty Name="b_price" ColumnName="b_price" />
+          <ScalarProperty Name="payment_status" ColumnName="payment_status" />
+          <ScalarProperty Name="completion_status" ColumnName="completion_status" />
+          <ScalarProperty Name="req_time" ColumnName="req_time" />
+          <ScalarProperty Name="req_date" ColumnName="req_date" />
+          <ScalarProperty Name="b_review" ColumnName="b_review" />
+          <ScalarProperty Name="s_type" ColumnName="s_type" />
+          <ScalarProperty Name="completion_time" ColumnName="completion_time" />
+          <ScalarProperty Name="comments" ColumnName="comments" />
+          <ScalarProperty Name="b_accepted" ColumnName="b_accepted" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

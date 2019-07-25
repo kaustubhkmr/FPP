@@ -54,6 +54,7 @@ export class JobActiveComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if(localStorage.getItem("comp_status")=="T"){
+        localStorage.setItem("comp_status","F");
         let obj ={
           "b_id":b_id,
           "completion_status":'T'

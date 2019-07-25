@@ -23,10 +23,18 @@ export class JobCompletedComponent implements OnInit {
   ngOnInit() {
     this.supId = localStorage.getItem("sup_id");
     this.serivedashBoard.getBookingData(this.supId).subscribe((bookingObj:object[])=>{
-      this.bookingData = bookingObj; 
-      this.bookingData.forEach((e)=>{
+      bookingObj.forEach((e)=>{
         e["b_time"] = e["b_time"].substring(0,5);
       })
+      bookingObj=bookingObj.filter((e)=>{
+        if(e['completion_status']=='T' && e['b_accepted']=='A' ){
+          return true;
+        }
+        else{
+          return false;
+        }
+      });
+      this.bookingData = bookingObj;
       this.dataSource = new MatTableDataSource(this.bookingData);
       this.dataSource.sort = this.sort;
     })

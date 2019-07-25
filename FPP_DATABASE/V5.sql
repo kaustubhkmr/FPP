@@ -20,7 +20,6 @@ alter PROC make_payment(@bid bigint)
 AS
 UPDATE dbo.bookings SET payment_status='T' WHERE b_id=@bid
 
-SELECT * FROM bookings;
 
 
 

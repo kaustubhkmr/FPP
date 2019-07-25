@@ -50,6 +50,9 @@ export class SupDashboardComponent implements OnInit, OnChanges{
         this.serviceDataTable.forEach((e)=>{
           this.serviceData.push(this.serviceModel.value[e['service_name']]);
         });
+        if( this.serviceData.length > 0){
+          this.showCompleteProfile = false;
+        }
     })
   }
 

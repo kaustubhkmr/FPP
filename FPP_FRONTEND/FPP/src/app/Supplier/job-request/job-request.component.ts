@@ -48,7 +48,6 @@ export class JobRequestComponent implements OnInit {
   }
 
   jobAccepted(b_id){
-    console.log(b_id);
     let obj = {
       'b_id': b_id,
       'b_accepted':'A'
@@ -59,7 +58,11 @@ export class JobRequestComponent implements OnInit {
   }
 
   jobDeclined(b_id){
-    this.serivedashBoard.updateBookingConfirmation(b_id,'D').subscribe((p)=>{
+    let obj = {
+      'b_id': b_id,
+      'b_accepted':'D'
+    }
+    this.serivedashBoard.updateBookingConfirmation(b_id,obj).subscribe((p)=>{
       this.getData();
     });
   }

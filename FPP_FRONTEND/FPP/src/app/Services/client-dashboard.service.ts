@@ -10,4 +10,13 @@ export class ClientDashboardService {
   getClientData(id){
     return this.http.get("http://localhost/HouseHelp/api/ClientDashboard/"+id);
   }
+
+  getBookingData(id){
+    return this.http.get("http://localhost/HouseHelp/api/GetClientBookings/"+id);
+  }
+
+  updateBookingConfirmation(id,data){
+    return this.http.put("http://localhost/HouseHelp/api/AcceptBooking/"+id,data);
+  }
+
 }

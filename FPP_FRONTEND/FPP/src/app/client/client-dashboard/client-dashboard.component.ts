@@ -23,7 +23,6 @@ export class ClientDashboardComponent implements OnInit {
   step2Editable:boolean=true;
  bookingSuppliers;
  clientObj:Object;
- showCompleteProfile=true;
  clientData:Object;
 
 
@@ -31,7 +30,6 @@ export class ClientDashboardComponent implements OnInit {
   constructor(private router:Router,public serviceModel:ServiceModelData,public getBookingSup:GetBookingSupplierService, public makeBooking:AddBookingService,private dialog:MatDialog,private service:ClientDashboardService) { }
 
   ngOnInit() {
-    console.log(this.isServiceSelected);
     this.getDataClient();
   }
 
@@ -59,8 +57,6 @@ export class ClientDashboardComponent implements OnInit {
     if(localStorage.getItem("cust_id") != null) {
       this.service.getClientData(localStorage.getItem("cust_id")).subscribe((clientData)=>{
         this.clientObj = clientData;
-        console.log(clientData)
-        console.log(this.clientObj)
       })   
     }
     else{
@@ -71,37 +67,40 @@ export class ClientDashboardComponent implements OnInit {
   clickNewBooking(){
     this.showView = 1;
     this.isServiceSelected=false;
-
-
   }
   clickDashBoard(){
     this.showView = 0;
     this.isServiceSelected=false;
   }
-  clickJobMyProfile(){
-    this.showView=4;
-    this.isServiceSelected=false;
+  clickJob(){
+    this.showView = 2;
+  }
 
+  clickJobActive(){
+    this.showView = 3;
+  }
+
+  clickJobCompleted(){
+    this.showView = 4;
+  }
+
+  clickJobMyProfile(){
+    this.showView=5;
+    this.isServiceSelected=false;
   }
   serviceSelected(id,bform:NgForm){
-    console.log(this.serviceModel.value[id])
     if(bform!=undefined)
     bform.reset();
     this.selectedService = this.serviceModel.value[id];
     this.getBookingSup.getBookingSupplier(id).subscribe(p=>{this.bookingSuppliers=p;
       this.isServiceSelected=true;
-      console.log(this.bookingSuppliers);
     }, e=>console.log(e));
 
   }
   nextStep(bookingData,supData,stepper:MatStepper){
-    
-    console.log(bookingData);
-    console.log(supData);
    bookingData["cust_id"]=localStorage.getItem("cust_id");
    bookingData["sup_id"]=supData["sup_id"];
    bookingData["s_type"]=this.selectedService.name;
-   console.log(bookingData);
    this.makeBooking.addBooking(bookingData).subscribe(p=>{
      if(p==1){
       this.isBookingFormFilled=true;
@@ -121,7 +120,6 @@ export class ClientDashboardComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       this.getDataClient()
     });
 

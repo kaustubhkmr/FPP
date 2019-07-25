@@ -69,16 +69,16 @@ export class ServiceModelData{
             'price':`99`,
             'pricetag':'Rs.99/hr'
         },
-        // {
-        //     'id':6,
-        //     'name':'Chemist',
-        //     'icon':'chemist.png',
-        //     'message':`Pharmaceutical Ordering and Support for
-        //     Pharmacies and Health Systems.`
-        //     ,
-        //     'price':`99`,
-        //     'pricetag':'Rs.99/hr'
-        // },
+        {
+            'id':6,
+            'name':'Chemist',
+            'icon':'chemist.png',
+            'message':`Pharmaceutical Ordering and Support for
+            Pharmacies and Health Systems.`
+            ,
+            'price':`99`,
+            'pricetag':'Rs.99/hr'
+        },
         {
             'id':7,
             'name':'Carpenter',
@@ -89,13 +89,13 @@ export class ServiceModelData{
             'price':`99`,
             'pricetag':'Rs.99/hr'
         },
-        // {
-        //     'id':8,
-        //     'name':'Builder',
-        //     'icon':'builder.png',
-        //     'message':`You will find many links to help you with your construction/remodeling
-        //     projects.`
-        // },
+        {
+            'id':8,
+            'name':'Builder',
+            'icon':'builder.png',
+            'message':`You will find many links to help you with your construction/remodeling
+            projects.`
+        },
         {
             'id':9,
             'name':'Gym',

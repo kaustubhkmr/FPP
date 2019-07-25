@@ -468,5 +468,14 @@ namespace HouseHelp.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("upd_booking_status", b_idParameter, b_statusParameter);
         }
+    
+        public virtual ObjectResult<get_client_bookings_Result> get_client_bookings(Nullable<long> cust_id)
+        {
+            var cust_idParameter = cust_id.HasValue ?
+                new ObjectParameter("cust_id", cust_id) :
+                new ObjectParameter("cust_id", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_client_bookings_Result>("get_client_bookings", cust_idParameter);
+        }
     }
 }
