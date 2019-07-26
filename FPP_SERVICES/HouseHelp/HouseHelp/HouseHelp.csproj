@@ -172,8 +172,10 @@
     <Compile Include="Controllers\Customer\ClientDashboardController.cs" />
     <Compile Include="Controllers\Customer\CustLoginController.cs" />
     <Compile Include="Controllers\Customer\CustRegisterController.cs" />
+    <Compile Include="Controllers\Customer\EditClientController.cs" />
     <Compile Include="Controllers\Customer\GetBookingSuppliersController.cs" />
     <Compile Include="Controllers\Customer\GetClientBookingsController.cs" />
+    <Compile Include="Controllers\Customer\GetSupplierNamesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SupLoginController.cs" />
     <Compile Include="Controllers\Supplier\AcceptBookingController.cs" />
@@ -181,6 +183,7 @@
     <Compile Include="Controllers\Supplier\CompleteBookingController.cs" />
     <Compile Include="Controllers\Supplier\DashboardController.cs" />
     <Compile Include="Controllers\Supplier\EditSupController.cs" />
+    <Compile Include="Controllers\Supplier\GetCustomerNamesController.cs" />
     <Compile Include="Controllers\Supplier\GetSupplierBookingController.cs" />
     <Compile Include="Controllers\Supplier\SupplierRegisterController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -199,6 +202,9 @@
     <Compile Include="Models\get_booking1_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\get_booking_cust_names1_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\get_booking_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -206,6 +212,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\get_booking_suppliers_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\get_booking_sup_names1_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\get_client_bookings_Result.cs">

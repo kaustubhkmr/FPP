@@ -71,7 +71,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__sup_servi__sup_i__4CA06362">
+  <Association Name="FK__sup_servi__sup_i__6383C8BA">
     <End Role="suppliers" Type="Self.suppliers" Multiplicity="0..1">
       <OnDelete Action="Cascade" />
     </End>
@@ -156,6 +156,12 @@
   <Function Name="get_booking" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="bid" Type="bigint" Mode="In" />
   </Function>
+  <Function Name="get_booking_cust_names1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="bid" Type="bigint" Mode="In" />
+  </Function>
+  <Function Name="get_booking_sup_names1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="bid" Type="bigint" Mode="In" />
+  </Function>
   <Function Name="get_booking_suppliers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="service_name" Type="varchar" Mode="In" />
   </Function>
@@ -228,7 +234,7 @@
       <End Role="customers" EntitySet="customers" />
       <End Role="bookings" EntitySet="bookings" />
     </AssociationSet>
-    <AssociationSet Name="FK__sup_servi__sup_i__4CA06362" Association="Self.FK__sup_servi__sup_i__4CA06362">
+    <AssociationSet Name="FK__sup_servi__sup_i__6383C8BA" Association="Self.FK__sup_servi__sup_i__6383C8BA">
       <End Role="suppliers" EntitySet="suppliers" />
       <End Role="sup_services" EntitySet="sup_services" />
     </AssociationSet>

@@ -21,6 +21,8 @@
     "@angular/platform-browser": "~8.1.0",
     "@angular/platform-browser-dynamic": "~8.1.0",
     "@angular/router": "~8.1.0",
+    "angularfire2": "^5.2.1",
+    "firebase": "^6.3.1",
     "password-hash": "^1.2.2",
     "rxjs": "~6.4.0",
     "ts-md5": "^1.2.4",

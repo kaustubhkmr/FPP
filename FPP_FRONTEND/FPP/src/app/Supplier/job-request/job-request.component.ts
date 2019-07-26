@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DashboardService } from 'src/app/Services/dashboard.service';
-import { MatSort, MatTableDataSource } from '@angular/material';
+import { MatSort, MatTableDataSource, MatDialog } from '@angular/material';
+import { SeeCustDetailsComponent } from '../see-cust-details/see-cust-details.component';
 
 @Component({
   selector: 'app-job-request',
@@ -8,7 +9,7 @@ import { MatSort, MatTableDataSource } from '@angular/material';
   styleUrls: ['./job-request.component.css']
 })
 export class JobRequestComponent implements OnInit {
-  displayedColumns: string[] = ['b_address', 'b_city', 'b_state', 'payment_status', 'b_date', 's_type', 'b_price','acceptBooking'];
+  displayedColumns: string[] = ['b_address', 'b_city', 'b_state', 'payment_status', 'b_date', 's_type', 'b_price','acceptBooking','customer_details'];
   dataSource: MatTableDataSource<any>;
   supId;
   bookingData: object[] = [];
@@ -16,7 +17,7 @@ export class JobRequestComponent implements OnInit {
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private serivedashBoard: DashboardService) {
+  constructor(private serivedashBoard: DashboardService,private dialog:MatDialog) {
   }
 
   ngOnInit() {
@@ -65,5 +66,26 @@ export class JobRequestComponent implements OnInit {
     this.serivedashBoard.updateBookingConfirmation(b_id,obj).subscribe((p)=>{
       this.getData();
     });
+  }
+
+  seeCustDetails(b_id){
+
+    const dialogRef = this.dialog.open(SeeCustDetailsComponent, {
+      width: '400px',
+      data: {"b_id": b_id}
+    });
+
+    // dialogRef.afterClosed().subscribe(result => {
+    //   if(localStorage.getItem("comp_status")=="T"){
+    //     let obj ={
+    //       "b_id":b_id,
+    //       "completion_status":'T'
+    //     }
+    //     this.serivedashBoard.updateBookingCompletion(b_id,obj).subscribe((p)=>{
+    //       this.getData();
+    //     })
+    //   }
+    // });
+    
   }
 }

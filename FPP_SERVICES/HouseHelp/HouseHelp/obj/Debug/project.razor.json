@@ -1,0 +1,19 @@
+{
+  "FilePath": "c:\\Users\\harkap04\\Desktop\\TrainigProject\\FPP\\FPP_SERVICES\\HouseHelp\\HouseHelp\\HouseHelp.csproj",
+  "Configuration": {
+    "ConfigurationName": "UnsupportedRazor",
+    "LanguageVersion": "1.0",
+    "Extensions": [
+      {
+        "ExtensionName": "UnsupportedRazorExtension"
+      }
+    ]
+  },
+  "ProjectWorkspaceState": {
+    "TagHelpers": [],
+    "CSharpLanguageVersion": 703
+  },
+  "RootNamespace": null,
+  "Documents": [],
+  "SerializationFormat": "0.1"
+}

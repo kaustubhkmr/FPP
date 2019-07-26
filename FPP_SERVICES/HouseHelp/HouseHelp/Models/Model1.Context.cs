@@ -477,5 +477,23 @@ namespace HouseHelp.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_client_bookings_Result>("get_client_bookings", cust_idParameter);
         }
+    
+        public virtual ObjectResult<get_booking_cust_names1_Result> get_booking_cust_names1(Nullable<long> bid)
+        {
+            var bidParameter = bid.HasValue ?
+                new ObjectParameter("bid", bid) :
+                new ObjectParameter("bid", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_booking_cust_names1_Result>("get_booking_cust_names1", bidParameter);
+        }
+    
+        public virtual ObjectResult<get_booking_sup_names1_Result> get_booking_sup_names1(Nullable<long> bid)
+        {
+            var bidParameter = bid.HasValue ?
+                new ObjectParameter("bid", bid) :
+                new ObjectParameter("bid", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_booking_sup_names1_Result>("get_booking_sup_names1", bidParameter);
+        }
     }
 }

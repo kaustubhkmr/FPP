@@ -90,7 +90,7 @@
 
     <mat-card class="mat-elevation-z5">
         <mat-horizontal-stepper [linear]="true" #stepper>
-            <mat-step [completed]="selectedService" [editable]="step1Editable">
+            <mat-step  [editable]="step1Editable">
                 <ng-template matStepLabel>Select your service</ng-template>
                 <mat-card class="mat-elevation-z5"
                     style="background-color: rgb(156, 156, 156);height: 100%;margin-top: 10px;">
@@ -106,7 +106,7 @@
                     </mat-grid-list>
                 </mat-card>
             </mat-step>
-            <mat-step [completed]="isBookingFormFilled" [editable]="step2Editable">
+            <mat-step [editable]="step2Editable">
                 <ng-template matStepLabel>Fill Details</ng-template>
                 <mat-grid-list cols="3" rowHeight="1:1" [gutterSize]="'10px'">
                     <mat-grid-tile *ngIf="selectedService">
@@ -242,20 +242,29 @@
                         </mat-card>
                     </mat-grid-tile>
                 </mat-grid-list>
+                <div *ngIf="!isServiceSelected">
+                    Please Select a Service before proceeding
+                </div>
             </mat-step>
             <mat-step>
                 <ng-template matStepLabel>Done</ng-template>
+                <div *ngIf="isBookingFormFilled&&isServiceSelected">
                 Booking is Confirmed. Go to Dashboard
                 <div>
                     <button mat-button (click)="clickDashBoard()">Go To Dashboard</button>
                 </div>
+            </div>
+            <div *ngIf="!isBookingFormFilled||!isServiceSelected">
+              Please fill all the previous steps
+            </div>
+
             </mat-step>
         </mat-horizontal-stepper>
     </mat-card>
 </div>
 
 <div *ngIf="showView == 2">
-    <app-job-pending></app-job-pending>
+    <app-job-pending (bookAgain)='bookAgain($event)'></app-job-pending>
 </div>
 <div *ngIf="showView == 3">
     <app-job-ongoing></app-job-ongoing>
@@ -369,10 +378,40 @@
             <mat-card class="cardColorStyle mat-elevation-z5" >
               <h4 align="center">{{clientObj?.cust_name}}</h4>
               <div class="row" style="margin-top:10px">
-                <div  class="col-md-12" style="text-align: center">
-                    <img src="assets/man.png" width="30%" height="100%" alt="">
+                <div  class="col-md-12"  style="text-align:center">
+                    <div *ngIf="imageUrl!=undefined">
+                        <img [src]="imageUrl" #image width="30%" height="100%" alt="assets/man.png">
+
+                    </div>
+
+                    <div *ngIf="imageUrl==undefined">
+                        <img src="assets/man.png" width="30%" height="100%" alt="assets/man.png">
+
+                    </div>
+                    <br>
+                  <!-- <img src="assets/pencil-edit-button.png" width="20" height="20" alt=""> -->
+
+                  <span class="image-upload"  style="top:10px;">
+                    <label for="file-input">
+                            <button mat-raised-button (click)="file.click()">
+
+                    <img src="assets/pencil-edit-button.png" width="20" height="20" alt="">
+                   Upload Image
+                </button>
+                </label>
+               
+                    <input id="file-input" #file type="file" [hidden]="true"  accept=".png,.jpg" (change)="handleFileInput($event)">
+
+                
+                </span>
+                
+
+
+                    
                 </div>
+                
                 </div>
+               
                 <div class="row" style="margin-top:10px">
                 <div class="col-md-12" style="text-align: center;bottom: 0; padding-left: 10px; padding-right: 10px; ">
                   <button mat-raised-button color="warn" style="width:100%" (click)="openEditDialog()">Edit Profile</button>

@@ -1,7 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatSort } from '@angular/material';
+import { Component, OnInit, ViewChild, Output,EventEmitter } from '@angular/core';
+import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
 import { DashboardService } from 'src/app/Services/dashboard.service';
 import { ClientDashboardService } from 'src/app/Services/client-dashboard.service';
+import { SeeSupDetailsComponent } from '../see-sup-details/see-sup-details.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-job-pending',
@@ -9,15 +11,17 @@ import { ClientDashboardService } from 'src/app/Services/client-dashboard.servic
   styleUrls: ['./job-pending.component.css']
 })
 export class JobPendingComponent implements OnInit {
-  displayedColumns: string[] = ['b_id', 'b_address', 'b_city', 'b_state', 'payment_status', 'b_date', 's_type', 'b_price', 'acceptBooking'];
+  displayedColumns: string[] = ['b_id', 'b_address', 'b_city', 'b_state', 'payment_status', 'b_date', 's_type', 'b_price', 'acceptBooking', 'supplier_details'];
   dataSource: MatTableDataSource<any>;
   custId;
   bookingData: object[] = [];
-
+  toggle=1;
+  @Output() 
+  public bookAgain = new EventEmitter();
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private serivedashBoard: ClientDashboardService) {
+  constructor(private serivedashBoard: ClientDashboardService, private dialog: MatDialog, private router: Router) {
   }
 
   ngOnInit() {
@@ -56,5 +60,20 @@ export class JobPendingComponent implements OnInit {
     this.serivedashBoard.updateBookingConfirmation(b_id, obj).subscribe((p) => {
       this.getData();
     });
+  }
+
+  seeSupDetails(b_id) {
+
+    const dialogRef = this.dialog.open(SeeSupDetailsComponent, {
+      width: '400px',
+      data: { "b_id": b_id }
+    });
+  }
+
+  goToDashBoard(b_id) {
+ 
+    this.bookAgain.emit({"b_id":b_id,"toggle":1});
+    //this.router.navigate(['/cust-dashboard'])
+
   }
 }
