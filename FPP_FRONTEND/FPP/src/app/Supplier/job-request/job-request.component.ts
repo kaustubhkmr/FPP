@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { DashboardService } from 'src/app/Services/dashboard.service';
 import { MatSort, MatTableDataSource } from '@angular/material';
 
@@ -7,12 +7,12 @@ import { MatSort, MatTableDataSource } from '@angular/material';
   templateUrl: './job-request.component.html',
   styleUrls: ['./job-request.component.css']
 })
-export class JobRequestComponent implements OnInit {
+export class JobRequestComponent implements OnInit,OnDestroy {
   displayedColumns: string[] = ['b_address', 'b_city', 'b_state', 'payment_status', 'b_date', 's_type', 'b_price','acceptBooking'];
   dataSource: MatTableDataSource<any>;
   supId;
   bookingData: object[] = [];
-
+  intervalFlag;
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
@@ -22,9 +22,32 @@ export class JobRequestComponent implements OnInit {
   ngOnInit() {
     this.supId = localStorage.getItem("sup_id");
     this.getData();
+    this.intervalFlag=setInterval(()=>{
+      this.serivedashBoard.getBookingData(this.supId).subscribe((bookingObj: object[]) => {
+        bookingObj.forEach((e)=>{
+          e["b_time"] = e["b_time"].substring(0,5);
+        })
+        bookingObj=bookingObj.filter((e)=>{
+          if(e['b_accepted']=='F'){
+            return true;
+          }
+          else{
+            return false;
+          }
+        });
+        this.bookingData = bookingObj;
+        this.dataSource = new MatTableDataSource(this.bookingData);
+        this.dataSource.sort = this.sort;
+      })
+    }, 5000);
+    
   }
 
-  getData(){
+  ngOnDestroy(){
+    clearInterval(this.intervalFlag);
+  }
+
+  getData():number{
     this.serivedashBoard.getBookingData(this.supId).subscribe((bookingObj: object[]) => {
       bookingObj.forEach((e)=>{
         e["b_time"] = e["b_time"].substring(0,5);
@@ -41,6 +64,7 @@ export class JobRequestComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.bookingData);
       this.dataSource.sort = this.sort;
     })
+    return 0;
   }
 
   applyFilter(filterValue: string) {
