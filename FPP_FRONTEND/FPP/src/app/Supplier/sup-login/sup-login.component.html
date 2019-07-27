@@ -152,7 +152,16 @@
   </form>
 
 </div>
-<div *ngIf="!loginLogin">
+<div *ngIf="tryingLog" class="" style="text-align: center;margin: 50% 50% 50% 50%">
+      
+    <mat-progress-spinner
+   
+    [color]="primary"
+    [mode]="indeterminate"
+    >
+</mat-progress-spinner>
+    </div>
+<div *ngIf="!loginLogin&&tryingLog==false">
   <h1 mat-dialog-title>Login  <img height="50px" width="250px" src="assets/loginloading.gif"></h1>
   <form class="example-form" #supLoginForm="ngForm" (ngSubmit)="onSubmit(supLoginForm.value)">
     <mat-form-field class="example-full-width">

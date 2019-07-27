@@ -17,6 +17,8 @@ import { SuploginService } from 'src/app/Services/suplogin.service';
 })
 export class SupLoginComponent implements OnInit {
 
+  tryingReg:boolean=false;
+  tryingLog:boolean=false;
   loginSignUp: boolean = true
   loginLogin: boolean = true;
 
@@ -85,6 +87,7 @@ export class SupLoginComponent implements OnInit {
 
   onLogin(data, f: NgForm) {
 
+    this.tryingLog=true
     const md5 = new Md5();
 
     data.log_password = md5.appendStr(data.log_password).end();
@@ -92,6 +95,7 @@ export class SupLoginComponent implements OnInit {
 
       console.log(p);
       if (p != null) {
+        this.tryingLog=false;
         localStorage.setItem("sup_id", p["sup_id"]);
         this._snackBar.open("Logged  In", "", {
              duration: 2000,
@@ -102,6 +106,8 @@ export class SupLoginComponent implements OnInit {
       }
 
       else {
+        this.tryingLog=false;
+
         f.reset();
 
 
@@ -112,6 +118,8 @@ export class SupLoginComponent implements OnInit {
 
 
     }, e => {
+      this.tryingLog=false;
+
       console.log(e.message);
       f.reset();
 

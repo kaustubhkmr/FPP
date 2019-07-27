@@ -3,84 +3,124 @@ import { Router } from '@angular/router';
 import { DashboardService } from 'src/app/Services/dashboard.service';
 import { MatDialog } from '@angular/material';
 import { ClientEditComponent } from 'src/app/Supplier/client-edit/client-edit.component';
-import { ObjectUnsubscribedError } from 'rxjs';
+import { ObjectUnsubscribedError, Observable } from 'rxjs';
 import { SupAddServiceDiagComponent } from '../sup-add-service-diag/sup-add-service-diag.component';
 import { ServiceModelData } from 'src/app/service-model';
+import { AngularFireStorage, AngularFireUploadTask, AngularFireStorageReference } from 'angularfire2/storage';
+import { finalize } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-sup-dashboard',
   templateUrl: './sup-dashboard.component.html',
   styleUrls: ['./sup-dashboard.component.css']
 })
-export class SupDashboardComponent implements OnInit, OnChanges{
+export class SupDashboardComponent implements OnInit, OnChanges {
 
-  constructor(private rt:Router, private service: DashboardService,private dialog:MatDialog,public serviceModel:ServiceModelData) { }
-  supplierObj:Object;
-  showView=0;
-  showCompleteProfile=true;
-  supData:Object;
-  serviceDataTable:object[]=[];
-  serviceData:object[]=[];
+  constructor(private rt: Router, private service: DashboardService, private dialog: MatDialog, public serviceModel: ServiceModelData, private afStorage: AngularFireStorage) { }
+  supplierObj: Object;
+  showView = 0;
+  showCompleteProfile = true;
+  supData: Object;
+  serviceDataTable: object[] = [];
+  serviceData: object[] = [];
+
+  fileToUpload: File = null;
+  imageUrl;
+  ref: AngularFireStorageReference;
+
+  task: AngularFireUploadTask;
+  downloadURL: Observable<string | null>;
+
+
+  private b_id;
+
   ngOnInit() {
     this.getDataSup();
     this.getProfileData();
+    try {
+      //this.imageUrl= this.ref.child('gs://firstprotivitiproject.appspot.com/cust' + localStorage.getItem("cust_id")).getDownloadURL();
+      this.afStorage.ref('sup' + localStorage.getItem("sup_id")).getDownloadURL().subscribe(u => {
+        console.log("url got:" + u)
+        this.imageUrl = u;
+        console.log("url assigned" + this.imageUrl)
+      }, e => console.log(e));
+      // console.log(this.imageUrl);
+    }
+
+    catch (e) {
+      console.log(e)
+    }
   }
 
-  ngOnChanges(){
+  ngOnChanges() {
     this.getDataSup();
     this.getProfileData();
-  }
-  getDataSup(){
-    
-    if(localStorage.getItem("sup_id") != null) {
-      this.service.getSupplierData(localStorage.getItem("sup_id")).subscribe((supplierData)=>{
-        this.supplierObj = supplierData;
-      })   
+    try {
+      //this.imageUrl= this.ref.child('gs://firstprotivitiproject.appspot.com/cust' + localStorage.getItem("cust_id")).getDownloadURL();
+      this.afStorage.ref('sup' + localStorage.getItem("sup_id")).getDownloadURL().subscribe(u => {
+        console.log("url got:" + u)
+        this.imageUrl = u;
+        console.log("url assigned" + this.imageUrl)
+      }, e => console.log(e));
+      // console.log(this.imageUrl);
     }
-    else{
+
+    catch (e) {
+      console.log(e)
+    }
+  }
+  getDataSup() {
+
+    if (localStorage.getItem("sup_id") != null) {
+      this.service.getSupplierData(localStorage.getItem("sup_id")).subscribe((supplierData) => {
+        this.supplierObj = supplierData;
+      })
+    }
+    else {
       this.rt.navigate(['/home'])
-  
+
     }
   }
 
-  getProfileData(){
+  getProfileData() {
     this.serviceData = [];
-    this.service.getServiceData(localStorage.getItem("sup_id")).subscribe((serviceObj:object[])=>{
-        this.serviceDataTable = serviceObj;
-        this.serviceDataTable.forEach((e)=>{
-          this.serviceData.push(this.serviceModel.value[e['service_name']]);
-        });
-        if( this.serviceData.length > 0){
-          this.showCompleteProfile = false;
-        }
+    this.service.getServiceData(localStorage.getItem("sup_id")).subscribe((serviceObj: object[]) => {
+      this.serviceDataTable = serviceObj;
+      this.serviceDataTable.forEach((e) => {
+        this.serviceData.push(this.serviceModel.value[e['service_name']]);
+      });
+      if (this.serviceData.length > 0) {
+        this.showCompleteProfile = false;
+      }
     })
   }
 
-  logout(){
+  logout() {
     localStorage.removeItem("sup_id")
     this.rt.navigate(['/home'])
   }
 
-  clickJob(){
-    this.showView=1;
+  clickJob() {
+    this.showView = 1;
   }
 
-  clickJobActive(){
-    this.showView=2;
+  clickJobActive() {
+    this.showView = 2;
   }
 
-  clickJobCompleted(){
-    this.showView=3;
+  clickJobCompleted() {
+    this.showView = 3;
   }
-  clickJobMyProfile(){
-    this.showView=4;
+  clickJobMyProfile() {
+    this.showView = 4;
   }
-  clickDashBoard(){
-    this.showView=0;
+  clickDashBoard() {
+    this.showView = 0;
   }
-  openEditDialog(){
+  openEditDialog() {
     const dialogRef = this.dialog.open(ClientEditComponent, {
-      data:{'supData':this.supplierObj}
+      data: { 'supData': this.supplierObj }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -89,12 +129,40 @@ export class SupDashboardComponent implements OnInit, OnChanges{
 
   }
 
-  openAddServiceDialog(){
-    const dialogRef = this.dialog.open(SupAddServiceDiagComponent,{      
-      data:{'supData':this.supplierObj}
-  });
+  openAddServiceDialog() {
+    const dialogRef = this.dialog.open(SupAddServiceDiagComponent, {
+      data: { 'supData': this.supplierObj }
+    });
     dialogRef.afterClosed().subscribe(result => {
       this.getProfileData();
     })
+  }
+
+  handleFileInput(event) {
+
+    console.log(event);
+    console.log(event.target.files[0]);
+    try {
+      this.ref = this.afStorage.ref('sup' + localStorage.getItem("sup_id"));
+      this.task = this.ref.put(event.target.files[0]);
+      this.task.snapshotChanges().pipe(
+        finalize(() => {
+          this.ref.getDownloadURL().subscribe(url => {
+            console.log(url); // <-- do what ever you want with the url..
+            this.imageUrl = url;
+            console.log(this.imageUrl);
+          });
+        }))
+        .subscribe();
+    }
+
+    catch (e) {
+      console.log(e);
+    }
+  }
+
+  goBottom(){
+    window.scrollTo(0,document.body.scrollHeight);
+
   }
 }
