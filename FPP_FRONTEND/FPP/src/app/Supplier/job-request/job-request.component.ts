@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { DashboardService } from 'src/app/Services/dashboard.service';
 import { MatSort, MatTableDataSource, MatDialog } from '@angular/material';
 import { SeeCustDetailsComponent } from '../see-cust-details/see-cust-details.component';
@@ -13,7 +13,7 @@ export class JobRequestComponent implements OnInit {
   dataSource: MatTableDataSource<any>;
   supId;
   bookingData: object[] = [];
-
+  intervalFlag;
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
@@ -23,9 +23,32 @@ export class JobRequestComponent implements OnInit {
   ngOnInit() {
     this.supId = localStorage.getItem("sup_id");
     this.getData();
+    this.intervalFlag=setInterval(()=>{
+      this.serivedashBoard.getBookingData(this.supId).subscribe((bookingObj: object[]) => {
+        bookingObj.forEach((e)=>{
+          e["b_time"] = e["b_time"].substring(0,5);
+        })
+        bookingObj=bookingObj.filter((e)=>{
+          if(e['b_accepted']=='F'){
+            return true;
+          }
+          else{
+            return false;
+          }
+        });
+        this.bookingData = bookingObj;
+        this.dataSource = new MatTableDataSource(this.bookingData);
+        this.dataSource.sort = this.sort;
+      })
+    }, 5000);
+    
   }
 
-  getData(){
+  ngOnDestroy(){
+    clearInterval(this.intervalFlag);
+  }
+
+  getData():number{
     this.serivedashBoard.getBookingData(this.supId).subscribe((bookingObj: object[]) => {
       bookingObj.forEach((e)=>{
         e["b_time"] = e["b_time"].substring(0,5);
@@ -42,6 +65,7 @@ export class JobRequestComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.bookingData);
       this.dataSource.sort = this.sort;
     })
+    return 0;
   }
 
   applyFilter(filterValue: string) {

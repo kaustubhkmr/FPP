@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Output,EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, Output,EventEmitter, OnDestroy } from '@angular/core';
 import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
 import { DashboardService } from 'src/app/Services/dashboard.service';
 import { ClientDashboardService } from 'src/app/Services/client-dashboard.service';
@@ -10,11 +10,12 @@ import { Router } from '@angular/router';
   templateUrl: './job-pending.component.html',
   styleUrls: ['./job-pending.component.css']
 })
-export class JobPendingComponent implements OnInit {
+export class JobPendingComponent implements OnInit,OnDestroy {
   displayedColumns: string[] = ['b_id', 'b_address', 'b_city', 'b_state', 'payment_status', 'b_date', 's_type', 'b_price', 'acceptBooking', 'supplier_details'];
   dataSource: MatTableDataSource<any>;
   custId;
   bookingData: object[] = [];
+  intervalFlag;
   toggle=1;
   @Output() 
   public bookAgain = new EventEmitter();
@@ -27,6 +28,28 @@ export class JobPendingComponent implements OnInit {
   ngOnInit() {
     this.custId = localStorage.getItem("cust_id");
     this.getData();
+    this.intervalFlag = setInterval(()=>{
+      this.serivedashBoard.getBookingData(this.custId).subscribe((bookingObj: object[]) => {
+        bookingObj.forEach((e) => {
+          e["b_time"] = e["b_time"].substring(0, 5);
+        })
+        bookingObj = bookingObj.filter((e) => {
+          if (e['b_accepted'] == 'F' || e['b_accepted'] == 'D') {
+            return true;
+          }
+          else {
+            return false;
+          }
+        });
+        this.bookingData = bookingObj;
+        this.dataSource = new MatTableDataSource(this.bookingData);
+        this.dataSource.sort = this.sort;
+      })
+    },5000);
+  }
+
+  ngOnDestroy(){
+    clearInterval(this.intervalFlag);
   }
 
   getData() {
