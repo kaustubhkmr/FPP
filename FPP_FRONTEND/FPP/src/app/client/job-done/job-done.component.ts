@@ -1,14 +1,15 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { MatTableDataSource, MatSort } from '@angular/material';
+import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
 import { ClientDashboardService } from 'src/app/Services/client-dashboard.service';
+import { SeeSupDetailsComponent } from '../see-sup-details/see-sup-details.component';
 
 @Component({
   selector: 'app-job-done',
   templateUrl: './job-done.component.html',
   styleUrls: ['./job-done.component.css']
 })
-export class JobDoneComponent implements OnInit,OnDestroy {
-  displayedColumns: string[] = ['b_id','b_address', 'b_city', 'b_state', 'payment_status', 'b_date', 's_type', 'b_price','acceptBooking'];
+export class JobDoneComponent implements OnInit, OnDestroy {
+  displayedColumns: string[] = ['b_id','b_address', 'b_city', 'b_state', 'payment_status', 'b_date', 's_type', 'b_price','acceptBooking','supplier_details'];
   dataSource: MatTableDataSource<any>;
   custId;
   bookingData: object[] = [];
@@ -17,7 +18,7 @@ export class JobDoneComponent implements OnInit,OnDestroy {
   
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   
-  constructor(private serivedashBoard: ClientDashboardService) {
+  constructor(private serivedashBoard: ClientDashboardService,private dialog:MatDialog) {
   }
   
   ngOnInit() {
@@ -68,6 +69,13 @@ export class JobDoneComponent implements OnInit,OnDestroy {
   
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+  seeSupDetails(b_id) {
+
+    const dialogRef = this.dialog.open(SeeSupDetailsComponent, {
+      width: '400px',
+      data: { "b_id": b_id }
+    });
   }
 }
   

@@ -24,9 +24,16 @@ import { JobCompletedComponent } from './Supplier/job-completed/job-completed.co
 import { EditClientComponent } from './client/edit-client/edit-client.component';
 import { JobActiveComponent } from './Supplier/job-active/job-active.component';
 import { EnterBookingIdComponent } from './Supplier/enter-booking-id/enter-booking-id.component';
+import { SeeCustDetailsComponent } from './Supplier/see-cust-details/see-cust-details.component';
+// import{AngularFireModule} from 'angularfire2';
+// import { AngularFireStorage, AngularFireStorageModule } from 'angularfire2/storage';
+import{AngularFireModule} from 'angularfire2';
+import { AngularFireStorage, AngularFireStorageModule } from 'angularfire2/storage';
+
 import { JobPendingComponent } from './client/job-pending/job-pending.component';
 import { JobOngoingComponent } from './client/job-ongoing/job-ongoing.component';
 import { JobDoneComponent } from './client/job-done/job-done.component';
+import { SeeSupDetailsComponent } from './client/see-sup-details/see-sup-details.component';
 
 @NgModule({
   declarations: [
@@ -46,9 +53,11 @@ import { JobDoneComponent } from './client/job-done/job-done.component';
     EditClientComponent,
     JobActiveComponent,
     EnterBookingIdComponent,
+    SeeCustDetailsComponent,
     JobPendingComponent,
     JobOngoingComponent,
-    JobDoneComponent
+    JobDoneComponent,
+    SeeSupDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -72,10 +81,17 @@ import { JobDoneComponent } from './client/job-done/job-done.component';
     MatDividerModule,
     MatChipsModule,
     MatSortModule,
-    MatTableModule
+    MatTableModule,
+    AngularFireModule.initializeApp({
+      apiKey: "AIzaSyCTNZUNKV0g7uDbCzVXACGxNrFBRZ728xA",
+      authDomain: "firstprotivitiproject.firebaseapp.com",
+      storageBucket: "firstprotivitiproject.appspot.com",
+      projectId: "firstprotivitiproject",
+    }),
+    AngularFireStorageModule
   ],
   providers: [SupinsertService,MatSnackBar,MatDialog,SuploginService],
   bootstrap: [AppComponent],
-  entryComponents: [LoginComponent,SupLoginComponent,ClientEditComponent,SupAddServiceDiagComponent,EditClientComponent,EnterBookingIdComponent]
+  entryComponents: [LoginComponent,SupLoginComponent,ClientEditComponent,SupAddServiceDiagComponent,EditClientComponent,EnterBookingIdComponent,SeeCustDetailsComponent,SeeSupDetailsComponent]
 })
 export class AppModule { }
