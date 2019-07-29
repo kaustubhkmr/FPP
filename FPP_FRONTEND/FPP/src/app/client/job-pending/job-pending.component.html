@@ -73,7 +73,7 @@
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Supplier Detail</th>
                     <td mat-cell *matCellDef="let row">
                         <div *ngIf="row.b_accepted=='F';else elseBlock">
-                            <button mat-raised-button style="background-color:blue" (click)="seeSupDetails(row.b_id)">
+                            <button mat-raised-button style="background-color:skyblue" (click)="seeSupDetails(row.b_id)">
                                 See Details </button>
                         </div>
                         <ng-template #elseBlock>
