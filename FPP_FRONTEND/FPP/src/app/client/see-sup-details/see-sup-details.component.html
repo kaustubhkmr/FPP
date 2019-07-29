@@ -1,4 +1,54 @@
 <div class="container">
+    <div class="row">
+        <div class="col-md-6">
+                <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h5>Supplier Name</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                                <div class="col-md-12">
+                                        <h6>{{supData?.sup_name}}</h6>
+                                    </div>
+                        </div>
+                        <div class="row">
+                                <div class="col-md-12">
+                                    <h5>Supplier Phone</h5>
+                                </div>
+                            </div>
+                            <div class="row">
+                                    <div class="col-md-12">
+                                            <h6>{{supData?.sup_phone}}</h6>
+                                        </div>
+                            </div>
+                            <div class="row">
+                                    <div class="col-md-12">
+                                        <h5>Supplier Email</h5>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                        <div class="col-md-12">
+                                                <h6>{{supData?.sup_email}}</h6>
+                                            </div>
+                                </div>
+                    </div>       
+        </div>
+        <div class="col-md-6">
+                <div *ngIf="imageUrl!=undefined">
+                        <img [src]="imageUrl" #image width="100%" height="100%" alt="assets/man.png">
+
+                    </div>
+
+                    <div *ngIf="imageUrl==undefined">
+                        <img src="assets/man.png" width="100%" height="100%" alt="assets/man.png">
+
+                    </div>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <h4>Supplier Name</h4>
@@ -30,4 +80,4 @@
                             </div>
                 </div>
     </div>
-    
+     -->

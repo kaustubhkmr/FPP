@@ -17,31 +17,32 @@ import { CustloginService } from 'src/app/Services/custlogin.service';
 })
 export class LoginComponent implements OnInit {
 
-  loginSignUp:boolean = true
-  loginLogin:boolean = true;
- 
-  constructor(public dialogRef: MatDialogRef<LoginComponent>,private cust_ins: CustinsertService, private _snackBar: MatSnackBar, private rt: Router,private log_sup:CustloginService) { }
+  loginSignUp: boolean = true
+  loginLogin: boolean = true;
+  tryingReg: boolean = false;
+  tryingLog:boolean=false;
+  constructor(public dialogRef: MatDialogRef<LoginComponent>, private cust_ins: CustinsertService, private _snackBar: MatSnackBar, private rt: Router, private log_sup: CustloginService) { }
 
   ngOnInit() {
   }
   states: object[] = [
-    {value: 'bihar', viewValue: 'Bihar'},
-    {value: 'jharkhand', viewValue: 'Jharkhand'},
-    {value: 'uttarpradesh', viewValue: 'Uttar Pradesh'},
-    {value: 'haryana', viewValue: 'Haryana'},
-    {value: 'punjab', viewValue: 'Punjab'},
-    {value: 'delhi', viewValue: 'Delhi'},
-    {value: 'madhyapradesh', viewValue: 'Madhya Pradesh'},
+    { value: 'bihar', viewValue: 'Bihar' },
+    { value: 'jharkhand', viewValue: 'Jharkhand' },
+    { value: 'uttarpradesh', viewValue: 'Uttar Pradesh' },
+    { value: 'haryana', viewValue: 'Haryana' },
+    { value: 'punjab', viewValue: 'Punjab' },
+    { value: 'delhi', viewValue: 'Delhi' },
+    { value: 'madhyapradesh', viewValue: 'Madhya Pradesh' },
   ];
 
-  clientSignUp(){
+  clientSignUp() {
     this.loginSignUp = !this.loginSignUp;
   }
-  clientLogin(){
+  clientLogin() {
     this.loginLogin = !this.loginLogin;
   }
 
-  onSubmit(data,f:NgForm) {
+  onSubmit(data, f: NgForm) {
     const md5 = new Md5();
 
     data.cust_password = md5.appendStr(data.cust_password).end()
@@ -50,8 +51,9 @@ export class LoginComponent implements OnInit {
     delete data['cust_cpwd']
     console.log(data);
     //show a snackbar here when data is successfully inserted
+    this.tryingReg = true;
     this.cust_ins.insCust(data).subscribe(p => {
-
+      this.tryingReg = false;
       console.log(p);
       localStorage.setItem("cust_id", p["cust_id"]);
 
@@ -59,7 +61,7 @@ export class LoginComponent implements OnInit {
     }, e => {
       console.log(e.message);
       f.reset();
-
+      this.tryingReg = false;
 
       this._snackBar.open("Error Inserting the values", "", {
         duration: 2000,
@@ -78,7 +80,8 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  onLogin(data,f:NgForm){
+  onLogin(data, f: NgForm) {
+    this.tryingLog=true;
 
     const md5 = new Md5();
 
@@ -86,23 +89,23 @@ export class LoginComponent implements OnInit {
     this.log_sup.login(data).subscribe(p => {
 
       console.log(p);
-      if(p!=null){
+      if (p != null) {
+this.tryingLog=false;
+        localStorage.setItem("cust_id", p["cust_id"]);
+        console.log("Completed");
 
-      localStorage.setItem("cust_id", p["cust_id"]);
-      console.log("Completed");
+        this._snackBar.open("Logged  In", "", {
+          duration: 2000,
+        });
 
-      this._snackBar.open("Logged  In", "", {
-        duration: 2000,
-      });
-
-      this.dialogRef.close();
-      this.rt.navigate(['/cust-dashboard']);
+        this.dialogRef.close();
+        this.rt.navigate(['/cust-dashboard']);
       }
 
-      
 
-      else
-      {
+
+      else {
+        this.tryingLog=false;
         f.reset();
 
 
@@ -113,6 +116,7 @@ export class LoginComponent implements OnInit {
 
 
     }, e => {
+      this.tryingLog=false;
       console.log(e.message);
       f.reset();
 
