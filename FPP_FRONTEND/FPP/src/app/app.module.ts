@@ -2,11 +2,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 import { NgModule } from '@angular/core';
 import {MatButtonModule, MatCheckboxModule, MatCardModule,MatFormFieldModule, MatDialogModule,
-  MatInputModule,MatRadioModule,MatSelectModule, MatSnackBarModule, MatSnackBarRef, MatSnackBar, MatDialogRef, MatDialog,MatToolbarModule, MatGridListModule, MatBadgeModule, MatDividerModule, MatStepperModule, MatChipsModule, MatSortModule, MatTableModule, MatProgressSpinnerModule} from '@angular/material';
+  MatInputModule,MatRadioModule,MatSelectModule, MatSnackBarModule, MatSnackBarRef, MatSnackBar, MatDialogRef, MatDialog,MatToolbarModule, MatGridListModule, MatBadgeModule, MatDividerModule, MatStepperModule, MatChipsModule, MatSortModule, MatTableModule, MatProgressSpinnerModule, MatPaginatorModule} from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { WelcomeComponent } from './welcome/welcome.component';
 import { LoginComponent } from './client/login/login.component';
 import { FormsModule } from '@angular/forms';
 import { SupLoginComponent } from './Supplier/sup-login/sup-login.component';
@@ -39,7 +38,6 @@ import { SeeSupDetailsComponent } from './client/see-sup-details/see-sup-details
   declarations: [
     AppComponent,
     HomeComponent,
-    WelcomeComponent,
     LoginComponent,
     SupLoginComponent,
     PwdcheckDirective,
@@ -82,6 +80,7 @@ import { SeeSupDetailsComponent } from './client/see-sup-details/see-sup-details
     MatChipsModule,
     MatSortModule,
     MatTableModule,
+    MatPaginatorModule,
     AngularFireModule.initializeApp({
       apiKey: "AIzaSyCTNZUNKV0g7uDbCzVXACGxNrFBRZ728xA",
       authDomain: "firstprotivitiproject.firebaseapp.com",
