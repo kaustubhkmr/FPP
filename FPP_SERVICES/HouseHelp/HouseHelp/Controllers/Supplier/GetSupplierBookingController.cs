@@ -20,9 +20,9 @@ namespace HouseHelp.Controllers.Supplier
         }
 
         // GET: api/GetSupplierBooking/5
-        public IEnumerable<get_supplier_bookings_Result> Get(int id)
+        public IEnumerable<get_supplier_bookings1_Result> Get(int id)
         {
-            return db.get_supplier_bookings(id);
+            return db.get_supplier_bookings1(id);
         }
 
         // POST: api/GetSupplierBooking

@@ -19,4 +19,8 @@ export class ClientDashboardService {
     return this.http.put("http://localhost/HouseHelp/api/AcceptBooking/"+id,data);
   }
 
+  getAllCustomServices(){
+    return this.http.get("http://localhost/HouseHelp/api/GetCustomService/");
+  }
+
 }

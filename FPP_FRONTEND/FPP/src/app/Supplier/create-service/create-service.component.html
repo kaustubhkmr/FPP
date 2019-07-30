@@ -1,0 +1,56 @@
+<form class="example-form" #createServiceForm="ngForm" (ngSubmit)="onSubmit(createServiceForm.value)">
+    <div mat-card-title> Create Service </div>
+    <br />
+    <mat-form-field class="example-full-width">
+        <input type="text" matInput name="c_name" placeholder="Service Name" required ngModel #cname="ngModel">
+    </mat-form-field>
+
+    <div *ngIf="cname.invalid && (cname.dirty || cname.touched)" class="alert alert-danger">
+
+        <div *ngIf="cname.errors.required">
+           Service Name is required
+        </div>
+    </div>
+    <mat-form-field class="example-full-width">
+        <input type="text" matInput name="c_message" placeholder="Message" required ngModel #cmessage="ngModel">
+    </mat-form-field>
+
+    <div *ngIf="cmessage.invalid && (cmessage.dirty || cmessage.touched)" class="alert alert-danger">
+
+        <div *ngIf="cmessage.errors.required">
+           Message is Required
+        </div>
+    </div>
+    <mat-form-field class="example-full-width">
+        <input type="text" matInput name="c_pricetag" placeholder="Price" required ngModel #cpricetag="ngModel">
+    </mat-form-field>
+
+    <div *ngIf="cpricetag.invalid && (cpricetag.dirty || cpricetag.touched)" class="alert alert-danger">
+
+        <div *ngIf="cpricetag.errors.required">
+           Price is Required
+        </div>
+    </div>
+    <mat-radio-group  aria-label="Select an option" name="price_type" ngModel required #pricetype="ngModel">
+        <mat-radio-button value="/person">Per Person</mat-radio-button>
+        <mat-radio-button style="margin-left: 5px;" value="/hr">Per Time</mat-radio-button>
+    </mat-radio-group>
+<div *ngIf="pricetype.invalid && (pricetype.dirty || pricetype.touched)" class="alert alert-danger">
+
+    <div *ngIf="pricetype.errors.required">
+       Type  is Required
+    </div>
+</div>
+
+</form>
+<input type="file"  name="c_photo" placeholder="Photo" accept=".png,.jpg" required  #cphoto>
+    
+
+    <div *ngIf="cphoto.invalid && (cphoto.dirty || cphoto.touched)" class="alert alert-danger">
+
+        <div *ngIf="cphoto.errors.required">
+           Photo is Required
+        </div>
+    </div>
+<button mat-raised-button style="margin-top:10px" color="warn" type="submit" matInput [disabled]="createServiceForm.invalid||cphoto.invalid"
+    (click)="onSubmit(createServiceForm.value,createServiceForm,cphoto.files)">Submit</button>

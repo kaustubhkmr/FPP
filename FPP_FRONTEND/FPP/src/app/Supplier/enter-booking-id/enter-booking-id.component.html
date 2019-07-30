@@ -1,5 +1,5 @@
 <form class="example-form" #enterBidForm="ngForm" (ngSubmit)="onSubmit(enterBidForm.value)">
-    <div mat-card-title> Enter Booking Id To Complete </div>
+    <div mat-card-title> Enter Booking Id and Price details To Complete </div>
     <br />
     <mat-form-field class="example-full-width">
         <input type="number" matInput name="b_id" placeholder="Booking Id" required ngModel #bid="ngModel">
@@ -11,6 +11,37 @@
             Booking Id is required to complete.
         </div>
     </div>
+    <div>
+        Price: {{data["b_pricetag"]}}
+    </div>
+    <div *ngIf="servicePerson;else elseBlock">
+        <mat-form-field class="example-full-width">
+            <input type="number" (ngModelChanged)="someChange($event)" matInput name="b_price" placeholder="Enter number of person" required ngModel #bprice="ngModel">
+        </mat-form-field>
+
+        <div *ngIf="bprice.invalid && (bprice.dirty || bprice.touched)" class="alert alert-danger">
+
+            <div *ngIf="bprice.errors.required">
+                Field is required to complete.
+            </div>
+        </div>
+    </div>
+    <ng-template #elseBlock>
+        <mat-form-field class="example-full-width">
+            <input type="number" (ngModelChange)="someChange($event)" matInput name="b_price" placeholder="Enter number of hour" required ngModel #bprice="ngModel">
+        </mat-form-field>
+
+        <div *ngIf="bprice.invalid && (bprice.dirty || bprice.touched)" class="alert alert-danger">
+
+            <div *ngIf="bprice.errors.required">
+            Field is required to complete.
+            </div>
+        </div>
+    </ng-template>
+    <div *ngIf="enterBidForm.valid">
+      Final Price:{{calcPrice}}
+    </div>
 </form>
+<br>
 <button mat-raised-button color="warn" type="submit" matInput [disabled]="enterBidForm.invalid"
     (click)="onSubmit(enterBidForm.value,enterBidForm)">Submit</button>

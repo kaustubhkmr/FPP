@@ -20,9 +20,9 @@ namespace HouseHelp.Controllers.Customer
         }
 
         // GET: api/GetClientBookings/5
-        public IEnumerable<get_client_bookings_Result> Get(int id)
+        public IEnumerable<get_client_bookings1_Result> Get(int id)
         {
-            return db.get_client_bookings(id);
+            return db.get_client_bookings1(id);
         }
 
         // POST: api/GetClientBookings

@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using Newtonsoft.Json.Linq;
 
 namespace HouseHelp.Controllers.Supplier
 {
@@ -30,10 +31,19 @@ namespace HouseHelp.Controllers.Supplier
         }
 
 
-        //// POST: api/Dashboard
-        //public void Post([FromBody]string value)
-        //{
-        //}
+        // POST: api/Dashboard
+        public int Post([FromBody]JObject value)
+        {
+            var supid = value["sup_id"].ToString();
+            var cname = value["c_name"].ToString();
+            var cmessage = value["c_message"].ToString();
+            var pricetag = value["c_pricetag"].ToString()+value["price_type"].ToString();
+
+            int res = db.insert_custom_service(long.Parse(supid), cname, cmessage, pricetag);
+            return res;
+
+
+        }
 
         //// PUT: api/Dashboard/5
         //public void Put(int id, [FromBody]string value)

@@ -42,7 +42,7 @@
 
                 <ng-container matColumnDef="b_price">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Price </th>
-                    <td mat-cell *matCellDef="let row"> {{row.b_price}} </td>
+                    <td mat-cell *matCellDef="let row"> {{row.b_pricetag}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="payment_status">
@@ -54,7 +54,7 @@
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Completion Status </th>
                     <td mat-cell *matCellDef="let row">
                         <button mat-raised-button style="background-color: rgb(125, 209, 0)"
-                            (click)="jobComplete(row.b_id)"> Complete Booking </button>
+                            (click)="jobComplete(row.b_id,row.b_pricetag)"> Complete Booking </button>
                     </td>
                 </ng-container>
 

@@ -8,6 +8,7 @@ import { SupAddServiceDiagComponent } from '../sup-add-service-diag/sup-add-serv
 import { ServiceModelData } from 'src/app/service-model';
 import { AngularFireStorage, AngularFireUploadTask, AngularFireStorageReference } from 'angularfire2/storage';
 import { finalize } from 'rxjs/operators';
+import { CreateServiceComponent } from '../create-service/create-service.component';
 
 
 @Component({
@@ -24,6 +25,8 @@ export class SupDashboardComponent implements OnInit, OnChanges {
   supData: Object;
   serviceDataTable: object[] = [];
   serviceData: object[] = [];
+  customServiceData: object[] = [];
+
 
   fileToUpload: File = null;
   imageUrl;
@@ -51,6 +54,7 @@ export class SupDashboardComponent implements OnInit, OnChanges {
     catch (e) {
       console.log(e)
     }
+    this.getCustomProfileData();
   }
 
   ngOnChanges() {
@@ -69,6 +73,7 @@ export class SupDashboardComponent implements OnInit, OnChanges {
     catch (e) {
       console.log(e)
     }
+    this.getCustomProfileData();
   }
   getDataSup() {
 
@@ -164,5 +169,40 @@ export class SupDashboardComponent implements OnInit, OnChanges {
   goBottom(){
     window.scrollTo(0,document.body.scrollHeight);
 
+  }
+
+  createService(){
+  
+    const dialogRef = this.dialog.open(CreateServiceComponent, {
+      data: { 'supData': this.supplierObj }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.getCustomProfileData()
+    });
+  }
+
+  getCustomProfileData(){
+
+    this.customServiceData = [];
+    this.service.getCustomService(localStorage.getItem("sup_id")).subscribe((serviceObj: object[]) => {
+      this.customServiceData = serviceObj;
+      for(let o of this.customServiceData){
+        try {
+          this.afStorage.ref('custom_service'+o["c_name"].replace(/\s/g, "") + localStorage.getItem("sup_id")).getDownloadURL().subscribe(u => {
+           o["custom_url"]=u;
+           console.log(o["custom_url"])
+          }, e => console.log(e));
+         
+        }
+    
+        catch (e) {
+          console.log(e)
+        }
+      }
+      if (this.customServiceData.length > 0) {
+        this.showCompleteProfile = false;
+      }
+    })
   }
 }

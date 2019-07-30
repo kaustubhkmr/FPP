@@ -43,12 +43,17 @@ namespace HouseHelp.Controllers.Customer
             var s_type = obj["s_type"].ToString();
 
             var b_address = obj["b_address"].ToString();
+            var b_pricetag = obj["b_pricetag"].ToString();
 
 
             //db.add_booking()
            int res= db.add_bookings(long.Parse(cust_id), long.Parse(sup_id), b_address, b_city, b_state, TimeSpan.Parse(b_time), DateTime.Parse(b_date), s_type);
-
-            return res;
+            int res1;
+            if (res == 1)
+                res1 = db.upd_tag(b_pricetag);
+            else
+                res1 = 0;
+            return res*res1;
 
         }
 

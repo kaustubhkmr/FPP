@@ -62,6 +62,7 @@ export class JobOngoingComponent implements OnInit,OnDestroy {
         }
       });
       this.bookingData = bookingObj;
+      console.log(this.bookingData["b_pricetag"])
       this.dataSource = new MatTableDataSource(this.bookingData);
       this.dataSource.sort = this.sort;
     })

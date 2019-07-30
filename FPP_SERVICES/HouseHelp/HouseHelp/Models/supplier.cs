@@ -19,6 +19,7 @@ namespace HouseHelp.Models
         {
             this.bookings = new HashSet<booking>();
             this.sup_services = new HashSet<sup_services>();
+            this.custom_service = new HashSet<custom_service>();
         }
     
         public long sup_id { get; set; }
@@ -36,5 +37,7 @@ namespace HouseHelp.Models
         public virtual ICollection<booking> bookings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<sup_services> sup_services { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<custom_service> custom_service { get; set; }
     }
 }
