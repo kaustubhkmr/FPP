@@ -438,8 +438,8 @@ C:\Users\harkap04\Desktop\TrainigProject\FPP\FPP_SERVICES\HouseHelp\HouseHelp\bi
 C:\Users\harkap04\Desktop\TrainigProject\FPP\FPP_SERVICES\HouseHelp\HouseHelp\bin\System.Web.WebPages.Razor.xml
 C:\Users\harkap04\Desktop\TrainigProject\FPP\FPP_SERVICES\HouseHelp\HouseHelp\bin\Antlr3.Runtime.pdb
 C:\Users\harkap04\Desktop\TrainigProject\FPP\FPP_SERVICES\HouseHelp\HouseHelp\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\harkap04\Desktop\TrainigProject\FPP\FPP_SERVICES\HouseHelp\HouseHelp\obj\Debug\HouseHelp.csprojAssemblyReference.cache
 C:\Users\harkap04\Desktop\TrainigProject\FPP\FPP_SERVICES\HouseHelp\HouseHelp\obj\Debug\HouseHelp.csproj.CoreCompileInputs.cache
 C:\Users\harkap04\Desktop\TrainigProject\FPP\FPP_SERVICES\HouseHelp\HouseHelp\obj\Debug\HouseHelp.csproj.CopyComplete
 C:\Users\harkap04\Desktop\TrainigProject\FPP\FPP_SERVICES\HouseHelp\HouseHelp\obj\Debug\HouseHelp.dll
 C:\Users\harkap04\Desktop\TrainigProject\FPP\FPP_SERVICES\HouseHelp\HouseHelp\obj\Debug\HouseHelp.pdb
+C:\Users\harkap04\Desktop\TrainigProject\FPP\FPP_SERVICES\HouseHelp\HouseHelp\obj\Debug\HouseHelp.csprojAssemblyReference.cache

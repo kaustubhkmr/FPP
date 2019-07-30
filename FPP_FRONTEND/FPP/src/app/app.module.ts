@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 import { NgModule } from '@angular/core';
 import {MatButtonModule, MatCheckboxModule, MatCardModule,MatFormFieldModule, MatDialogModule,
-  MatInputModule,MatRadioModule,MatSelectModule, MatSnackBarModule, MatSnackBarRef, MatSnackBar, MatDialogRef, MatDialog,MatToolbarModule, MatGridListModule, MatBadgeModule, MatDividerModule, MatStepperModule, MatChipsModule, MatSortModule, MatTableModule, MatProgressSpinnerModule} from '@angular/material';
+  MatInputModule,MatRadioModule,MatSelectModule, MatSnackBarModule, MatSnackBarRef, MatSnackBar, MatDialogRef, MatDialog,MatToolbarModule, MatGridListModule, MatBadgeModule, MatDividerModule, MatStepperModule, MatChipsModule, MatSortModule, MatTableModule, MatProgressSpinnerModule, MatDatepickerModule, MatNativeDateModule} from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -34,6 +34,7 @@ import { JobPendingComponent } from './client/job-pending/job-pending.component'
 import { JobOngoingComponent } from './client/job-ongoing/job-ongoing.component';
 import { JobDoneComponent } from './client/job-done/job-done.component';
 import { SeeSupDetailsComponent } from './client/see-sup-details/see-sup-details.component';
+import { CreateServiceComponent } from './Supplier/create-service/create-service.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { SeeSupDetailsComponent } from './client/see-sup-details/see-sup-details
     JobPendingComponent,
     JobOngoingComponent,
     JobDoneComponent,
-    SeeSupDetailsComponent
+    SeeSupDetailsComponent,
+    CreateServiceComponent
   ],
   imports: [
     BrowserModule,
@@ -89,10 +91,14 @@ import { SeeSupDetailsComponent } from './client/see-sup-details/see-sup-details
       projectId: "firstprotivitiproject",
     }),
     AngularFireStorageModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+  
+  
   ],
   providers: [SupinsertService,MatSnackBar,MatDialog,SuploginService],
   bootstrap: [AppComponent],
-  entryComponents: [LoginComponent,SupLoginComponent,ClientEditComponent,SupAddServiceDiagComponent,EditClientComponent,EnterBookingIdComponent,SeeCustDetailsComponent,SeeSupDetailsComponent]
+  entryComponents: [LoginComponent,SupLoginComponent,ClientEditComponent,SupAddServiceDiagComponent,EditClientComponent,EnterBookingIdComponent,SeeCustDetailsComponent,SeeSupDetailsComponent,CreateServiceComponent]
 })
 export class AppModule { }

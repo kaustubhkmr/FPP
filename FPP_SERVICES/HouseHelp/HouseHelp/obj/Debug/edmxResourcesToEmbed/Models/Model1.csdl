@@ -24,6 +24,7 @@
     <NavigationProperty Name="customer" Relationship="Self.c_fk" FromRole="bookings" ToRole="customers" />
     <NavigationProperty Name="supplier" Relationship="Self.s_fk" FromRole="bookings" ToRole="suppliers" />
     <Property Name="b_accepted" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="b_pricetag" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="customer">
     <Key>
@@ -64,6 +65,7 @@
     <NavigationProperty Name="bookings" Relationship="Self.s_fk" FromRole="suppliers" ToRole="bookings" />
     <NavigationProperty Name="sup_services" Relationship="Self.FK__sup_servi__sup_i__6383C8BA" FromRole="suppliers" ToRole="sup_services" />
     <Property Name="sup_address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="custom_service" Relationship="FPPModel.FK__custom_se__sup_i__41EDCAC5" FromRole="supplier" ToRole="custom_service" />
   </EntityType>
   <Association Name="c_fk">
     <End Role="customers" Type="Self.customer" Multiplicity="0..1" />
@@ -257,6 +259,44 @@
     <FunctionImport Name="get_booking_sup_names1" ReturnType="Collection(FPPModel.get_booking_sup_names1_Result)">
       <Parameter Name="bid" Mode="In" Type="Int64" />
     </FunctionImport>
+    <FunctionImport Name="upd_tag">
+      <Parameter Name="b_tag" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="get_client_bookings1" ReturnType="Collection(FPPModel.get_client_bookings1_Result)">
+      <Parameter Name="cust_id" Mode="In" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="get_supplier_bookings1" ReturnType="Collection(FPPModel.get_supplier_bookings1_Result)">
+      <Parameter Name="sup_id" Mode="In" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="upd_price">
+      <Parameter Name="b_id" Mode="In" Type="Int64" />
+      <Parameter Name="b_price" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <EntitySet Name="custom_service" EntityType="FPPModel.custom_service" />
+    <AssociationSet Name="FK__custom_se__sup_i__41EDCAC5" Association="FPPModel.FK__custom_se__sup_i__41EDCAC5">
+      <End Role="supplier" EntitySet="suppliers" />
+      <End Role="custom_service" EntitySet="custom_service" />
+    </AssociationSet>
+    <FunctionImport Name="insert_custom_service">
+      <Parameter Name="sup_id" Mode="In" Type="Int64" />
+      <Parameter Name="cname" Mode="In" Type="String" />
+      <Parameter Name="c_message" Mode="In" Type="String" />
+      <Parameter Name="c_pricetag" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="get_custom_service" ReturnType="Collection(FPPModel.get_custom_service_Result)">
+      <Parameter Name="sup_id" Mode="In" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="get_distinct_custom_services" ReturnType="Collection(String)" />
+    <FunctionImport Name="get_distinct_custom_services1" ReturnType="Collection(String)" />
+    <FunctionImport Name="get_distinct_custom_services2" ReturnType="Collection(String)" />
+    <FunctionImport Name="get_all_distinct_custom_services" ReturnType="Collection(FPPModel.get_all_distinct_custom_services_Result)" />
+    <FunctionImport Name="get_custom_booking_suppliers" ReturnType="Collection(FPPModel.get_custom_booking_suppliers_Result)">
+      <Parameter Name="cname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="get_custom_booking_prices" ReturnType="Collection(FPPModel.get_custom_booking_prices_Result)">
+      <Parameter Name="sup_id" Mode="In" Type="Int64" />
+      <Parameter Name="cname" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="get_booking_Result">
     <Property Type="Int64" Name="b_id" Nullable="false" />
@@ -440,5 +480,103 @@
     <Property Type="Single" Name="sup_rating" Nullable="true" />
     <Property Type="Int64" Name="rating_count" Nullable="true" />
     <Property Type="String" Name="sup_address" Nullable="true" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="get_client_bookings1_Result">
+    <Property Type="Int64" Name="b_id" Nullable="false" />
+    <Property Type="Int64" Name="cust_id" Nullable="true" />
+    <Property Type="Int64" Name="sup_id" Nullable="true" />
+    <Property Type="String" Name="b_address" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="b_city" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="b_state" Nullable="false" MaxLength="100" />
+    <Property Type="Time" Name="b_time" Nullable="false" />
+    <Property Type="DateTime" Name="b_date" Nullable="false" />
+    <Property Type="Decimal" Name="b_price" Nullable="false" Precision="19" />
+    <Property Type="String" Name="payment_status" Nullable="false" MaxLength="1" />
+    <Property Type="String" Name="completion_status" Nullable="false" MaxLength="1" />
+    <Property Type="Time" Name="req_time" Nullable="false" />
+    <Property Type="DateTime" Name="req_date" Nullable="false" Precision="23" />
+    <Property Type="String" Name="b_review" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="s_type" Nullable="false" MaxLength="50" />
+    <Property Type="DateTime" Name="completion_time" Nullable="true" />
+    <Property Type="String" Name="comments" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="b_accepted" Nullable="true" MaxLength="5" />
+    <Property Type="String" Name="b_pricetag" Nullable="true" MaxLength="20" />
+  </ComplexType>
+  <ComplexType Name="get_supplier_bookings1_Result">
+    <Property Type="Int64" Name="b_id" Nullable="false" />
+    <Property Type="Int64" Name="cust_id" Nullable="true" />
+    <Property Type="Int64" Name="sup_id" Nullable="true" />
+    <Property Type="String" Name="b_address" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="b_city" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="b_state" Nullable="false" MaxLength="100" />
+    <Property Type="Time" Name="b_time" Nullable="false" />
+    <Property Type="DateTime" Name="b_date" Nullable="false" />
+    <Property Type="Decimal" Name="b_price" Nullable="false" Precision="19" />
+    <Property Type="String" Name="payment_status" Nullable="false" MaxLength="1" />
+    <Property Type="String" Name="completion_status" Nullable="false" MaxLength="1" />
+    <Property Type="Time" Name="req_time" Nullable="false" />
+    <Property Type="DateTime" Name="req_date" Nullable="false" Precision="23" />
+    <Property Type="String" Name="b_review" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="s_type" Nullable="false" MaxLength="50" />
+    <Property Type="DateTime" Name="completion_time" Nullable="true" />
+    <Property Type="String" Name="comments" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="b_accepted" Nullable="true" MaxLength="5" />
+    <Property Type="String" Name="b_pricetag" Nullable="true" MaxLength="20" />
+  </ComplexType>
+  <EntityType Name="custom_service">
+    <Key>
+      <PropertyRef Name="c_id" />
+    </Key>
+    <Property Name="c_id" Type="Int64" Nullable="false" />
+    <Property Name="sup_id" Type="Int64" />
+    <Property Name="c_name" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="c_message" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="c_pricetag" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="supplier" Relationship="FPPModel.FK__custom_se__sup_i__41EDCAC5" FromRole="custom_service" ToRole="supplier" />
+  </EntityType>
+  <Association Name="FK__custom_se__sup_i__41EDCAC5">
+    <End Type="FPPModel.supplier" Role="supplier" Multiplicity="0..1" />
+    <End Type="FPPModel.custom_service" Role="custom_service" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="supplier">
+        <PropertyRef Name="sup_id" />
+      </Principal>
+      <Dependent Role="custom_service">
+        <PropertyRef Name="sup_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="get_custom_service_Result">
+    <Property Type="Int64" Name="c_id" Nullable="false" />
+    <Property Type="Int64" Name="sup_id" Nullable="true" />
+    <Property Type="String" Name="c_name" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="c_message" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="c_pricetag" Nullable="false" MaxLength="20" />
+  </ComplexType>
+  <ComplexType Name="get_all_distinct_custom_services_Result">
+    <Property Type="Int64" Name="c_id" Nullable="false" />
+    <Property Type="Int64" Name="sup_id" Nullable="true" />
+    <Property Type="String" Name="c_name" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="c_message" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="c_pricetag" Nullable="false" MaxLength="20" />
+  </ComplexType>
+  <ComplexType Name="get_custom_booking_suppliers_Result">
+    <Property Type="Int64" Name="sup_id" Nullable="false" />
+    <Property Type="String" Name="sup_name" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="sup_email" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="sup_phone" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="sup_city" Nullable="false" MaxLength="25" />
+    <Property Type="String" Name="sup_state" Nullable="false" MaxLength="25" />
+    <Property Type="String" Name="sup_password" Nullable="false" MaxLength="1000" />
+    <Property Type="Single" Name="sup_rating" Nullable="true" />
+    <Property Type="Int64" Name="rating_count" Nullable="true" />
+    <Property Type="String" Name="sup_address" Nullable="true" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="get_custom_booking_prices_Result">
+    <Property Type="Int64" Name="c_id" Nullable="false" />
+    <Property Type="Int64" Name="sup_id" Nullable="true" />
+    <Property Type="String" Name="c_name" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="c_message" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="c_pricetag" Nullable="false" MaxLength="20" />
   </ComplexType>
 </Schema>

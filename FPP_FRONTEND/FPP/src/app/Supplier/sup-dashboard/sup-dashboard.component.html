@@ -95,6 +95,13 @@
           <mat-card-content>{{service.message}}</mat-card-content>
         </mat-card>
       </mat-grid-tile>
+      <mat-grid-tile *ngFor="let service of customServiceData">
+        <mat-card class="cardColorStyle mat-elevation-z5">
+          <h4>{{service?.c_name}}</h4>
+          <img height=50% width=60% [src]="service?.custom_url">
+          <mat-card-content>{{service?.c_message}}</mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
     </mat-grid-list>
   </mat-card>
 
@@ -250,15 +257,24 @@
 
           <h4 align="center">Services</h4>
           <div class="row" style="margin-top:10px">
-            <div class="col-md-12" style="text-align: center;bottom: 0; padding-left: 10px; padding-right: 10px">
-              <button mat-raised-button color="warn" style="width:100%" (click)="openAddServiceDialog()">Add
-                Service</button>
-            </div>
+            
             <div style="margin: 20px">
               <mat-chip-list *ngIf="serviceData">
                 <mat-chip *ngFor="let service of serviceData" color="primary" selected><img height=50px width=50px
                     src="assets/{{service.icon}}">{{service.name}}</mat-chip>
+                    <mat-chip *ngFor="let service of customServiceData" color="primary" selected><img height=50px width=50px
+                      [src]="service?.custom_url">{{service?.c_name}}</mat-chip>
+
+                    <mat-chip color="primary" selected (click)="createService()">
+                      +Create Your Own Service
+                    </mat-chip>
+
+
               </mat-chip-list>
+            </div>
+            <div class="col-md-12" style="text-align: center;bottom: 0; padding-left: 10px; padding-right: 10px">
+              <button mat-raised-button color="warn" style="width:100%" (click)="openAddServiceDialog()">Add
+                Service</button>
             </div>
           </div>
         </mat-card>

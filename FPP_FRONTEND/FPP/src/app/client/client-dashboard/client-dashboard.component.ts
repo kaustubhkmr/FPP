@@ -14,7 +14,10 @@ import { Observable } from 'rxjs';
 import { finalize, filter, map } from 'rxjs/operators';
 import * as firebase from 'firebase';
 import { Url } from 'url';
+import { GetCustomBookingSupplierService } from 'src/app/Services/get-custom-booking-supplier.service';
+import { GetCustomBookingPricesService } from 'src/app/Services/get-custom-booking-prices.service';
 
+import * as moment from 'moment'
 
 
 @Component({
@@ -39,56 +42,74 @@ export class ClientDashboardComponent implements OnInit {
 
   task: AngularFireUploadTask;
   downloadURL: Observable<string | null>;
+  supplierGettingSelected: boolean = false;
 
   private state$: Observable<object>;
-private b_id;
-
-
-  constructor(private router: Router, public serviceModel: ServiceModelData, public getBookingSup: GetBookingSupplierService, public makeBooking: AddBookingService, private dialog: MatDialog, private service: ClientDashboardService, private imgService: UploadImageService, private afStorage: AngularFireStorage) {
+  private b_id;
+  customServices: object[] = []
+  isCustomService: boolean = false;
+  customServiceObject: object;
+  customSupplierId;
+  fetchedPrice;
+  mindate;
+  constructor(private router: Router, public serviceModel: ServiceModelData, public getBookingSup: GetBookingSupplierService, public makeBooking: AddBookingService, private dialog: MatDialog, private service: ClientDashboardService, private imgService: UploadImageService, private afStorage: AngularFireStorage, private getcustomBooking: GetCustomBookingSupplierService, private customPrices: GetCustomBookingPricesService) {
     // this.imageUrl="";
   }
 
   ngOnInit() {
     this.getDataClient();
-    // let storage=firebase.storage();
-    // let ref = firebase.storage().ref() ;
-    // //let imageUrl=this.imageUrl;
+    this.service.getAllCustomServices().subscribe((data: Object[]) => {
 
-    // ref.child('gs://firstprotivitiproject.appspot.com/cust'+localStorage.getItem("cust_id")).getDownloadURL().then(function(url) {
-    //   // Insert url into an <img> tag to "download"
+      this.customServices = data;
+      for (let o of this.customServices) {
+        try {
+          this.afStorage.ref('custom_service' + o["c_name"].replace(/\s/g, "") + o["sup_id"]).getDownloadURL().subscribe(u => {
+            o["custom_url"] = u;
+            console.log(o["custom_url"])
+          }, e => console.log(e));
 
+        }
 
-    //   console.log("Success")
-    //   console.log(url)
-    //   this.setImageValue(url)
-    //  // console.log(this.imageUrl)
-    // }).catch(function(error) {
+        catch (e) {
+          console.log(e)
+        }
+      }
+    });
 
-    //   // A full list of error codes is available at
-    //   // https://firebase.google.com/docs/storage/web/handle-errors
-    //   console.log("Error")
-    //   console.log(error)
-    //   console.log(error.code);
-    // });
-    
-    try{
-   //this.imageUrl= this.ref.child('gs://firstprotivitiproject.appspot.com/cust' + localStorage.getItem("cust_id")).getDownloadURL();
-  this.afStorage.ref('cust' + localStorage.getItem("cust_id")).getDownloadURL().subscribe(u=>{console.log("url got:"+u)
-this.imageUrl=u;
-console.log("url assigned"+ this.imageUrl)
-},e=>console.log(e));
-   // console.log(this.imageUrl);
+    try {
+      //this.imageUrl= this.ref.child('gs://firstprotivitiproject.appspot.com/cust' + localStorage.getItem("cust_id")).getDownloadURL();
+      this.afStorage.ref('cust' + localStorage.getItem("cust_id")).getDownloadURL().subscribe(u => {
+        console.log("url got:" + u)
+        this.imageUrl = u;
+        console.log("url assigned" + this.imageUrl)
+      }, e => console.log(e));
+      // console.log(this.imageUrl);
     }
 
-    catch(e){
+    catch (e) {
       console.log(e)
     }
 
-    this.state$ =  this.router.events.pipe(
+    this.state$ = this.router.events.pipe(
       filter(e => e instanceof NavigationStart),
       map(() => this.router.getCurrentNavigation().extras.state)
     )
-    this.state$.subscribe(d=>console.log(d),e=>console.log(e))
+    this.state$.subscribe(d => console.log(d), e => console.log(e))
+
+    this.mindate = moment(new Date()).format('YYYY-MM-DD')
+
+    // let dd = this.mindate.getDate();
+    // let mm = this.mindate.getMonth() + 1; //January is 0!
+    // let yyyy = this.mindate.getFullYear();
+    // if (dd < 10) {
+    //   dd = '0' + dd
+    // }
+    // if (mm < 10) {
+    //   mm = '0' + mm
+    // }
+
+    // this.mindate = yyyy + '-' + mm + '-' + dd;
+    console.log(this.mindate);
 
   }
 
@@ -109,18 +130,38 @@ console.log("url assigned"+ this.imageUrl)
   ngOnChanges() {
     this.getDataClient();
 
-    try{
+    try {
       //this.imageUrl= this.ref.child('gs://firstprotivitiproject.appspot.com/cust' + localStorage.getItem("cust_id")).getDownloadURL();
-     this.afStorage.ref('cust' + localStorage.getItem("cust_id")).getDownloadURL().subscribe(u=>{console.log("url got:"+u)
-   this.imageUrl=u;
-   console.log("url assigned"+ this.imageUrl)
-   },e=>console.log(e));
+      this.afStorage.ref('cust' + localStorage.getItem("cust_id")).getDownloadURL().subscribe(u => {
+        console.log("url got:" + u)
+        this.imageUrl = u;
+        console.log("url assigned" + this.imageUrl)
+      }, e => console.log(e));
       // console.log(this.imageUrl);
-       }
-   
-       catch(e){
-         console.log(e)
-       }
+    }
+
+    catch (e) {
+      console.log(e)
+    }
+
+    this.service.getAllCustomServices().subscribe((data: Object[]) => {
+
+      this.customServices = data;
+      for (let o of this.customServices) {
+        try {
+          this.afStorage.ref('custom_service' + o["c_name"].replace(/\s/g, "") + o["sup_id"]).getDownloadURL().subscribe(u => {
+            o["custom_url"] = u;
+            console.log(o["custom_url"])
+          }, e => console.log(e));
+
+        }
+
+        catch (e) {
+          console.log(e)
+        }
+      }
+    });
+
   }
 
   getDataClient() {
@@ -139,59 +180,65 @@ console.log("url assigned"+ this.imageUrl)
   }
   clickNewBooking() {
     this.showView = 1;
-    this.isServiceSelected=false;
+    this.isServiceSelected = false;
   }
   clickDashBoard() {
     this.showView = 0;
     this.isServiceSelected = false;
   }
-  clickJob(){
+  clickJob() {
     this.showView = 2;
   }
 
-  clickJobActive(){
+  clickJobActive() {
     this.showView = 3;
   }
 
-  clickJobCompleted(){
+  clickJobCompleted() {
     this.showView = 4;
   }
 
-  clickJobMyProfile(){
-    this.showView=5;
-    this.isServiceSelected=false;
+  clickJobMyProfile() {
+    this.showView = 5;
+    this.isServiceSelected = false;
   }
-  serviceSelected(id,bform:NgForm){
-    if(bform!=undefined)
-    bform.reset();
+  serviceSelected(id, bform: NgForm) {
+    this.isCustomService = false;
+    if (bform != undefined)
+      bform.reset();
     this.selectedService = this.serviceModel.value[id];
-    this.getBookingSup.getBookingSupplier(id).subscribe(p=>{this.bookingSuppliers=p;
-      this.isServiceSelected=true;
-    }, e=>console.log(e));
+    this.getBookingSup.getBookingSupplier(id).subscribe(p => {
+      this.bookingSuppliers = p;
+      this.isServiceSelected = true;
+    }, e => console.log(e));
 
   }
-  nextStep(bookingData,supData,stepper:MatStepper){
-   bookingData["cust_id"]=localStorage.getItem("cust_id");
-   bookingData["sup_id"]=supData["sup_id"];
-   bookingData["s_type"]=this.selectedService.name;
-   this.makeBooking.addBooking(bookingData).subscribe(p=>{
-     if(p==1){
-       if(this.b_id!=undefined){
-        let obj = {
-          'b_id': this.b_id,
-          'b_accepted': 'C'
+  nextStep(bookingData, supData, stepper: MatStepper) {
+    bookingData["cust_id"] = localStorage.getItem("cust_id");
+    bookingData["sup_id"] = supData["sup_id"];
+    bookingData["s_type"] = this.selectedService.name;
+    bookingData["b_pricetag"] = this.selectedService.pricetag;
+    this.makeBooking.addBooking(bookingData).subscribe(p => {
+      if (p == 1) {
+        if (this.b_id != undefined) {
+          let obj = {
+            'b_id': this.b_id,
+            'b_accepted': 'C'
+          }
+          this.service.updateBookingConfirmation(this.b_id, obj).subscribe(p => {
+            console.log(p)
+           
+          })
         }
-       this.service.updateBookingConfirmation(this.b_id,obj).subscribe(p=>console.log(p))
-       }
-      this.isBookingFormFilled=true;
-      this.step1Editable=false;
-      this.step2Editable=false;
-      stepper.next();
+        this.isBookingFormFilled = true;
+        this.step1Editable = false;
+        this.step2Editable = false;
+        stepper.next();
 
-     }
-     else
-     console.log("error")
-  },e=>console.log(e))
+      }
+      else
+        console.log("error")
+    }, e => console.log(e))
   }
 
   openEditDialog() {
@@ -205,115 +252,109 @@ console.log("url assigned"+ this.imageUrl)
 
   }
 
-   handleFileInput(event) {
+  handleFileInput(event) {
 
     console.log(event)
     console.log(event.target.files[0])
-    // this.fileToUpload = file.item(0);
 
-    // //Show image preview
-    // var reader = new FileReader();
-    // reader.onload = (event:any) => {
-    //   this.imageUrl = event.target.result;
-    // }
-    // reader.readAsDataURL(this.fileToUpload);
+    try {
+      this.ref = this.afStorage.ref('cust' + localStorage.getItem("cust_id"));
+      this.task = this.ref.put(event.target.files[0]);
+      this.task.snapshotChanges().pipe(
+        finalize(() => {
+          this.ref.getDownloadURL().subscribe(url => {
+            console.log(url); // <-- do what ever you want with the url..
+            this.imageUrl = url;
+            console.log(this.imageUrl);
+          });
+        }))
+        .subscribe();
+    }
 
-    // this.imgService.postFile("cust_"+localStorage.getItem("cust_id"),this.fileToUpload).subscribe(
-    //   p =>{
-    //     console.log('done');
-    //     console.log(p)
-    //   //  Image.value = null;
-    //   //  this.imageUrl = "/assets/img/default-image.png";
-    //   }
-    // );
-    //   const randomId = Math.random().toString(36).substring(2);
-    // this.ref = this.afStorage.ref(randomId);
-    // this.task = this.ref.put(event.target.files[0]);
-    // this.imageUrl= this.task.
-    // let ref=this.afStorage.ref('gs://firstprotivitiproject.appspot.com/'+event.target.files[0].name); 
-//-----------------------working code---------------------//
-    // let ref = firebase.storage().ref();
-    // let uploadTask = ref.child('cust' + localStorage.getItem("cust_id")).put(event.target.files[0]);
-//-------------------------------------------------------//
-    //let task =  ref.put(event.target.files[0]);
-    // console.log(event.target.files[0].name)
-
-    //   downloadUrl=task.downloadURL().subscribe(url=>{this.imageUrl=url
-    // console.log(url);
-    // console.log(this.imageUrl);
-    // });
-
-    // this.task.snapshotChanges().pipe(
-    //   finalize(() => {
-    //     this.downloadURL = this.ref.getDownloadURL()
-    //     this.downloadURL.subscribe(url => {this.imageUrl = url
-    //     console.log(url);
-    //     console.log(this.imageUrl)
-    //     },e=>console.log(e.message));
-    //   })
-    // )
-    // .subscribe();
-
-    // ref.put(event.target.files[0]).then(function(snapshot) {
-    //   console.log('Uploaded a Image');
-    // });
-
-    //----------------------Working Code---------------------------//
-    // uploadTask.on('state_changed', function (snapshot) {
-    //   // Observe state change events such as progress, pause, and resume
-    //   // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-    //   var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-    //   console.log('Upload is ' + progress + '% done');
-    //   switch (snapshot.state) {
-    //     case firebase.storage.TaskState.PAUSED: // or 'paused'
-    //       console.log('Upload is paused');
-    //       break;
-    //     case firebase.storage.TaskState.RUNNING: // or 'running'
-    //       console.log('Upload is running');
-    //       break;
-    //   }
-    // }, function (error) {
-    //   // Handle unsuccessful uploads
-    //   console.log(error)
-    // }, function () {
-    //   // Handle successful uploads on complete
-    //   // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-    //   uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
-    //     console.log('File available at', downloadURL);
-    //     //this.imageUrl = downloadURL;
-    //     console.log(downloadURL)
-    //   });
-    // });
-
-  //------------------------------------------------------//  
-
-  try{
-  this.ref = this.afStorage.ref('cust' + localStorage.getItem("cust_id"));
-  this.task = this.ref.put(event.target.files[0]);
-   this.task.snapshotChanges().pipe(
-    finalize(() => {
-     this.ref.getDownloadURL().subscribe(url => {
-       console.log(url); // <-- do what ever you want with the url..
-       this.imageUrl=url;
-       console.log(this.imageUrl);
-     });
-   }))
-   .subscribe();  
-  }
-
-  catch(e){
-    console.log(e);
-  }
+    catch (e) {
+      console.log(e);
+    }
 
   }
-  bookAgain(value){
+  bookAgain(value) {
     console.log(value)
-   // this.showView=value as number;
-   this.showView=value.toggle;
-   this.b_id=value.b_id;
-   
+    // this.showView=value as number;
+    this.showView = value.toggle;
+    this.b_id = value.b_id;
+
+  }
+
+  customServiceSelected(service, cform: NgForm) {
+
+    this.isCustomService = true;
+
+    if (cform != undefined)
+      cform.reset();
+
+
+    this.selectedService = service;
+    this.getcustomBooking.getCustomBookingSupplier(this.selectedService["c_name"]).subscribe(p => {
+      this.bookingSuppliers = p;
+      this.isServiceSelected = true;
+    }, e => console.log(e));
+    console.log("selected_sup is:" + this.customSupplierId)
+
+    //call api to fetch custom price here
+    // if (this.customSupplierId != undefined) {
+
+    //   console.log(this.customSupplierId)
+
+    //   this.customPrices.getCustomPrices(this.customSupplierId, {'c_name':this.selectedService["c_name"]}).subscribe(p => {
+    //     this.fetchedPrice = p;
+    //     console.log("price is"+this.fetchedPrice)
+    //   })
+    // }
+  }
+
+  nextCustomStep(bookingData, priceData, stepper: MatStepper) {
+
+    bookingData["cust_id"] = localStorage.getItem("cust_id");
+    bookingData["sup_id"] = this.customSupplierId;
+    bookingData["s_type"] = this.selectedService.c_name;
+    bookingData["b_pricetag"] = priceData["b_price"];
+
+    this.makeBooking.addBooking(bookingData).subscribe(p => {
+      if (p == 1) {
+        if (this.b_id != undefined) {
+          let obj = {
+            'b_id': this.b_id,
+            'b_accepted': 'C'
+          }
+          this.service.updateBookingConfirmation(this.b_id, obj).subscribe(p => console.log(p))
+        }
+        this.isBookingFormFilled = true;
+        this.step1Editable = false;
+        this.step2Editable = false;
+        stepper.next();
+
+      }
+      else
+        console.log("error")
+    }, e => console.log(e))
+
+  }
+
+  someChange(data) {
+    this.supplierGettingSelected = true;
+    console.log("Event Change data: " + data)
+    if (data != undefined && this.selectedService != undefined) {
+
+      console.log(this.customSupplierId)
+
+      this.customPrices.getCustomPrices(data, { 'c_name': this.selectedService["c_name"] }).subscribe(p => {
+        this.supplierGettingSelected = false;
+
+        this.fetchedPrice = p;
+        console.log("price is" + this.fetchedPrice)
+      })
+    }
   }
 
 
- 
+
 }

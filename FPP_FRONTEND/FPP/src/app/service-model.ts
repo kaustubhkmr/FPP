@@ -13,7 +13,7 @@ export class ServiceModelData{
             ₹99/Hr. At your doorstep in 30mins. 24/7 Services. Pre-Screened Drivers.
             Pay For What You Use.`,
             'price':`99`,
-            'pricetag':'Rs.99/hr'
+            'pricetag':'99/hr'
         },
         {
             'id':1,
@@ -24,7 +24,7 @@ export class ServiceModelData{
             Get Mechanic is 20 Mins. Best Roadside Assistance.`
             ,
             'price':`99`,
-            'pricetag':'Rs.99/hr'
+            'pricetag':'200/hr'
         },
         {
             'id':2,
@@ -35,7 +35,7 @@ export class ServiceModelData{
             Pay For What You Use.`
             ,
             'price':`99`,
-            'pricetag':'Rs.99/hr'
+            'pricetag':'70/person'
         },
         {
             'id':3,
@@ -46,7 +46,7 @@ export class ServiceModelData{
             shrubbery, trees and greenery. All this at an affordable price of Rs.99/hr`
             ,
             'price':`99`,
-            'pricetag':'Rs.99/hr'
+            'pricetag':'50/hour'
         },
         {
             'id':4,
@@ -56,7 +56,7 @@ export class ServiceModelData{
             within 2 hours for services at best prices. Fix all kinds of faults in Rs. 500 under special offer`
             ,
             'price':`99`,
-            'pricetag':'Rs.99/hr'
+            'pricetag':'150/hr'
         },
         {
             'id':5,
@@ -66,8 +66,8 @@ export class ServiceModelData{
             medical experience. We aim to provide you an easy and hassle-free
             consultation at home at your doorstep. At an affordable consulting fee of Rs. 200 per consulatation.`
             ,
-            'price':`99`,
-            'pricetag':'Rs.99/hr'
+            'price':`200`,
+            'pricetag':'200/person'
         },
         {
             'id':6,
@@ -77,7 +77,7 @@ export class ServiceModelData{
             Pharmacies and Health Systems.`
             ,
             'price':`99`,
-            'pricetag':'Rs.99/hr'
+            'pricetag':'20/hr'
         },
         {
             'id':7,
@@ -87,7 +87,7 @@ export class ServiceModelData{
             hours for services at best prices.`
             ,
             'price':`99`,
-            'pricetag':'Rs.99/hr'
+            'pricetag':'90/hr'
         },
         {
             'id':8,
@@ -95,12 +95,18 @@ export class ServiceModelData{
             'icon':'builder.png',
             'message':`You will find many links to help you with your construction/remodeling
             projects.`
+            ,
+            'price':`99`,
+            'pricetag':'100/hr'
         },
         {
             'id':9,
-            'name':'Gym',
+            'name':'Trainer',
             'icon':'athlete.png',
             'message':`Successfully delivered a complete fitness lifestyle to our members. Subscribe at Rs.1000/month under special offer`
+            ,
+            'price':`1000`,
+            'pricetag':'1000/person'
         }
     ]
 }

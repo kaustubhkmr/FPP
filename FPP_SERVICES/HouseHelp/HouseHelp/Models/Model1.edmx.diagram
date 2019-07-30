@@ -12,6 +12,8 @@
         <AssociationConnector Association="FPPModel.c_fk" ManuallyRouted="false" />
         <AssociationConnector Association="FPPModel.s_fk" ManuallyRouted="false" />
         <AssociationConnector Association="FPPModel.FK__sup_servi__sup_i__6383C8BA" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="FPPModel.custom_service" Width="1.5" PointX="3" PointY="0.75" />
+        <AssociationConnector Association="FPPModel.FK__custom_se__sup_i__41EDCAC5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -31,6 +31,7 @@ namespace HouseHelp.Models
         public virtual DbSet<customer> customers { get; set; }
         public virtual DbSet<sup_services> sup_services { get; set; }
         public virtual DbSet<supplier> suppliers { get; set; }
+        public virtual DbSet<custom_service> custom_service { get; set; }
     
         public virtual int add_booking(Nullable<long> bid, Nullable<long> cust_id, Nullable<long> sup_id, string b_address, string b_city, string b_state, Nullable<System.TimeSpan> b_time, Nullable<System.DateTime> b_date, Nullable<System.TimeSpan> req_time, Nullable<System.DateTime> req_date, string s_type)
         {
@@ -494,6 +495,118 @@ namespace HouseHelp.Models
                 new ObjectParameter("bid", typeof(long));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_booking_sup_names1_Result>("get_booking_sup_names1", bidParameter);
+        }
+    
+        public virtual int upd_tag(string b_tag)
+        {
+            var b_tagParameter = b_tag != null ?
+                new ObjectParameter("b_tag", b_tag) :
+                new ObjectParameter("b_tag", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("upd_tag", b_tagParameter);
+        }
+    
+        public virtual ObjectResult<get_client_bookings1_Result> get_client_bookings1(Nullable<long> cust_id)
+        {
+            var cust_idParameter = cust_id.HasValue ?
+                new ObjectParameter("cust_id", cust_id) :
+                new ObjectParameter("cust_id", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_client_bookings1_Result>("get_client_bookings1", cust_idParameter);
+        }
+    
+        public virtual ObjectResult<get_supplier_bookings1_Result> get_supplier_bookings1(Nullable<long> sup_id)
+        {
+            var sup_idParameter = sup_id.HasValue ?
+                new ObjectParameter("sup_id", sup_id) :
+                new ObjectParameter("sup_id", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_supplier_bookings1_Result>("get_supplier_bookings1", sup_idParameter);
+        }
+    
+        public virtual int upd_price(Nullable<long> b_id, Nullable<decimal> b_price)
+        {
+            var b_idParameter = b_id.HasValue ?
+                new ObjectParameter("b_id", b_id) :
+                new ObjectParameter("b_id", typeof(long));
+    
+            var b_priceParameter = b_price.HasValue ?
+                new ObjectParameter("b_price", b_price) :
+                new ObjectParameter("b_price", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("upd_price", b_idParameter, b_priceParameter);
+        }
+    
+        public virtual int insert_custom_service(Nullable<long> sup_id, string cname, string c_message, string c_pricetag)
+        {
+            var sup_idParameter = sup_id.HasValue ?
+                new ObjectParameter("sup_id", sup_id) :
+                new ObjectParameter("sup_id", typeof(long));
+    
+            var cnameParameter = cname != null ?
+                new ObjectParameter("cname", cname) :
+                new ObjectParameter("cname", typeof(string));
+    
+            var c_messageParameter = c_message != null ?
+                new ObjectParameter("c_message", c_message) :
+                new ObjectParameter("c_message", typeof(string));
+    
+            var c_pricetagParameter = c_pricetag != null ?
+                new ObjectParameter("c_pricetag", c_pricetag) :
+                new ObjectParameter("c_pricetag", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("insert_custom_service", sup_idParameter, cnameParameter, c_messageParameter, c_pricetagParameter);
+        }
+    
+        public virtual ObjectResult<get_custom_service_Result> get_custom_service(Nullable<long> sup_id)
+        {
+            var sup_idParameter = sup_id.HasValue ?
+                new ObjectParameter("sup_id", sup_id) :
+                new ObjectParameter("sup_id", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_custom_service_Result>("get_custom_service", sup_idParameter);
+        }
+    
+        public virtual ObjectResult<string> get_distinct_custom_services()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("get_distinct_custom_services");
+        }
+    
+        public virtual ObjectResult<string> get_distinct_custom_services1()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("get_distinct_custom_services1");
+        }
+    
+        public virtual ObjectResult<string> get_distinct_custom_services2()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("get_distinct_custom_services2");
+        }
+    
+        public virtual ObjectResult<get_all_distinct_custom_services_Result> get_all_distinct_custom_services()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_all_distinct_custom_services_Result>("get_all_distinct_custom_services");
+        }
+    
+        public virtual ObjectResult<get_custom_booking_suppliers_Result> get_custom_booking_suppliers(string cname)
+        {
+            var cnameParameter = cname != null ?
+                new ObjectParameter("cname", cname) :
+                new ObjectParameter("cname", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_custom_booking_suppliers_Result>("get_custom_booking_suppliers", cnameParameter);
+        }
+    
+        public virtual ObjectResult<get_custom_booking_prices_Result> get_custom_booking_prices(Nullable<long> sup_id, string cname)
+        {
+            var sup_idParameter = sup_id.HasValue ?
+                new ObjectParameter("sup_id", sup_id) :
+                new ObjectParameter("sup_id", typeof(long));
+    
+            var cnameParameter = cname != null ?
+                new ObjectParameter("cname", cname) :
+                new ObjectParameter("cname", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_custom_booking_prices_Result>("get_custom_booking_prices", sup_idParameter, cnameParameter);
         }
     }
 }

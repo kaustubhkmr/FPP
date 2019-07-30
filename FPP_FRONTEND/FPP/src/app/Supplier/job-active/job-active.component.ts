@@ -46,11 +46,13 @@ export class JobActiveComponent implements OnInit {
     })
   }
 
-  jobComplete(b_id){
+  jobComplete(b_id,b_pricetag){
     console.log(b_id);
     const dialogRef = this.dialog.open(EnterBookingIdComponent, {
       width: '250px',
-      data: {"b_id": b_id}
+      data: {"b_id": b_id,
+      "b_pricetag":b_pricetag,
+    }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -58,7 +60,8 @@ export class JobActiveComponent implements OnInit {
         localStorage.setItem("comp_status","F");
         let obj ={
           "b_id":b_id,
-          "completion_status":'T'
+          "completion_status":'T',
+          "b_price":localStorage.getItem("b_price")
         }
         this.serivedashBoard.updateBookingCompletion(b_id,obj).subscribe((p)=>{
           this.getData();

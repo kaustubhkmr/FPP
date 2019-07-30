@@ -22,6 +22,17 @@
     <Property Name="completion_time" Type="datetime2" Precision="7" />
     <Property Name="comments" Type="varchar" MaxLength="200" />
     <Property Name="b_accepted" Type="varchar" MaxLength="5" />
+    <Property Name="b_pricetag" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="custom_service">
+    <Key>
+      <PropertyRef Name="c_id" />
+    </Key>
+    <Property Name="c_id" Type="bigint" Nullable="false" />
+    <Property Name="sup_id" Type="bigint" />
+    <Property Name="c_name" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="c_message" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="c_pricetag" Type="varchar" MaxLength="20" Nullable="false" />
   </EntityType>
   <EntityType Name="customers">
     <Key>
@@ -68,6 +79,18 @@
       </Principal>
       <Dependent Role="bookings">
         <PropertyRef Name="cust_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__custom_se__sup_i__41EDCAC5">
+    <End Role="suppliers" Type="Self.suppliers" Multiplicity="0..1" />
+    <End Role="custom_service" Type="Self.custom_service" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="suppliers">
+        <PropertyRef Name="sup_id" />
+      </Principal>
+      <Dependent Role="custom_service">
+        <PropertyRef Name="sup_id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -153,6 +176,7 @@
     <Parameter Name="email" Type="varchar" Mode="In" />
     <Parameter Name="pwd" Type="varchar" Mode="In" />
   </Function>
+  <Function Name="get_all_distinct_custom_services" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="get_booking" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="bid" Type="bigint" Mode="In" />
   </Function>
@@ -174,6 +198,22 @@
   <Function Name="get_client_bookings" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="cust_id" Type="bigint" Mode="In" />
   </Function>
+  <Function Name="get_client_bookings1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="cust_id" Type="bigint" Mode="In" />
+  </Function>
+  <Function Name="get_custom_booking_prices" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="sup_id" Type="bigint" Mode="In" />
+    <Parameter Name="cname" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="get_custom_booking_suppliers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="cname" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="get_custom_service" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="sup_id" Type="bigint" Mode="In" />
+  </Function>
+  <Function Name="get_distinct_custom_services" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="get_distinct_custom_services1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="get_distinct_custom_services2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="get_my_services" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="sup_id" Type="bigint" Mode="In" />
   </Function>
@@ -181,6 +221,9 @@
     <Parameter Name="sup_id" Type="bigint" Mode="In" />
   </Function>
   <Function Name="get_supplier_bookings" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="sup_id" Type="bigint" Mode="In" />
+  </Function>
+  <Function Name="get_supplier_bookings1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="sup_id" Type="bigint" Mode="In" />
   </Function>
   <Function Name="get_supplier1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -195,6 +238,12 @@
   <Function Name="give_rating" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="sup_id" Type="bigint" Mode="In" />
     <Parameter Name="rating" Type="real" Mode="In" />
+  </Function>
+  <Function Name="insert_custom_service" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="sup_id" Type="bigint" Mode="In" />
+    <Parameter Name="cname" Type="varchar" Mode="In" />
+    <Parameter Name="c_message" Type="varchar" Mode="In" />
+    <Parameter Name="c_pricetag" Type="varchar" Mode="In" />
   </Function>
   <Function Name="make_payment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="bid" Type="bigint" Mode="In" />
@@ -216,6 +265,10 @@
     <Parameter Name="cust_city" Type="varchar" Mode="In" />
     <Parameter Name="cust_state" Type="varchar" Mode="In" />
   </Function>
+  <Function Name="upd_price" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="b_id" Type="bigint" Mode="In" />
+    <Parameter Name="b_price" Type="money" Mode="In" />
+  </Function>
   <Function Name="upd_sup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="sup_id" Type="bigint" Mode="In" />
     <Parameter Name="sup_name" Type="varchar" Mode="In" />
@@ -225,14 +278,22 @@
     <Parameter Name="sup_state" Type="varchar" Mode="In" />
     <Parameter Name="sup_address" Type="varchar" Mode="In" />
   </Function>
+  <Function Name="upd_tag" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="b_tag" Type="varchar" Mode="In" />
+  </Function>
   <EntityContainer Name="FPPModelStoreContainer">
     <EntitySet Name="bookings" EntityType="Self.bookings" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="custom_service" EntityType="Self.custom_service" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="customers" EntityType="Self.customers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sup_services" EntityType="Self.sup_services" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="suppliers" EntityType="Self.suppliers" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="c_fk" Association="Self.c_fk">
       <End Role="customers" EntitySet="customers" />
       <End Role="bookings" EntitySet="bookings" />
+    </AssociationSet>
+    <AssociationSet Name="FK__custom_se__sup_i__41EDCAC5" Association="Self.FK__custom_se__sup_i__41EDCAC5">
+      <End Role="suppliers" EntitySet="suppliers" />
+      <End Role="custom_service" EntitySet="custom_service" />
     </AssociationSet>
     <AssociationSet Name="FK__sup_servi__sup_i__6383C8BA" Association="Self.FK__sup_servi__sup_i__6383C8BA">
       <End Role="suppliers" EntitySet="suppliers" />
