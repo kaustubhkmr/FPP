@@ -1,0 +1,15 @@
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+  .cardColorStyle{
+    background-color: azure;
+    height: 100%;
+    margin: 10px;
+    margin-right: 10px;
+  }

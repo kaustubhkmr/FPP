@@ -297,6 +297,8 @@
       <Parameter Name="sup_id" Mode="In" Type="Int64" />
       <Parameter Name="cname" Mode="In" Type="String" />
     </FunctionImport>
+    <FunctionImport Name="get_all_client" ReturnType="Collection(FPPModel.get_all_client_Result)" />
+    <FunctionImport Name="get_all_supplier" ReturnType="Collection(FPPModel.get_all_supplier_Result)" />
   </EntityContainer>
   <ComplexType Name="get_booking_Result">
     <Property Type="Int64" Name="b_id" Nullable="false" />
@@ -578,5 +580,27 @@
     <Property Type="String" Name="c_name" Nullable="false" MaxLength="20" />
     <Property Type="String" Name="c_message" Nullable="false" MaxLength="100" />
     <Property Type="String" Name="c_pricetag" Nullable="false" MaxLength="20" />
+  </ComplexType>
+  <ComplexType Name="get_all_client_Result">
+    <Property Type="Int64" Name="cust_id" Nullable="false" />
+    <Property Type="String" Name="cust_name" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="cust_phone" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="cust_email" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="cust_address" Nullable="false" MaxLength="400" />
+    <Property Type="String" Name="cust_city" Nullable="false" MaxLength="25" />
+    <Property Type="String" Name="cust_state" Nullable="false" MaxLength="25" />
+    <Property Type="String" Name="cust_password" Nullable="false" MaxLength="1000" />
+  </ComplexType>
+  <ComplexType Name="get_all_supplier_Result">
+    <Property Type="Int64" Name="sup_id" Nullable="false" />
+    <Property Type="String" Name="sup_name" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="sup_email" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="sup_phone" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="sup_city" Nullable="false" MaxLength="25" />
+    <Property Type="String" Name="sup_state" Nullable="false" MaxLength="25" />
+    <Property Type="String" Name="sup_password" Nullable="false" MaxLength="1000" />
+    <Property Type="Single" Name="sup_rating" Nullable="true" />
+    <Property Type="Int64" Name="rating_count" Nullable="true" />
+    <Property Type="String" Name="sup_address" Nullable="true" MaxLength="100" />
   </ComplexType>
 </Schema>

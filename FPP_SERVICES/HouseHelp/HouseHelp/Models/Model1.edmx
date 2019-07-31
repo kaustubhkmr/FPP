@@ -87,7 +87,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__custom_se__sup_i__41EDCAC5">
+        <Association Name="FK__custom_se__sup_i__76969D2E">
           <End Role="suppliers" Type="Self.suppliers" Multiplicity="0..1" />
           <End Role="custom_service" Type="Self.custom_service" Multiplicity="*" />
           <ReferentialConstraint>
@@ -99,7 +99,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__sup_servi__sup_i__6383C8BA">
+        <Association Name="FK__sup_servi__sup_i__4CA06362">
           <End Role="suppliers" Type="Self.suppliers" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -181,7 +181,9 @@
           <Parameter Name="email" Type="varchar" Mode="In" />
           <Parameter Name="pwd" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="get_all_client" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="get_all_distinct_custom_services" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="get_all_supplier" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="get_booking" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="bid" Type="bigint" Mode="In" />
         </Function>
@@ -217,8 +219,6 @@
           <Parameter Name="sup_id" Type="bigint" Mode="In" />
         </Function>
         <Function Name="get_distinct_custom_services" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="get_distinct_custom_services1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="get_distinct_custom_services2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="get_my_services" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="sup_id" Type="bigint" Mode="In" />
         </Function>
@@ -296,11 +296,11 @@
             <End Role="customers" EntitySet="customers" />
             <End Role="bookings" EntitySet="bookings" />
           </AssociationSet>
-          <AssociationSet Name="FK__custom_se__sup_i__41EDCAC5" Association="Self.FK__custom_se__sup_i__41EDCAC5">
+          <AssociationSet Name="FK__custom_se__sup_i__76969D2E" Association="Self.FK__custom_se__sup_i__76969D2E">
             <End Role="suppliers" EntitySet="suppliers" />
             <End Role="custom_service" EntitySet="custom_service" />
           </AssociationSet>
-          <AssociationSet Name="FK__sup_servi__sup_i__6383C8BA" Association="Self.FK__sup_servi__sup_i__6383C8BA">
+          <AssociationSet Name="FK__sup_servi__sup_i__4CA06362" Association="Self.FK__sup_servi__sup_i__4CA06362">
             <End Role="suppliers" EntitySet="suppliers" />
             <End Role="sup_services" EntitySet="sup_services" />
           </AssociationSet>
@@ -610,6 +610,8 @@
             <Parameter Name="sup_id" Mode="In" Type="Int64" />
             <Parameter Name="cname" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="get_all_client" ReturnType="Collection(FPPModel.get_all_client_Result)" />
+          <FunctionImport Name="get_all_supplier" ReturnType="Collection(FPPModel.get_all_supplier_Result)" />
         </EntityContainer>
         <ComplexType Name="get_booking_Result">
           <Property Type="Int64" Name="b_id" Nullable="false" />
@@ -891,6 +893,28 @@
           <Property Type="String" Name="c_name" Nullable="false" MaxLength="20" />
           <Property Type="String" Name="c_message" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="c_pricetag" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="get_all_client_Result">
+          <Property Type="Int64" Name="cust_id" Nullable="false" />
+          <Property Type="String" Name="cust_name" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="cust_phone" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="cust_email" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="cust_address" Nullable="false" MaxLength="400" />
+          <Property Type="String" Name="cust_city" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="cust_state" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="cust_password" Nullable="false" MaxLength="1000" />
+        </ComplexType>
+        <ComplexType Name="get_all_supplier_Result">
+          <Property Type="Int64" Name="sup_id" Nullable="false" />
+          <Property Type="String" Name="sup_name" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="sup_email" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="sup_phone" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="sup_city" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="sup_state" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="sup_password" Nullable="false" MaxLength="1000" />
+          <Property Type="Single" Name="sup_rating" Nullable="true" />
+          <Property Type="Int64" Name="rating_count" Nullable="true" />
+          <Property Type="String" Name="sup_address" Nullable="true" MaxLength="100" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1293,8 +1317,6 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="get_distinct_custom_services" FunctionName="FPPModel.Store.get_distinct_custom_services" />
-          <FunctionImportMapping FunctionImportName="get_distinct_custom_services1" FunctionName="FPPModel.Store.get_distinct_custom_services1" />
-          <FunctionImportMapping FunctionImportName="get_distinct_custom_services2" FunctionName="FPPModel.Store.get_distinct_custom_services2" />
           <FunctionImportMapping FunctionImportName="get_all_distinct_custom_services" FunctionName="FPPModel.Store.get_all_distinct_custom_services">
             <ResultMapping>
               <ComplexTypeMapping TypeName="FPPModel.get_all_distinct_custom_services_Result">
@@ -1330,6 +1352,36 @@
                 <ScalarProperty Name="c_name" ColumnName="c_name" />
                 <ScalarProperty Name="c_message" ColumnName="c_message" />
                 <ScalarProperty Name="c_pricetag" ColumnName="c_pricetag" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_all_client" FunctionName="FPPModel.Store.get_all_client">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FPPModel.get_all_client_Result">
+                <ScalarProperty Name="cust_id" ColumnName="cust_id" />
+                <ScalarProperty Name="cust_name" ColumnName="cust_name" />
+                <ScalarProperty Name="cust_phone" ColumnName="cust_phone" />
+                <ScalarProperty Name="cust_email" ColumnName="cust_email" />
+                <ScalarProperty Name="cust_address" ColumnName="cust_address" />
+                <ScalarProperty Name="cust_city" ColumnName="cust_city" />
+                <ScalarProperty Name="cust_state" ColumnName="cust_state" />
+                <ScalarProperty Name="cust_password" ColumnName="cust_password" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_all_supplier" FunctionName="FPPModel.Store.get_all_supplier">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FPPModel.get_all_supplier_Result">
+                <ScalarProperty Name="sup_id" ColumnName="sup_id" />
+                <ScalarProperty Name="sup_name" ColumnName="sup_name" />
+                <ScalarProperty Name="sup_email" ColumnName="sup_email" />
+                <ScalarProperty Name="sup_phone" ColumnName="sup_phone" />
+                <ScalarProperty Name="sup_city" ColumnName="sup_city" />
+                <ScalarProperty Name="sup_state" ColumnName="sup_state" />
+                <ScalarProperty Name="sup_password" ColumnName="sup_password" />
+                <ScalarProperty Name="sup_rating" ColumnName="sup_rating" />
+                <ScalarProperty Name="rating_count" ColumnName="rating_count" />
+                <ScalarProperty Name="sup_address" ColumnName="sup_address" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
