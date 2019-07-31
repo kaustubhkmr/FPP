@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, NavigationStart } from '@angular/router';
 import { ServiceModelData } from 'src/app/service-model';
 import { ConcatSource } from 'webpack-sources';
@@ -14,6 +14,7 @@ import { Observable } from 'rxjs';
 import { finalize, filter, map } from 'rxjs/operators';
 import * as firebase from 'firebase';
 import { Url } from 'url';
+import { SeeSupService } from 'src/app/Services/see-sup.service';
 import { GetCustomBookingSupplierService } from 'src/app/Services/get-custom-booking-supplier.service';
 import { GetCustomBookingPricesService } from 'src/app/Services/get-custom-booking-prices.service';
 
@@ -25,7 +26,7 @@ import * as moment from 'moment'
   templateUrl: './client-dashboard.component.html',
   styleUrls: ['./client-dashboard.component.css']
 })
-export class ClientDashboardComponent implements OnInit {
+export class ClientDashboardComponent implements OnInit,OnDestroy {
   showView = 0;
   selectedService;
   isServiceSelected: boolean = false;
@@ -39,9 +40,23 @@ export class ClientDashboardComponent implements OnInit {
   fileToUpload: File = null;
   imageUrl;
   ref: AngularFireStorageReference;
-
+  bookingData;
+  bookingActive;
+  activeBadge
+  bookingPending;
+  pendingBadge;
+  bookingCompleted;
+  completedBadge;
+  pageOne = 0;
+  pageOneData;
+  pageOneDataSup;
+  pageOneDataImageUrl;
+  pageTwoData;
+  pageTwoDataSup;
+  pageTwoDataImageUrl;
   task: AngularFireUploadTask;
   downloadURL: Observable<string | null>;
+
   supplierGettingSelected: boolean = false;
 
   private state$: Observable<object>;
@@ -51,13 +66,90 @@ export class ClientDashboardComponent implements OnInit {
   customServiceObject: object;
   customSupplierId;
   fetchedPrice;
+  mindate;
   minDate;
-  constructor(private router: Router, public serviceModel: ServiceModelData, public getBookingSup: GetBookingSupplierService, public makeBooking: AddBookingService, private dialog: MatDialog, private service: ClientDashboardService, private imgService: UploadImageService, private afStorage: AngularFireStorage, private getcustomBooking: GetCustomBookingSupplierService, private customPrices: GetCustomBookingPricesService) {
-    // this.imageUrl="";
-  }
+  custId;
+  intervalFlag;
+
+
+  constructor(private router: Router, public serviceModel: ServiceModelData,
+    public getBookingSup: GetBookingSupplierService, public makeBooking: AddBookingService,
+    private dialog: MatDialog, private service: ClientDashboardService, private imgService: UploadImageService,
+    private afStorage: AngularFireStorage, private get_sup: SeeSupService, private getcustomBooking: GetCustomBookingSupplierService,
+    private customPrices: GetCustomBookingPricesService) { }
 
   ngOnInit() {
     this.getDataClient();
+    this.custId = localStorage.getItem("cust_id");
+    this.getDataBooking();
+    this.intervalFlag = setInterval(() => {
+      this.service.getBookingData(this.custId).subscribe((bookingObj: object[]) => {
+        bookingObj.forEach((e) => {
+          e["b_time"] = e["b_time"].substring(0, 5);
+        });
+        this.bookingData = bookingObj;
+        this.bookingPending = bookingObj.filter((e) => {
+          if (e['b_accepted'] == 'F' || e['b_accepted'] == 'D') {
+            return true;
+          }
+          else {
+            return false;
+          }
+        });
+        this.pendingBadge = this.bookingPending.length;
+        this.pageOneData = this.bookingPending[this.bookingPending.length - 1];
+
+        this.get_sup.seeSup(this.pageOneData.b_id).subscribe(p => {
+          this.pageOneDataSup = p;
+          try {
+            this.afStorage.ref('sup' + this.pageOneDataSup['sup_id']).getDownloadURL().subscribe(u => {
+              
+              this.pageOneDataImageUrl = u;
+              
+            });
+          }
+          catch (e) {
+            console.log(e)
+          }
+        },)
+
+        this.bookingActive = bookingObj.filter((e) => {
+          if (e['b_accepted'] == 'A' && e['completion_status'] == 'F') {
+            return true;
+          }
+          else {
+            return false;
+          }
+        });
+        this.activeBadge = this.bookingActive.length;
+        this.pageTwoData = this.bookingActive[this.bookingActive.length - 1];
+
+        this.get_sup.seeSup(this.pageTwoData.b_id).subscribe(p => {
+          this.pageTwoDataSup = p;
+          try {
+            this.afStorage.ref('sup' + this.pageTwoDataSup['sup_id']).getDownloadURL().subscribe(u => {
+              
+              this.pageTwoDataImageUrl = u;
+              
+            });
+          }
+          catch (e) {
+            console.log(e)
+          }
+        },)
+
+        this.bookingCompleted = bookingObj.filter((e) => {
+          if (e['b_accepted'] == 'A' && e['completion_status'] == 'T') {
+            return true;
+          }
+          else {
+            return false;
+          }
+        });
+        this.completedBadge = this.bookingCompleted.length;
+      })
+    }, 50000);
+
     this.service.getAllCustomServices().subscribe((data: Object[]) => {
 
       this.customServices = data;
@@ -75,6 +167,28 @@ export class ClientDashboardComponent implements OnInit {
         }
       }
     });
+
+
+    // let storage=firebase.storage();
+    // let ref = firebase.storage().ref() ;
+    // //let imageUrl=this.imageUrl;
+
+    // ref.child('gs://firstprotivitiproject.appspot.com/cust'+localStorage.getItem("cust_id")).getDownloadURL().then(function(url) {
+    //   // Insert url into an <img> tag to "download"
+
+
+    //   console.log("Success")
+    //   console.log(url)
+    //   this.setImageValue(url)
+    //  // console.log(this.imageUrl)
+    // }).catch(function(error) {
+
+    //   // A full list of error codes is available at
+    //   // https://firebase.google.com/docs/storage/web/handle-errors
+    //   console.log("Error")
+    //   console.log(error)
+    //   console.log(error.code);
+    // });
 
     try {
       //this.imageUrl= this.ref.child('gs://firstprotivitiproject.appspot.com/cust' + localStorage.getItem("cust_id")).getDownloadURL();
@@ -112,6 +226,10 @@ export class ClientDashboardComponent implements OnInit {
     console.log(this.minDate);
 
   }
+  
+  ngOnDestroy(){
+    clearInterval(this.intervalFlag);
+  }
 
   states: object[] = [
     { value: 'bihar', viewValue: 'Bihar' },
@@ -124,6 +242,7 @@ export class ClientDashboardComponent implements OnInit {
   ];
   logout() {
     localStorage.removeItem("cust_id")
+    clearInterval(this.intervalFlag);
     this.router.navigate(['/home'])
   }
 
@@ -177,6 +296,7 @@ export class ClientDashboardComponent implements OnInit {
       this.router.navigate(['/home'])
 
     }
+
   }
   clickNewBooking() {
     this.showView = 1;
@@ -358,6 +478,72 @@ export class ClientDashboardComponent implements OnInit {
     }
   }
 
+  getDataBooking() {
+    this.service.getBookingData(this.custId).subscribe((bookingObj: object[]) => {
+      bookingObj.forEach((e) => {
+        e["b_time"] = e["b_time"].substring(0, 5);
+      });
+      this.bookingData = bookingObj;
+      this.bookingPending = bookingObj.filter((e) => {
+        if (e['b_accepted'] == 'F' || e['b_accepted'] == 'D') {
+          return true;
+        }
+        else {
+          return false;
+        }
+      });
+      this.pendingBadge = this.bookingPending.length;
+        this.pageOneData = this.bookingPending[this.bookingPending.length - 1];
 
+        this.get_sup.seeSup(this.pageOneData.b_id).subscribe(p => {
+          this.pageOneDataSup = p;
+          try {
+            this.afStorage.ref('sup' + this.pageOneDataSup['sup_id']).getDownloadURL().subscribe(u => {
+              
+              this.pageOneDataImageUrl = u;
+              
+            });
+          }
+          catch (e) {
+            console.log(e)
+          }
+        },)
+
+        this.bookingActive = bookingObj.filter((e) => {
+          if (e['b_accepted'] == 'A' && e['completion_status'] == 'F') {
+            return true;
+          }
+          else {
+            return false;
+          }
+        });
+        this.activeBadge = this.bookingActive.length;
+        this.pageTwoData = this.bookingActive[this.bookingActive.length - 1];
+
+        this.get_sup.seeSup(this.pageTwoData.b_id).subscribe(p => {
+          this.pageTwoDataSup = p;
+          try {
+            this.afStorage.ref('sup' + this.pageTwoDataSup['sup_id']).getDownloadURL().subscribe(u => {
+              
+              this.pageTwoDataImageUrl = u;
+              
+            });
+          }
+          catch (e) {
+            console.log(e)
+          }
+        },)
+
+      this.bookingCompleted = bookingObj.filter((e) => {
+        if (e['b_accepted'] == 'A' && e['completion_status'] == 'T') {
+          return true;
+        }
+        else {
+          return false;
+        }
+      });
+      this.completedBadge = this.bookingCompleted.length;
+    })
+  }
 
 }

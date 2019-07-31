@@ -22,3 +22,28 @@
   .example-full-width {
     width: 100%;
   }
+
+  .blinkingRed{
+    animation:blinkingTextRed 2s infinite;
+  }
+  @keyframes blinkingTextRed{
+    0%{     color: rgb(255, 0, 0);    }
+    49%{    color: transparent; }
+    50%{    color: rgb(255, 0, 0); }
+    100%{   color: rgb(255, 0, 0);    }
+  }
+
+  .pageOneTitle{
+    color: rgb(104, 104, 104);
+    font-weight: 700;;
+  }
+
+  .blinking{
+    animation:blinkingText 2s infinite;
+  }
+  @keyframes blinkingText{
+    0%{     color: rgb(6, 180, 0);    }
+    49%{    color: transparent; }
+    50%{    color: rgb(6, 180, 0); }
+    100%{   color: rgb(6, 180, 0);    }
+  }

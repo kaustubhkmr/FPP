@@ -10,7 +10,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
+  title = 'House Help';
+  showView=0;
   constructor(public dialog: MatDialog,public dialog1:MatDialog,private rt:Router) { 
 
     if (localStorage.getItem("sup_id") != null) {
@@ -27,7 +28,7 @@ export class HomeComponent implements OnInit {
   }
   openDialog(): void {
     const dialogRef = this.dialog.open(LoginComponent, {
-  
+
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -44,6 +45,10 @@ export class HomeComponent implements OnInit {
     dialogRef1.afterClosed().subscribe(result => {
       console.log('The sup dialog was closed');
     });
+  }
+  goBottom(){
+    this.showView=1;
+    document.getElementById('scrollId').scrollIntoView();
   }
 
 }

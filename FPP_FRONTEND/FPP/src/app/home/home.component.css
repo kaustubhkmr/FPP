@@ -2,3 +2,26 @@
     height: 50px;
     font-size: 15px;
 }
+#myVideoIndexWelcome {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%; 
+    min-height: 100%;
+  }
+.contentIndexWelcome {
+  position:relative;
+    color: #f1f1f1;
+    width: 100%;
+    margin-top: 60px;
+  }
+
+.contentIndexWelcome2 {
+    position:relative;
+      width: 100%;
+      margin-top: 60px;
+    }
+  
+  #getStarted:hover{
+    background-color: tomato;
+  }

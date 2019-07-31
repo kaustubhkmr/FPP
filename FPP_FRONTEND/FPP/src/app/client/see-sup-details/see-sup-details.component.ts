@@ -13,27 +13,26 @@ export class SeeSupDetailsComponent implements OnInit {
   supData;
   imageUrl;
   constructor(public dialogRef: MatDialogRef<SeeSupDetailsComponent>,
-    @Inject(MAT_DIALOG_DATA) public data:any,private _snackBar: MatSnackBar,private get_names:SeeSupService, private afStorage: AngularFireStorage) { 
+    @Inject(MAT_DIALOG_DATA) public data: any, private _snackBar: MatSnackBar, private get_names: SeeSupService, private afStorage: AngularFireStorage) {
 
-      this.get_names.seeSup(data["b_id"]).subscribe(p=>{
-        this.supData=p
-        try{
-          //this.imageUrl= this.ref.child('gs://firstprotivitiproject.appspot.com/cust' + localStorage.getItem("cust_id")).getDownloadURL();
-         this.afStorage.ref('sup' + this.supData['sup_id']).getDownloadURL().subscribe(u=>{console.log("url got:"+u)
-       this.imageUrl=u;
-       console.log("url assigned"+ this.imageUrl)
-       },e=>console.log(e));
-          // console.log(this.imageUrl);
-           }
-       
-           catch(e){
-             console.log(e)
-           }
+    this.get_names.seeSup(data["b_id"]).subscribe(p => {
+      this.supData = p
+      try {
+        this.afStorage.ref('sup' + this.supData['sup_id']).getDownloadURL().subscribe(u => {
+          console.log("url got:" + u)
+          this.imageUrl = u;
+          console.log("url assigned" + this.imageUrl)
+        }, e => console.log(e));
+      }
+
+      catch (e) {
+        console.log(e)
+      }
 
 
-      },e=>console.log(e))
+    }, e => console.log(e))
 
-    }
+  }
 
   ngOnInit() {
   }

@@ -41,7 +41,7 @@ export class JobDoneComponent implements OnInit, OnDestroy {
         this.dataSource = new MatTableDataSource(this.bookingData);
         this.dataSource.sort = this.sort;
       })  
-    },5000)
+    },10000)
   }
 
   ngOnDestroy(){

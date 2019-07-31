@@ -40,7 +40,7 @@ export class JobRequestComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.bookingData);
         this.dataSource.sort = this.sort;
       })
-    }, 5000);
+    }, 10000);
     
   }
 
