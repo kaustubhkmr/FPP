@@ -16,7 +16,7 @@
     </div>
     <div *ngIf="servicePerson">
         <mat-form-field class="example-full-width">
-            <input type="number" (ngModelChanged)="someChange($event)" matInput name="b_price" placeholder="Enter number of person" required ngModel #bprice="ngModel">
+            <input type="number" (ngModelChange)="someChange($event)" matInput name="b_price" placeholder="Enter number of person" required ngModel #bprice="ngModel">
         </mat-form-field>
 
         <div *ngIf="bprice.invalid && (bprice.dirty || bprice.touched)" class="alert alert-danger">
@@ -27,7 +27,6 @@
         </div>
     </div>
     <div *ngIf="!servicePerson">
-        hello
         <mat-form-field class="example-full-width">
             <input type="number" (ngModelChange)="someChange($event)" matInput name="b_price" placeholder="Enter number of hour" required ngModel #bprice="ngModel">
         </mat-form-field>
