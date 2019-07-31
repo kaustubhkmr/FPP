@@ -22,6 +22,7 @@ export class EnterBookingIdComponent implements OnInit {
       this.servicePerson = false;
     }
     this.extract();
+    console.log("service type"+this.servicePerson)
   }
   extract() { 
     this.totalPrice = this.data["b_pricetag"].split('/')[0];
