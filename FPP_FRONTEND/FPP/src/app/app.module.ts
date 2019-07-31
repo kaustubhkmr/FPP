@@ -34,6 +34,9 @@ import { JobOngoingComponent } from './client/job-ongoing/job-ongoing.component'
 import { JobDoneComponent } from './client/job-done/job-done.component';
 import { SeeSupDetailsComponent } from './client/see-sup-details/see-sup-details.component';
 import { CreateServiceComponent } from './Supplier/create-service/create-service.component';
+import { AdminhomeComponent } from './admin/adminhome/adminhome.component';
+import { AdminClientComponent } from './admin/admin-client/admin-client.component';
+import { AdminSupplierComponent } from './admin/admin-supplier/admin-supplier.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +60,10 @@ import { CreateServiceComponent } from './Supplier/create-service/create-service
     JobOngoingComponent,
     JobDoneComponent,
     SeeSupDetailsComponent,
-    CreateServiceComponent
+    CreateServiceComponent,
+    AdminhomeComponent,
+    AdminClientComponent,
+    AdminSupplierComponent
   ],
   imports: [
     BrowserModule,
@@ -93,8 +99,6 @@ import { CreateServiceComponent } from './Supplier/create-service/create-service
     MatProgressSpinnerModule,
     MatDatepickerModule,
     MatNativeDateModule,
-  
-  
   ],
   providers: [SupinsertService,MatSnackBar,MatDialog,SuploginService],
   bootstrap: [AppComponent],

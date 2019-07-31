@@ -168,6 +168,8 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\Admin\AdminGetClientController.cs" />
+    <Compile Include="Controllers\Admin\AdminGetSupplierController.cs" />
     <Compile Include="Controllers\Customer\AddBookingController.cs" />
     <Compile Include="Controllers\Customer\ClientDashboardController.cs" />
     <Compile Include="Controllers\Customer\CustLoginController.cs" />
@@ -205,7 +207,13 @@
     <Compile Include="Models\cust_login_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\get_all_client_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\get_all_distinct_custom_services_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\get_all_supplier_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\get_booking1_Result.cs">

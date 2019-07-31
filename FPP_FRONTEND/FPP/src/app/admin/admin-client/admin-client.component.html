@@ -1,0 +1,81 @@
+<div *ngIf="showView!=0">
+    <button mat-raised-button color="warn" (click)="homeButton()">Back</button>
+    <br />
+</div>
+
+<div *ngIf="showView==0">
+    <div style="width: 100%">
+        <mat-form-field>
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        </mat-form-field>
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSourceClient">
+
+                <!-- Progress Column -->
+                <ng-container matColumnDef="cust_id">
+                    <th mat-header-cell *matHeaderCellDef> Client Id </th>
+                    <td mat-cell *matCellDef="let row"> {{row.cust_id}} </td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="cust_name">
+                    <th mat-header-cell *matHeaderCellDef> Name </th>
+                    <td mat-cell *matCellDef="let row"> {{row.cust_name}} </td>
+                </ng-container>
+
+                <!-- Color Column -->
+                <ng-container matColumnDef="cust_phone">
+                    <th mat-header-cell *matHeaderCellDef> Phone </th>
+                    <td mat-cell *matCellDef="let row"> {{row.cust_phone}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="cust_email">
+                    <th mat-header-cell *matHeaderCellDef> Email </th>
+                    <td mat-cell *matCellDef="let row"> {{row.cust_email}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="cust_address">
+                    <th mat-header-cell *matHeaderCellDef> Address </th>
+                    <td mat-cell *matCellDef="let row"> {{row.cust_address}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="job_pending">
+                    <th mat-header-cell *matHeaderCellDef>Job Pending</th>
+                    <td mat-cell *matCellDef="let row">
+                        <button mat-raised-button style="background-color:lightsalmon" (click)="jobPending(row.cust_id)">
+                            Job Pending
+                        </button>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="job_ongoing">
+                    <th mat-header-cell *matHeaderCellDef>Job Ongoing</th>
+                    <td mat-cell *matCellDef="let row">
+                        <button mat-raised-button style="background-color:lightgreen" (click)="jobOngoing(row.cust_id)">
+                            Job Ongoing
+                        </button>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="job_done">
+                    <th mat-header-cell *matHeaderCellDef>Job Done</th>
+                    <td mat-cell *matCellDef="let row">
+                        <button mat-raised-button style="background-color:skyblue" (click)="jobDone(row.cust_id)">
+                            Job Done
+                        </button>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsClient"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsClient;">
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<div *ngIf="showView==1">
+    <app-job-pending></app-job-pending>
+</div>
+<div *ngIf="showView==2">
+    <app-job-ongoing></app-job-ongoing>
+</div>
+<div *ngIf="showView==3">
+    <app-job-done></app-job-done>
+</div>

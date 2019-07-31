@@ -1,0 +1,40 @@
+<mat-card class="mat-elevation-z5 cardColorStyle">
+    <div class="container-fluid" mat-card-title>
+        <div class="row">
+            <div class="col-md-8">Admin Page</div>
+            <div class="col-md-4">
+                <button mat-raised-button color="warn" style="margin-left:10px; height: 40px;"
+                    (click)="clientButton()">Client Details</button>
+                <button mat-raised-button color="warn" style="margin-left:10px; height: 40px;"
+                    (click)="supplierButton()">Supplier Details</button>
+                <button mat-raised-button color="warn" style="margin-left:10px; height: 40px;"
+                    (click)="homeButton()">Home Page</button>
+            </div>
+        </div>
+    </div>
+</mat-card>
+
+<mat-card class="mat-elevation-z5 cardColorStyle" style="margin-top:10px;">
+
+    <div *ngIf="showView==1">
+        <div mat-card-title>
+            Client Details
+        </div>
+        <div mat-card-content>
+            <div style="width: 100%">
+                <app-admin-client></app-admin-client>
+            </div>
+        </div>
+    </div>
+
+        <div *ngIf="showView==2">
+            <div mat-card-title>
+                Supplier Details
+            </div>
+            <div mat-card-content>
+                    <div style="width: 100%">
+                        <app-admin-supplier></app-admin-supplier>    
+                    </div>
+            </div>
+        </div>
+</mat-card>

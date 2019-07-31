@@ -396,8 +396,6 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="get_distinct_custom_services" FunctionName="FPPModel.Store.get_distinct_custom_services" />
-    <FunctionImportMapping FunctionImportName="get_distinct_custom_services1" FunctionName="FPPModel.Store.get_distinct_custom_services1" />
-    <FunctionImportMapping FunctionImportName="get_distinct_custom_services2" FunctionName="FPPModel.Store.get_distinct_custom_services2" />
     <FunctionImportMapping FunctionImportName="get_all_distinct_custom_services" FunctionName="FPPModel.Store.get_all_distinct_custom_services">
       <ResultMapping>
         <ComplexTypeMapping TypeName="FPPModel.get_all_distinct_custom_services_Result">
@@ -433,6 +431,36 @@
           <ScalarProperty Name="c_name" ColumnName="c_name" />
           <ScalarProperty Name="c_message" ColumnName="c_message" />
           <ScalarProperty Name="c_pricetag" ColumnName="c_pricetag" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="get_all_client" FunctionName="FPPModel.Store.get_all_client">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FPPModel.get_all_client_Result">
+          <ScalarProperty Name="cust_id" ColumnName="cust_id" />
+          <ScalarProperty Name="cust_name" ColumnName="cust_name" />
+          <ScalarProperty Name="cust_phone" ColumnName="cust_phone" />
+          <ScalarProperty Name="cust_email" ColumnName="cust_email" />
+          <ScalarProperty Name="cust_address" ColumnName="cust_address" />
+          <ScalarProperty Name="cust_city" ColumnName="cust_city" />
+          <ScalarProperty Name="cust_state" ColumnName="cust_state" />
+          <ScalarProperty Name="cust_password" ColumnName="cust_password" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="get_all_supplier" FunctionName="FPPModel.Store.get_all_supplier">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FPPModel.get_all_supplier_Result">
+          <ScalarProperty Name="sup_id" ColumnName="sup_id" />
+          <ScalarProperty Name="sup_name" ColumnName="sup_name" />
+          <ScalarProperty Name="sup_email" ColumnName="sup_email" />
+          <ScalarProperty Name="sup_phone" ColumnName="sup_phone" />
+          <ScalarProperty Name="sup_city" ColumnName="sup_city" />
+          <ScalarProperty Name="sup_state" ColumnName="sup_state" />
+          <ScalarProperty Name="sup_password" ColumnName="sup_password" />
+          <ScalarProperty Name="sup_rating" ColumnName="sup_rating" />
+          <ScalarProperty Name="rating_count" ColumnName="rating_count" />
+          <ScalarProperty Name="sup_address" ColumnName="sup_address" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

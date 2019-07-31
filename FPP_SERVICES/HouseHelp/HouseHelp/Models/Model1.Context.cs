@@ -608,5 +608,15 @@ namespace HouseHelp.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_custom_booking_prices_Result>("get_custom_booking_prices", sup_idParameter, cnameParameter);
         }
+    
+        public virtual ObjectResult<get_all_client_Result> get_all_client()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_all_client_Result>("get_all_client");
+        }
+    
+        public virtual ObjectResult<get_all_supplier_Result> get_all_supplier()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_all_supplier_Result>("get_all_supplier");
+        }
     }
 }

@@ -14,7 +14,7 @@
     <div>
         Price: {{data["b_pricetag"]}}
     </div>
-    <div *ngIf="servicePerson;else elseBlock">
+    <div *ngIf="servicePerson">
         <mat-form-field class="example-full-width">
             <input type="number" (ngModelChanged)="someChange($event)" matInput name="b_price" placeholder="Enter number of person" required ngModel #bprice="ngModel">
         </mat-form-field>
@@ -26,7 +26,8 @@
             </div>
         </div>
     </div>
-    <ng-template #elseBlock>
+    <div *ngIf="!servicePerson">
+        hello
         <mat-form-field class="example-full-width">
             <input type="number" (ngModelChange)="someChange($event)" matInput name="b_price" placeholder="Enter number of hour" required ngModel #bprice="ngModel">
         </mat-form-field>
@@ -37,7 +38,7 @@
             Field is required to complete.
             </div>
         </div>
-    </ng-template>
+    </div>
     <div *ngIf="enterBidForm.valid">
       Final Price:{{calcPrice}}
     </div>
