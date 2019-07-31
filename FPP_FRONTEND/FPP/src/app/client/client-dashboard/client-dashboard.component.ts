@@ -51,7 +51,7 @@ export class ClientDashboardComponent implements OnInit {
   customServiceObject: object;
   customSupplierId;
   fetchedPrice;
-  mindate;
+  minDate;
   constructor(private router: Router, public serviceModel: ServiceModelData, public getBookingSup: GetBookingSupplierService, public makeBooking: AddBookingService, private dialog: MatDialog, private service: ClientDashboardService, private imgService: UploadImageService, private afStorage: AngularFireStorage, private getcustomBooking: GetCustomBookingSupplierService, private customPrices: GetCustomBookingPricesService) {
     // this.imageUrl="";
   }
@@ -96,7 +96,7 @@ export class ClientDashboardComponent implements OnInit {
     )
     this.state$.subscribe(d => console.log(d), e => console.log(e))
 
-    this.mindate = moment(new Date()).format('YYYY-MM-DD')
+    this.minDate = moment(new Date()).format('YYYY-MM-DD')
 
     // let dd = this.mindate.getDate();
     // let mm = this.mindate.getMonth() + 1; //January is 0!
@@ -109,7 +109,7 @@ export class ClientDashboardComponent implements OnInit {
     // }
 
     // this.mindate = yyyy + '-' + mm + '-' + dd;
-    console.log(this.mindate);
+    console.log(this.minDate);
 
   }
 
@@ -317,6 +317,7 @@ export class ClientDashboardComponent implements OnInit {
     bookingData["sup_id"] = this.customSupplierId;
     bookingData["s_type"] = this.selectedService.c_name;
     bookingData["b_pricetag"] = priceData["b_price"];
+    bookingData["b_date"]=moment(bookingData["b_date"]).format('YYYY-MM-DD')
 
     this.makeBooking.addBooking(bookingData).subscribe(p => {
       if (p == 1) {
@@ -336,6 +337,8 @@ export class ClientDashboardComponent implements OnInit {
       else
         console.log("error")
     }, e => console.log(e))
+
+    console.log(bookingData)
 
   }
 

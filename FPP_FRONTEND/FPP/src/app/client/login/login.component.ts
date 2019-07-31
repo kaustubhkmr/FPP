@@ -126,15 +126,6 @@ this.tryingLog=false;
       });
 
     }, () => {
-      // console.log("Completed");
-
-      // this._snackBar.open("Logged  In", "", {
-      //   duration: 2000,
-      // });
-
-      // this.dialogRef.close();
-      // this.rt.navigate(['/cust-dashboard']);
-
     });
 
   }
