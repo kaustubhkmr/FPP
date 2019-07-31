@@ -528,8 +528,10 @@
             </mat-step>
             <mat-step>
                 <ng-template matStepLabel>Done</ng-template>
-                <div *ngIf="isBookingFormFilled&&isServiceSelected">
-                    Booking is Confirmed. Go to Dashboard
+                <div *ngIf="isBookingFormFilled&&isServiceSelected" style="text-align: center">
+                    Booking is Done.
+                    <br>
+                    <img src="assets/source.gif" height="250" width="250" alt=""/>
                     <div>
                         <button mat-raised-button color="warn" (click)="clickDashBoard()">Go To Dashboard</button>
                     </div>
