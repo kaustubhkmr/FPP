@@ -2,14 +2,36 @@
     <source src="assets/NycTraffic.mp4" type="video/mp4">
 </video>
 
-<span style="margin-left: 1120px;margin-top: 10px; display: flex">
+<span style="margin-left: 950px;margin-top: 10px; display: flex">
 
-    <button mat-raised-button class="login" color="warn" style=" width:150px" (click)="openDialog()">Login as
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3" style="text-align: right">
+                <button mat-raised-button class="login" color="warn" (click)="openDialog()">Login as
+                    Client</button>
+            </div>
+            <div class="col-md-9">
+                <button mat-raised-button class="login" color="warn" (click)="openSupDialog()">Login as Service
+                    Provider</button>
+                    <button mat-raised-button class="login" style="margin-left: 10px;"  color="warn" (click)="openAdminDialog()">Login as Admin</button>
+
+            </div>            
+
+        </div>
+    </div>
+
+    <!-- <button mat-raised-button class="login" color="warn" style=" width:150px" (click)="openDialog()">Login as
         Client</button>
 
-    <button mat-raised-button class="login" color="warn" style="margin-left: 30px; width:200px;"
+    <button mat-raised-button class="login" color="warn" style="margin-left: 10px; margin-right: 10px; width:200px;"
         (click)="openSupDialog()">Login as Service Provider</button>
+
+        <button mat-raised-button class="login" color="warn" style="margin-left: 10px;margin-left: 10px; width:130px;"
+        (click)="openSupDialog()">Login as Admin</button> -->
+
+
 </span>
+
 
 <div class="contentIndexWelcome" style="text-align:center;">
     <h1 style="font-family: 'Josefin Sans', sans-serif; font-weight: 800;font-size: 80px; color: rgb(223, 223, 223)">
@@ -21,7 +43,7 @@
         src="assets/bouncing-arrow.gif" (click)="goBottom()">
 </div>
 
-<mat-card id="scrollId" style="margin-top: 50px" class="contentIndexWelcome2">
+<mat-card id="scrollId" style="margin-top: 50px;width:100%" class="contentIndexWelcome2">
     <section id="services">
         <div class="container">
 
@@ -83,7 +105,7 @@
         </div>
     </section><!-- #services -->
 </mat-card>
-<mat-card>
+<mat-card width="100%">
     <section id="about">
         <div class="container">
 
@@ -148,7 +170,7 @@
 
 </mat-card>
 
-<mat-card>
+<mat-card width="100%">
     <section id="contact" class="section-bg wow fadeInUp">
         <div class="container">
 

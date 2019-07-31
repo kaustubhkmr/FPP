@@ -37,6 +37,7 @@ import { CreateServiceComponent } from './Supplier/create-service/create-service
 import { AdminhomeComponent } from './admin/adminhome/adminhome.component';
 import { AdminClientComponent } from './admin/admin-client/admin-client.component';
 import { AdminSupplierComponent } from './admin/admin-supplier/admin-supplier.component';
+import { AdminLoginComponent } from './admin/admin-login/admin-login.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { AdminSupplierComponent } from './admin/admin-supplier/admin-supplier.co
     CreateServiceComponent,
     AdminhomeComponent,
     AdminClientComponent,
-    AdminSupplierComponent
+    AdminSupplierComponent,
+    AdminLoginComponent
   ],
   imports: [
     BrowserModule,
@@ -102,6 +104,6 @@ import { AdminSupplierComponent } from './admin/admin-supplier/admin-supplier.co
   ],
   providers: [SupinsertService,MatSnackBar,MatDialog,SuploginService],
   bootstrap: [AppComponent],
-  entryComponents: [LoginComponent,SupLoginComponent,ClientEditComponent,SupAddServiceDiagComponent,EditClientComponent,EnterBookingIdComponent,SeeCustDetailsComponent,SeeSupDetailsComponent,CreateServiceComponent]
+  entryComponents: [LoginComponent,SupLoginComponent,ClientEditComponent,SupAddServiceDiagComponent,EditClientComponent,EnterBookingIdComponent,SeeCustDetailsComponent,SeeSupDetailsComponent,CreateServiceComponent,AdminLoginComponent]
 })
 export class AppModule { }

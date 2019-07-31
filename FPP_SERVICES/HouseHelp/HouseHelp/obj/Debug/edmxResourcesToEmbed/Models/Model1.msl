@@ -464,5 +464,29 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <EntitySetMapping Name="admin_table">
+      <EntityTypeMapping TypeName="FPPModel.admin_table">
+        <MappingFragment StoreEntitySet="admin_table">
+          <ScalarProperty Name="a_password" ColumnName="a_password" />
+          <ScalarProperty Name="a_email" ColumnName="a_email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="get_admin" FunctionName="FPPModel.Store.get_admin">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FPPModel.get_admin_Result">
+          <ScalarProperty Name="a_email" ColumnName="a_email" />
+          <ScalarProperty Name="a_password" ColumnName="a_password" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="get_admin1" FunctionName="FPPModel.Store.get_admin1">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FPPModel.get_admin1_Result">
+          <ScalarProperty Name="a_email" ColumnName="a_email" />
+          <ScalarProperty Name="a_password" ColumnName="a_password" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>
