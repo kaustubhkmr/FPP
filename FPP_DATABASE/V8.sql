@@ -101,3 +101,6 @@ VALUES
 	as
 	select * from admin_table
 
+	----V11-----------
+	truncate table custom_service
+	select * from custom_service

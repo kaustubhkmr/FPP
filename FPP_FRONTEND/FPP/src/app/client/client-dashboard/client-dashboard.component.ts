@@ -274,8 +274,6 @@ export class ClientDashboardComponent implements OnInit, OnDestroy {
     if (localStorage.getItem("cust_id") != null) {
       this.service.getClientData(localStorage.getItem("cust_id")).subscribe((clientData) => {
         this.clientObj = clientData;
-        console.log(clientData)
-        console.log(this.clientObj)
       })
     }
     else {
@@ -336,7 +334,7 @@ export class ClientDashboardComponent implements OnInit, OnDestroy {
         this.isBookingFormFilled = true;
         this.step1Editable = false;
         this.step2Editable = false;
-        //this.sendSMS("Your booking is completed. Hold on while supplier accepts your booking. Your Booking Id is " + this.bookingData[this.bookingData.length-1].b_id);
+        //this.sendSMS("Your booking is completed. Hold on while supplier accepts your booking. Your Booking Id is " + this.bookingData[this.bookingData.length-1].b_id,this.clientObj['cust_phone']);
         stepper.next();
       }
       else
@@ -423,7 +421,7 @@ export class ClientDashboardComponent implements OnInit, OnDestroy {
         this.isBookingFormFilled = true;
         this.step1Editable = false;
         this.step2Editable = false;
-        //this.sendSMS("Your booking is completed. Hold on while supplier accepts your booking. Your Booking Id is " + this.bookingData[this.bookingData.length-1].b_id);
+        //this.sendSMS("Your booking is completed. Hold on while supplier accepts your booking. Your Booking Id is " + this.bookingData[this.bookingData.length-1].b_id,this.clientObj['cust_phone']);
         stepper.next();
 
       }
@@ -519,9 +517,9 @@ export class ClientDashboardComponent implements OnInit, OnDestroy {
     })
   }
 
-  sendSMS(messageData: string) {
+  sendSMS(messageData: string, phone) {
     let apiKey = encodeURIComponent('+6YhbPl3eug-67NmtyikpMCod5I30iJo0J6wTWkjWJ');
-    let numbers = encodeURIComponent('7503626005');
+    let numbers = encodeURIComponent(phone);
     let sender = encodeURIComponent('TXTLCL');
     let message = encodeURIComponent(messageData);
     let apiparams = `apikey=${apiKey}&numbers=${numbers}&sender=${sender}&message=${message}`;
