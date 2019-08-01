@@ -14,7 +14,8 @@ export class EnterBookingIdComponent implements OnInit {
   totalPrice=0;
   calcPrice=0;
   constructor(public dialogRef: MatDialogRef<EnterBookingIdComponent>,
-    @Inject(MAT_DIALOG_DATA) public data:any,private _snackBar: MatSnackBar) { }
+    @Inject(MAT_DIALOG_DATA) public data:any,private _snackBar: MatSnackBar,
+    private service:DashboardService) { }
 
   ngOnInit() {
     this.serviceType = this.data["b_pricetag"][this.data["b_pricetag"].length-1];
@@ -44,8 +45,9 @@ export class EnterBookingIdComponent implements OnInit {
       this.dialogRef.close();
     }
   }
+  
+  
   someChange(data){
-    console.log("Change data:"+data)
    this.calcPrice=data*this.totalPrice;
   }
 }

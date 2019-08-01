@@ -41,6 +41,8 @@ export class DashboardService {
     return this.http.put("http://localhost/HouseHelp/api/CompleteBooking/"+id,data);
   }
 
-  
+  sendSMS (smsAPI){
+    return this.http.get(smsAPI);
+  }
 
 }

@@ -19,6 +19,7 @@ import { GetCustomBookingSupplierService } from 'src/app/Services/get-custom-boo
 import { GetCustomBookingPricesService } from 'src/app/Services/get-custom-booking-prices.service';
 
 import * as moment from 'moment'
+import { DashboardService } from 'src/app/Services/dashboard.service';
 
 
 @Component({
@@ -26,7 +27,7 @@ import * as moment from 'moment'
   templateUrl: './client-dashboard.component.html',
   styleUrls: ['./client-dashboard.component.css']
 })
-export class ClientDashboardComponent implements OnInit,OnDestroy {
+export class ClientDashboardComponent implements OnInit, OnDestroy {
   showView = 0;
   selectedService;
   isServiceSelected: boolean = false;
@@ -75,12 +76,29 @@ export class ClientDashboardComponent implements OnInit,OnDestroy {
     public getBookingSup: GetBookingSupplierService, public makeBooking: AddBookingService,
     private dialog: MatDialog, private service: ClientDashboardService, private imgService: UploadImageService,
     private afStorage: AngularFireStorage, private get_sup: SeeSupService, private getcustomBooking: GetCustomBookingSupplierService,
-    private customPrices: GetCustomBookingPricesService) { }
+    private customPrices: GetCustomBookingPricesService, private serviceSupDashboard: DashboardService) { }
 
   ngOnInit() {
     this.getDataClient();
     this.custId = localStorage.getItem("cust_id");
     this.getDataBooking();
+    this.service.getAllCustomServices().subscribe((data: Object[]) => {
+
+      this.customServices = data;
+      for (let o of this.customServices) {
+        try {
+          this.afStorage.ref('custom_service' + o["c_name"].replace(/\s/g, "") + o["sup_id"]).getDownloadURL().subscribe(u => {
+            o["custom_url"] = u;
+            console.log(o["custom_url"])
+          }, e => console.log(e));
+
+        }
+
+        catch (e) {
+          console.log(e)
+        }
+      }
+    });
     this.intervalFlag = setInterval(() => {
       this.service.getBookingData(this.custId).subscribe((bookingObj: object[]) => {
         bookingObj.forEach((e) => {
@@ -102,15 +120,15 @@ export class ClientDashboardComponent implements OnInit,OnDestroy {
           this.pageOneDataSup = p;
           try {
             this.afStorage.ref('sup' + this.pageOneDataSup['sup_id']).getDownloadURL().subscribe(u => {
-              
+
               this.pageOneDataImageUrl = u;
-              
+
             });
           }
           catch (e) {
             console.log(e)
           }
-        },)
+        })
 
         this.bookingActive = bookingObj.filter((e) => {
           if (e['b_accepted'] == 'A' && e['completion_status'] == 'F') {
@@ -127,15 +145,15 @@ export class ClientDashboardComponent implements OnInit,OnDestroy {
           this.pageTwoDataSup = p;
           try {
             this.afStorage.ref('sup' + this.pageTwoDataSup['sup_id']).getDownloadURL().subscribe(u => {
-              
+
               this.pageTwoDataImageUrl = u;
-              
+
             });
           }
           catch (e) {
             console.log(e)
           }
-        },)
+        })
 
         this.bookingCompleted = bookingObj.filter((e) => {
           if (e['b_accepted'] == 'A' && e['completion_status'] == 'T') {
@@ -146,48 +164,28 @@ export class ClientDashboardComponent implements OnInit,OnDestroy {
           }
         });
         this.completedBadge = this.bookingCompleted.length;
-      })
+      });
+
+
+      this.service.getAllCustomServices().subscribe((data: Object[]) => {
+
+        this.customServices = data;
+        for (let o of this.customServices) {
+          try {
+            this.afStorage.ref('custom_service' + o["c_name"].replace(/\s/g, "") + o["sup_id"]).getDownloadURL().subscribe(u => {
+              o["custom_url"] = u;
+              console.log(o["custom_url"])
+            }, e => console.log(e));
+
+          }
+
+          catch (e) {
+            console.log(e)
+          }
+        }
+      });
+
     }, 50000);
-
-    this.service.getAllCustomServices().subscribe((data: Object[]) => {
-
-      this.customServices = data;
-      for (let o of this.customServices) {
-        try {
-          this.afStorage.ref('custom_service' + o["c_name"].replace(/\s/g, "") + o["sup_id"]).getDownloadURL().subscribe(u => {
-            o["custom_url"] = u;
-            console.log(o["custom_url"])
-          }, e => console.log(e));
-
-        }
-
-        catch (e) {
-          console.log(e)
-        }
-      }
-    });
-
-
-    // let storage=firebase.storage();
-    // let ref = firebase.storage().ref() ;
-    // //let imageUrl=this.imageUrl;
-
-    // ref.child('gs://firstprotivitiproject.appspot.com/cust'+localStorage.getItem("cust_id")).getDownloadURL().then(function(url) {
-    //   // Insert url into an <img> tag to "download"
-
-
-    //   console.log("Success")
-    //   console.log(url)
-    //   this.setImageValue(url)
-    //  // console.log(this.imageUrl)
-    // }).catch(function(error) {
-
-    //   // A full list of error codes is available at
-    //   // https://firebase.google.com/docs/storage/web/handle-errors
-    //   console.log("Error")
-    //   console.log(error)
-    //   console.log(error.code);
-    // });
 
     try {
       //this.imageUrl= this.ref.child('gs://firstprotivitiproject.appspot.com/cust' + localStorage.getItem("cust_id")).getDownloadURL();
@@ -211,22 +209,10 @@ export class ClientDashboardComponent implements OnInit,OnDestroy {
 
     this.mindate = moment(new Date()).format('YYYY-MM-DD')
 
-    // let dd = this.mindate.getDate();
-    // let mm = this.mindate.getMonth() + 1; //January is 0!
-    // let yyyy = this.mindate.getFullYear();
-    // if (dd < 10) {
-    //   dd = '0' + dd
-    // }
-    // if (mm < 10) {
-    //   mm = '0' + mm
-    // }
-
-    // this.mindate = yyyy + '-' + mm + '-' + dd;
     console.log(this.mindate);
-
   }
-  
-  ngOnDestroy(){
+
+  ngOnDestroy() {
     clearInterval(this.intervalFlag);
   }
 
@@ -344,16 +330,13 @@ export class ClientDashboardComponent implements OnInit,OnDestroy {
             'b_id': this.b_id,
             'b_accepted': 'C'
           }
-          this.service.updateBookingConfirmation(this.b_id, obj).subscribe(p => {
-            console.log(p)
-           
-          })
+          this.service.updateBookingConfirmation(this.b_id, obj).subscribe(p => { })
         }
         this.isBookingFormFilled = true;
         this.step1Editable = false;
         this.step2Editable = false;
+        //this.sendSMS("Your booking is completed. Hold on while supplier accepts your booking. Your Booking Id is " + this.bookingData[this.bookingData.length-1].b_id);
         stepper.next();
-
       }
       else
         console.log("error")
@@ -417,17 +400,6 @@ export class ClientDashboardComponent implements OnInit,OnDestroy {
       this.isServiceSelected = true;
     }, e => console.log(e));
     console.log("selected_sup is:" + this.customSupplierId)
-
-    //call api to fetch custom price here
-    // if (this.customSupplierId != undefined) {
-
-    //   console.log(this.customSupplierId)
-
-    //   this.customPrices.getCustomPrices(this.customSupplierId, {'c_name':this.selectedService["c_name"]}).subscribe(p => {
-    //     this.fetchedPrice = p;
-    //     console.log("price is"+this.fetchedPrice)
-    //   })
-    // }
   }
 
   nextCustomStep(bookingData, priceData, stepper: MatStepper) {
@@ -444,11 +416,12 @@ export class ClientDashboardComponent implements OnInit,OnDestroy {
             'b_id': this.b_id,
             'b_accepted': 'C'
           }
-          this.service.updateBookingConfirmation(this.b_id, obj).subscribe(p => console.log(p))
+          this.service.updateBookingConfirmation(this.b_id, obj).subscribe(p => { });
         }
         this.isBookingFormFilled = true;
         this.step1Editable = false;
         this.step2Editable = false;
+        //this.sendSMS("Your booking is completed. Hold on while supplier accepts your booking. Your Booking Id is " + this.bookingData[this.bookingData.length-1].b_id);
         stepper.next();
 
       }
@@ -489,46 +462,46 @@ export class ClientDashboardComponent implements OnInit,OnDestroy {
         }
       });
       this.pendingBadge = this.bookingPending.length;
-        this.pageOneData = this.bookingPending[this.bookingPending.length - 1];
+      this.pageOneData = this.bookingPending[this.bookingPending.length - 1];
 
-        this.get_sup.seeSup(this.pageOneData.b_id).subscribe(p => {
-          this.pageOneDataSup = p;
-          try {
-            this.afStorage.ref('sup' + this.pageOneDataSup['sup_id']).getDownloadURL().subscribe(u => {
-              
-              this.pageOneDataImageUrl = u;
-              
-            });
-          }
-          catch (e) {
-            console.log(e)
-          }
-        },)
+      this.get_sup.seeSup(this.pageOneData.b_id).subscribe(p => {
+        this.pageOneDataSup = p;
+        try {
+          this.afStorage.ref('sup' + this.pageOneDataSup['sup_id']).getDownloadURL().subscribe(u => {
 
-        this.bookingActive = bookingObj.filter((e) => {
-          if (e['b_accepted'] == 'A' && e['completion_status'] == 'F') {
-            return true;
-          }
-          else {
-            return false;
-          }
-        });
-        this.activeBadge = this.bookingActive.length;
-        this.pageTwoData = this.bookingActive[this.bookingActive.length - 1];
+            this.pageOneDataImageUrl = u;
 
-        this.get_sup.seeSup(this.pageTwoData.b_id).subscribe(p => {
-          this.pageTwoDataSup = p;
-          try {
-            this.afStorage.ref('sup' + this.pageTwoDataSup['sup_id']).getDownloadURL().subscribe(u => {
-              
-              this.pageTwoDataImageUrl = u;
-              
-            });
-          }
-          catch (e) {
-            console.log(e)
-          }
-        },)
+          });
+        }
+        catch (e) {
+          console.log(e)
+        }
+      })
+
+      this.bookingActive = bookingObj.filter((e) => {
+        if (e['b_accepted'] == 'A' && e['completion_status'] == 'F') {
+          return true;
+        }
+        else {
+          return false;
+        }
+      });
+      this.activeBadge = this.bookingActive.length;
+      this.pageTwoData = this.bookingActive[this.bookingActive.length - 1];
+
+      this.get_sup.seeSup(this.pageTwoData.b_id).subscribe(p => {
+        this.pageTwoDataSup = p;
+        try {
+          this.afStorage.ref('sup' + this.pageTwoDataSup['sup_id']).getDownloadURL().subscribe(u => {
+
+            this.pageTwoDataImageUrl = u;
+
+          });
+        }
+        catch (e) {
+          console.log(e)
+        }
+      })
 
       this.bookingCompleted = bookingObj.filter((e) => {
         if (e['b_accepted'] == 'A' && e['completion_status'] == 'T') {
@@ -541,5 +514,16 @@ export class ClientDashboardComponent implements OnInit,OnDestroy {
       this.completedBadge = this.bookingCompleted.length;
     })
   }
+
+  sendSMS(messageData: string) {
+    let apiKey = encodeURIComponent('+6YhbPl3eug-67NmtyikpMCod5I30iJo0J6wTWkjWJ');
+    let numbers = encodeURIComponent('7503626005');
+    let sender = encodeURIComponent('TXTLCL');
+    let message = encodeURIComponent(messageData);
+    let apiparams = `apikey=${apiKey}&numbers=${numbers}&sender=${sender}&message=${message}`;
+    console.log("sms service -- " + apiparams);
+    this.serviceSupDashboard.sendSMS(`https://api.textlocal.in/send/?${apiparams}`).subscribe(s => console.log(s));
+  }
+
 
 }
