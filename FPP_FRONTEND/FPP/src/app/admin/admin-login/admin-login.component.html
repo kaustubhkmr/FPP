@@ -1,0 +1,27 @@
+<h1 mat-dialog-title>Login <img height="50px" width="250px" src="assets/loginloading.gif"></h1>
+<form class="example-form" #adminLoginForm="ngForm" (ngSubmit)="onLogin(adminLoginForm.value,adminLoginForm)">
+    <mat-form-field class="example-full-width">
+        <input type="email" matInput placeholder="Email" ngModel name="log_email" #log_email="ngModel" required matInput
+            placeholder="Email">
+    </mat-form-field>
+    <div *ngIf="log_email.invalid && (log_email.dirty || log_email.touched)" class="alert alert-danger">
+
+        <div *ngIf="log_email.errors.required">
+            Email is required.
+        </div>
+    </div>
+    <mat-form-field class="example-full-width">
+        <input type="password" matInput placeholder="Password" ngModel required name="log_password"
+            #log_password="ngModel">
+    </mat-form-field>
+    <div *ngIf="log_password.invalid && (log_password.dirty || log_password.touched)" class="alert alert-danger">
+
+        <div *ngIf="log_password.errors.required">
+            Password is required.
+        </div>
+    </div>
+</form>
+<div mat-dialog-actions>
+    <button mat-raised-button color="warn" type="submit" [disabled]="adminLoginForm.invalid"
+        on-click="onLogin(adminLoginForm.value,adminLoginForm)">Login</button>
+</div>

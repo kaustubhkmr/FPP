@@ -68,6 +68,7 @@ export class ClientDashboardComponent implements OnInit, OnDestroy {
   customSupplierId;
   fetchedPrice;
   mindate;
+  minDate;
   custId;
   intervalFlag;
 
@@ -207,7 +208,7 @@ export class ClientDashboardComponent implements OnInit, OnDestroy {
     )
     this.state$.subscribe(d => console.log(d), e => console.log(e))
 
-    this.mindate = moment(new Date()).format('YYYY-MM-DD')
+    this.minDate = moment(new Date()).format('YYYY-MM-DD')
 
     console.log(this.mindate);
   }
@@ -408,6 +409,7 @@ export class ClientDashboardComponent implements OnInit, OnDestroy {
     bookingData["sup_id"] = this.customSupplierId;
     bookingData["s_type"] = this.selectedService.c_name;
     bookingData["b_pricetag"] = priceData["b_price"];
+    bookingData["b_date"]=moment(bookingData["b_date"]).format('YYYY-MM-DD')
 
     this.makeBooking.addBooking(bookingData).subscribe(p => {
       if (p == 1) {
@@ -428,6 +430,8 @@ export class ClientDashboardComponent implements OnInit, OnDestroy {
       else
         console.log("error")
     }, e => console.log(e))
+
+    console.log(bookingData)
 
   }
 

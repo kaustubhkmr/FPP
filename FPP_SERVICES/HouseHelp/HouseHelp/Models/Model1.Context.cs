@@ -32,6 +32,7 @@ namespace HouseHelp.Models
         public virtual DbSet<sup_services> sup_services { get; set; }
         public virtual DbSet<supplier> suppliers { get; set; }
         public virtual DbSet<custom_service> custom_service { get; set; }
+        public virtual DbSet<admin_table> admin_table { get; set; }
     
         public virtual int add_booking(Nullable<long> bid, Nullable<long> cust_id, Nullable<long> sup_id, string b_address, string b_city, string b_state, Nullable<System.TimeSpan> b_time, Nullable<System.DateTime> b_date, Nullable<System.TimeSpan> req_time, Nullable<System.DateTime> req_date, string s_type)
         {
@@ -617,6 +618,24 @@ namespace HouseHelp.Models
         public virtual ObjectResult<get_all_supplier_Result> get_all_supplier()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_all_supplier_Result>("get_all_supplier");
+        }
+    
+        public virtual ObjectResult<get_admin_Result> get_admin(string email, string pwd)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            var pwdParameter = pwd != null ?
+                new ObjectParameter("pwd", pwd) :
+                new ObjectParameter("pwd", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_admin_Result>("get_admin", emailParameter, pwdParameter);
+        }
+    
+        public virtual ObjectResult<get_admin1_Result> get_admin1()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_admin1_Result>("get_admin1");
         }
     }
 }

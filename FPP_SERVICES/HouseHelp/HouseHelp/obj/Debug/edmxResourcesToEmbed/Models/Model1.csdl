@@ -299,6 +299,12 @@
     </FunctionImport>
     <FunctionImport Name="get_all_client" ReturnType="Collection(FPPModel.get_all_client_Result)" />
     <FunctionImport Name="get_all_supplier" ReturnType="Collection(FPPModel.get_all_supplier_Result)" />
+    <EntitySet Name="admin_table" EntityType="FPPModel.admin_table" />
+    <FunctionImport Name="get_admin" ReturnType="Collection(FPPModel.get_admin_Result)">
+      <Parameter Name="email" Mode="In" Type="String" />
+      <Parameter Name="pwd" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="get_admin1" ReturnType="Collection(FPPModel.get_admin1_Result)" />
   </EntityContainer>
   <ComplexType Name="get_booking_Result">
     <Property Type="Int64" Name="b_id" Nullable="false" />
@@ -602,5 +608,21 @@
     <Property Type="Single" Name="sup_rating" Nullable="true" />
     <Property Type="Int64" Name="rating_count" Nullable="true" />
     <Property Type="String" Name="sup_address" Nullable="true" MaxLength="100" />
+  </ComplexType>
+  <EntityType Name="admin_table">
+    <Key>
+      <PropertyRef Name="a_email" />
+      <PropertyRef Name="a_password" />
+    </Key>
+    <Property Name="a_email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="a_password" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <ComplexType Name="get_admin_Result">
+    <Property Type="String" Name="a_email" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="a_password" Nullable="false" MaxLength="1000" />
+  </ComplexType>
+  <ComplexType Name="get_admin1_Result">
+    <Property Type="String" Name="a_email" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="a_password" Nullable="false" MaxLength="1000" />
   </ComplexType>
 </Schema>

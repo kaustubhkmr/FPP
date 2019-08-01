@@ -30,7 +30,7 @@ export class ServiceModelData{
             'id':2,
             'name':'Hair Dresser',
             'icon':'hairdresser.png',
-            'message':`Trained Drivers at an affordable pricing of
+            'message':`Trained Hairdressers at an affordable pricing of
             ₹99/Hr. At your doorstep in 30mins. 24/7 Services.
             Pay For What You Use.`
             ,

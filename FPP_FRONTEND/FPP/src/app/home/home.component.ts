@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material';
 import { LoginComponent } from '../client/login/login.component';
 import { SupLoginComponent } from '../Supplier/sup-login/sup-login.component';
 import { Router } from '@angular/router';
+import { AdminLoginComponent } from '../admin/admin-login/admin-login.component';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
   title = 'House Help';
   showView=0;
-  constructor(public dialog: MatDialog,public dialog1:MatDialog,private rt:Router) { 
+  constructor(public dialog: MatDialog,public dialog1:MatDialog,private rt:Router,public dialog2:MatDialog) { 
 
     if (localStorage.getItem("sup_id") != null) {
       //route to Home
@@ -23,6 +24,10 @@ export class HomeComponent implements OnInit {
     else if(localStorage.getItem("cust_id") != null){
       console.log(localStorage.getItem("cust_id"))
       this.rt.navigate(['/cust-dashboard']);
+    }
+    else if(localStorage.getItem("a_email") != null){
+      console.log(localStorage.getItem("cust_id"))
+      this.rt.navigate(['/admin']);
     }
     
   }
@@ -49,6 +54,14 @@ export class HomeComponent implements OnInit {
   goBottom(){
     this.showView=1;
     document.getElementById('scrollId').scrollIntoView();
+  }
+
+  openAdminDialog(){
+    const dialogRef2=this.dialog2.open(AdminLoginComponent,{});
+
+    dialogRef2.afterClosed().subscribe(result => {
+      console.log('The sup dialog was closed');
+    });
   }
 
 }

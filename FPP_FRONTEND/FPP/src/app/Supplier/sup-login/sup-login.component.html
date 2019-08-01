@@ -4,14 +4,10 @@
   <button mat-raised-button color="warn" style="margin-left: 20px; height: 50px;width: 100px;" (click)="supSignUp()">Sign Up</button>
   <button mat-raised-button color="warn" style="margin-left: 50px; height: 50px;width: 100px;" (click)="supLogin()">Login</button>
 </div>
-<div *ngIf="tryingReg" class="" style="text-align: center;margin: 50% 50% 50% 50%">
+<div *ngIf="tryingReg" class="" style="text-align: center">
       
-  <mat-progress-spinner
- 
-  [color]="primary"
-  
-  >
-</mat-progress-spinner>
+  <img src="assets/setting.gif" height="100" width="150"  style="background: white"  alt=""/>
+
   </div>
 <div *ngIf="!loginSignUp" style="height: 700px" mat-dialog-content>
     <div mat-dialog-title mat-dialog-actions>
@@ -92,8 +88,8 @@
       </div>
     </div>
     <mat-form-field class="example-full-width">
-      <input type="number" matInput placeholder="Phone Number" ngModel name="sup_phone" required minlength="10"
-        maxlength="10" #phone="ngModel">
+      <input type="tel" matInput placeholder="Phone Number" ngModel name="sup_phone" required minlength="10"
+        maxlength="10" min="1000000000" max="9999999999" #phone="ngModel">
 
     </mat-form-field>
     <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="alert alert-danger">
@@ -110,9 +106,6 @@
         Enter a valid phone number.
 
       </div>
-
-
-
     </div>
     <mat-form-field class="example-full-width">
       <input type="email" matInput placeholder="Email" required ngModel name="sup_email" #email="ngModel">
@@ -161,13 +154,9 @@
   </form>
 
 </div>
-<div *ngIf="tryingLog" class="" style="text-align: center;margin: 50% 50% 50% 50%">
+<div *ngIf="tryingLog" class="" style="text-align: center">
       
-    <mat-progress-spinner
-   
-    [color]="primary"
-    >
-</mat-progress-spinner>
+  <img src="assets/setting.gif" height="100" width="150"  style="background: white"  alt=""/>
     </div>
 <div *ngIf="!loginLogin&&tryingLog==false">
   <h1 mat-dialog-title>Login  <img height="50px" width="250px" src="assets/loginloading.gif"></h1>
