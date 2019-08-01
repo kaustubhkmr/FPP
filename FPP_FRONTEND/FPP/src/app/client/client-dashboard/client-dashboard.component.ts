@@ -190,13 +190,13 @@ export class ClientDashboardComponent implements OnInit, OnDestroy {
 
     try {
       //this.imageUrl= this.ref.child('gs://firstprotivitiproject.appspot.com/cust' + localStorage.getItem("cust_id")).getDownloadURL();
-      this.afStorage.ref('cust' + localStorage.getItem("cust_id")).getDownloadURL().subscribe(u => {
+     this.afStorage.ref('cust' + localStorage.getItem("cust_id")).getDownloadURL().subscribe(u => {
         console.log("url got:" + u)
         this.imageUrl = u;
         console.log("url assigned" + this.imageUrl)
-      }, e => console.log(e));
-      // console.log(this.imageUrl);
+      }, e => console.log('Client Image not Found'));
     }
+      // console.log(this.imageUrl);
 
     catch (e) {
       console.log(e)
@@ -334,7 +334,7 @@ export class ClientDashboardComponent implements OnInit, OnDestroy {
         this.isBookingFormFilled = true;
         this.step1Editable = false;
         this.step2Editable = false;
-        //this.sendSMS("Your booking is completed. Hold on while supplier accepts your booking. Your Booking Id is " + this.bookingData[this.bookingData.length-1].b_id,this.clientObj['cust_phone']);
+        this.getBookingForSMS();
         stepper.next();
       }
       else
@@ -421,8 +421,8 @@ export class ClientDashboardComponent implements OnInit, OnDestroy {
         this.isBookingFormFilled = true;
         this.step1Editable = false;
         this.step2Editable = false;
-        //this.sendSMS("Your booking is completed. Hold on while supplier accepts your booking. Your Booking Id is " + this.bookingData[this.bookingData.length-1].b_id,this.clientObj['cust_phone']);
         stepper.next();
+        this.getBookingForSMS()
 
       }
       else
@@ -465,20 +465,21 @@ export class ClientDashboardComponent implements OnInit, OnDestroy {
       });
       this.pendingBadge = this.bookingPending.length;
       this.pageOneData = this.bookingPending[this.bookingPending.length - 1];
+      if(this.bookingPending.length>0){
+        this.get_sup.seeSup(this.pageOneData.b_id).subscribe(p => {
+          this.pageOneDataSup = p;
+          try {
+            this.afStorage.ref('sup' + this.pageOneDataSup['sup_id']).getDownloadURL().subscribe(u => {
 
-      this.get_sup.seeSup(this.pageOneData.b_id).subscribe(p => {
-        this.pageOneDataSup = p;
-        try {
-          this.afStorage.ref('sup' + this.pageOneDataSup['sup_id']).getDownloadURL().subscribe(u => {
+              this.pageOneDataImageUrl = u;
 
-            this.pageOneDataImageUrl = u;
-
-          });
-        }
-        catch (e) {
-          console.log(e)
-        }
-      })
+            });
+          }
+          catch (e) {
+            console.log(e)
+          }
+        })
+      }
 
       this.bookingActive = bookingObj.filter((e) => {
         if (e['b_accepted'] == 'A' && e['completion_status'] == 'F') {
@@ -490,20 +491,21 @@ export class ClientDashboardComponent implements OnInit, OnDestroy {
       });
       this.activeBadge = this.bookingActive.length;
       this.pageTwoData = this.bookingActive[this.bookingActive.length - 1];
+      if(this.bookingActive.length>0){
+      this.get_sup.seeSup(this.pageTwoData['b_id']).subscribe(p => {
+          this.pageTwoDataSup = p;
+          try {
+            this.afStorage.ref('sup' + this.pageTwoDataSup['sup_id']).getDownloadURL().subscribe(u => {
 
-      this.get_sup.seeSup(this.pageTwoData.b_id).subscribe(p => {
-        this.pageTwoDataSup = p;
-        try {
-          this.afStorage.ref('sup' + this.pageTwoDataSup['sup_id']).getDownloadURL().subscribe(u => {
+              this.pageTwoDataImageUrl = u;
 
-            this.pageTwoDataImageUrl = u;
-
-          });
-        }
-        catch (e) {
-          console.log(e)
-        }
-      })
+            });
+          }
+          catch (e) {
+            console.log(e)
+          }
+        })
+      }
 
       this.bookingCompleted = bookingObj.filter((e) => {
         if (e['b_accepted'] == 'A' && e['completion_status'] == 'T') {
@@ -516,6 +518,77 @@ export class ClientDashboardComponent implements OnInit, OnDestroy {
       this.completedBadge = this.bookingCompleted.length;
     })
   }
+
+   getBookingForSMS(){
+    this.service.getBookingData(this.custId).subscribe((bookingObj: object[]) => {
+      bookingObj.forEach((e) => {
+        e["b_time"] = e["b_time"].substring(0, 5);
+      });
+      this.bookingData = bookingObj;
+      this.bookingPending = bookingObj.filter((e) => {
+        if (e['b_accepted'] == 'F' || e['b_accepted'] == 'D') {
+          return true;
+        }
+        else {
+          return false;
+        }
+      });
+      this.pendingBadge = this.bookingPending.length;
+      this.pageOneData = this.bookingPending[this.bookingPending.length - 1];
+      if(this.bookingPending.length>0){
+        this.get_sup.seeSup(this.pageOneData.b_id).subscribe(p => {
+          this.pageOneDataSup = p;
+          try {
+            this.afStorage.ref('sup' + this.pageOneDataSup['sup_id']).getDownloadURL().subscribe(u => {
+
+              this.pageOneDataImageUrl = u;
+
+            });
+          }
+          catch (e) {
+            console.log(e)
+          }
+        })
+      }
+
+      this.bookingActive = bookingObj.filter((e) => {
+        if (e['b_accepted'] == 'A' && e['completion_status'] == 'F') {
+          return true;
+        }
+        else {
+          return false;
+        }
+      });
+      this.activeBadge = this.bookingActive.length;
+      this.pageTwoData = this.bookingActive[this.bookingActive.length - 1];
+      if(this.bookingActive.length>0){
+      this.get_sup.seeSup(this.pageTwoData['b_id']).subscribe(p => {
+          this.pageTwoDataSup = p;
+          try {
+            this.afStorage.ref('sup' + this.pageTwoDataSup['sup_id']).getDownloadURL().subscribe(u => {
+
+              this.pageTwoDataImageUrl = u;
+
+            });
+          }
+          catch (e) {
+            console.log(e)
+          }
+        })
+      }
+
+      this.bookingCompleted = bookingObj.filter((e) => {
+        if (e['b_accepted'] == 'A' && e['completion_status'] == 'T') {
+          return true;
+        }
+        else {
+          return false;
+        }
+      });
+      this.completedBadge = this.bookingCompleted.length;
+      this.sendSMS("Your booking is completed. Hold on while supplier accepts your booking. Your Booking Id is " + this.bookingData[this.bookingData.length-1].b_id,this.clientObj['cust_phone']);
+    })
+   }
 
   sendSMS(messageData: string, phone) {
     let apiKey = encodeURIComponent('+6YhbPl3eug-67NmtyikpMCod5I30iJo0J6wTWkjWJ');

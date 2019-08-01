@@ -47,7 +47,7 @@ export class SupDashboardComponent implements OnInit, OnChanges {
         console.log("url got:" + u)
         this.imageUrl = u;
         console.log("url assigned" + this.imageUrl)
-      }, e => console.log(e));
+      }, e => console.log("Supplier Image not found"));
       // console.log(this.imageUrl);
     }
 
