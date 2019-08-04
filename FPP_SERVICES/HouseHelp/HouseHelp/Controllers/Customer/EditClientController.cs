@@ -16,22 +16,10 @@ namespace HouseHelp.Controllers.Customer
         FPPEntities db = new FPPEntities();
 
         // GET: api/EditClient
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET: api/EditClient/5
-        public string Get(int id)
-        {
-            return "value";
-        }
+      
 
         // POST: api/EditClient
-        public void Post([FromBody]string value)
-        {
-        }
-
+        
         // PUT: api/EditClient/5
         public get_user_Result Put(int id, [FromBody]JObject s)
         {
@@ -50,9 +38,5 @@ namespace HouseHelp.Controllers.Customer
 
         }
 
-        // DELETE: api/EditClient/5
-        public void Delete(int id)
-        {
-        }
     }
 }

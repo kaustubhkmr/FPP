@@ -17,10 +17,7 @@ namespace HouseHelp.Controllers.Customer
         FPPEntities fpp = new FPPEntities();
 
         // GET: api/GetBookingSuppliers
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+       
 
         // GET: api/GetBookingSuppliers/5
         public IEnumerable<get_booking_suppliers1_Result> Get(int id)
@@ -29,18 +26,12 @@ namespace HouseHelp.Controllers.Customer
         }
 
         // POST: api/GetBookingSuppliers
-        public void Post([FromBody]string value)
-        {
-        }
+       
 
         // PUT: api/GetBookingSuppliers/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
+        
 
         // DELETE: api/GetBookingSuppliers/5
-        public void Delete(int id)
-        {
-        }
+        
     }
 }

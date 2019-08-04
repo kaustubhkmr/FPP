@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.645
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HouseHelp", "HouseHelp\HouseHelp.csproj", "{B7D3A0D6-E3E1-4B28-8D92-9EA1F6B12C1D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HouseHelpTests", "HouseHelpTests\HouseHelpTests.csproj", "{36978EA1-A947-4DDA-AEA5-1E72D2C31D7F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{B7D3A0D6-E3E1-4B28-8D92-9EA1F6B12C1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7D3A0D6-E3E1-4B28-8D92-9EA1F6B12C1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B7D3A0D6-E3E1-4B28-8D92-9EA1F6B12C1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36978EA1-A947-4DDA-AEA5-1E72D2C31D7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36978EA1-A947-4DDA-AEA5-1E72D2C31D7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36978EA1-A947-4DDA-AEA5-1E72D2C31D7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36978EA1-A947-4DDA-AEA5-1E72D2C31D7F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
