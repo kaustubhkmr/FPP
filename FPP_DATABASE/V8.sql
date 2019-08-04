@@ -104,3 +104,7 @@ VALUES
 	----V11-----------
 	truncate table custom_service
 	select * from custom_service
+	select * from suppliers
+	select * from bookings
+	select * from sup_services
+	select count (*) from suppliers
