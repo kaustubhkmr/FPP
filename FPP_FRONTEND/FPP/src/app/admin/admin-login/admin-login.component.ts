@@ -16,7 +16,7 @@ export class AdminLoginComponent implements OnInit {
   ngOnInit() {
   }
   onLogin(data, f: NgForm) {
-    console.log(data);
+   
     this.service.getAdmin().subscribe(p=>{
       if(data["log_email"]==p[0]["a_email"]&&data["log_password"]==p[0]["a_password"])
       {

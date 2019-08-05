@@ -29,18 +29,6 @@ namespace HouseHelp.Controllers.Customer
         //}
 
         // POST: api/GetCustomBookingSuppliers
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT: api/GetCustomBookingSuppliers/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/GetCustomBookingSuppliers/5
-        public void Delete(int id)
-        {
-        }
+       
     }
 }
