@@ -191,6 +191,7 @@
     <Compile Include="Controllers\Supplier\GetCustomerNamesController.cs" />
     <Compile Include="Controllers\Supplier\GetCustomServiceController.cs" />
     <Compile Include="Controllers\Supplier\GetSupplierBookingController.cs" />
+    <Compile Include="Controllers\Supplier\GetSupplierBookingRealtimeController.cs" />
     <Compile Include="Controllers\Supplier\SupplierRegisterController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">

@@ -488,5 +488,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="get_booking_count_for_sup" FunctionName="FPPModel.Store.get_booking_count_for_sup" />
   </EntityContainerMapping>
 </Mapping>

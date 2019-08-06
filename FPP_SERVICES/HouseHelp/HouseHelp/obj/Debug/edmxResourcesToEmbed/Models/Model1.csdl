@@ -305,6 +305,9 @@
       <Parameter Name="pwd" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="get_admin1" ReturnType="Collection(FPPModel.get_admin1_Result)" />
+    <FunctionImport Name="get_booking_count_for_sup" ReturnType="Collection(Int32)">
+      <Parameter Name="sup_id" Mode="In" Type="Int64" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="get_booking_Result">
     <Property Type="Int64" Name="b_id" Nullable="false" />

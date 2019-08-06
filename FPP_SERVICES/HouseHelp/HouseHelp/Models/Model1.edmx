@@ -6,7 +6,7 @@
     <edmx:StorageModels>
     <Schema Namespace="FPPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <!--Errors Found During Generation:
-warning 6002: The table/view 'FPP.dbo.admin_table' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'fpp.dbo.admin_table' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="admin_table">
           <Key>
             <PropertyRef Name="a_email" />
@@ -97,7 +97,7 @@ warning 6002: The table/view 'FPP.dbo.admin_table' does not have a primary key d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__custom_se__sup_i__41EDCAC5">
+        <Association Name="FK__custom_se__sup_i__76969D2E">
           <End Role="suppliers" Type="Self.suppliers" Multiplicity="0..1" />
           <End Role="custom_service" Type="Self.custom_service" Multiplicity="*" />
           <ReferentialConstraint>
@@ -109,7 +109,7 @@ warning 6002: The table/view 'FPP.dbo.admin_table' does not have a primary key d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__sup_servi__sup_i__6383C8BA">
+        <Association Name="FK__sup_servi__sup_i__4CA06362">
           <End Role="suppliers" Type="Self.suppliers" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -201,6 +201,9 @@ warning 6002: The table/view 'FPP.dbo.admin_table' does not have a primary key d
         <Function Name="get_all_supplier" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="get_booking" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="bid" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="get_booking_count_for_sup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sup_id" Type="bigint" Mode="In" />
         </Function>
         <Function Name="get_booking_cust_names1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="bid" Type="bigint" Mode="In" />
@@ -317,11 +320,11 @@ warning 6002: The table/view 'FPP.dbo.admin_table' does not have a primary key d
             <End Role="customers" EntitySet="customers" />
             <End Role="bookings" EntitySet="bookings" />
           </AssociationSet>
-          <AssociationSet Name="FK__custom_se__sup_i__41EDCAC5" Association="Self.FK__custom_se__sup_i__41EDCAC5">
+          <AssociationSet Name="FK__custom_se__sup_i__76969D2E" Association="Self.FK__custom_se__sup_i__76969D2E">
             <End Role="suppliers" EntitySet="suppliers" />
             <End Role="custom_service" EntitySet="custom_service" />
           </AssociationSet>
-          <AssociationSet Name="FK__sup_servi__sup_i__6383C8BA" Association="Self.FK__sup_servi__sup_i__6383C8BA">
+          <AssociationSet Name="FK__sup_servi__sup_i__4CA06362" Association="Self.FK__sup_servi__sup_i__4CA06362">
             <End Role="suppliers" EntitySet="suppliers" />
             <End Role="sup_services" EntitySet="sup_services" />
           </AssociationSet>
@@ -639,6 +642,9 @@ warning 6002: The table/view 'FPP.dbo.admin_table' does not have a primary key d
             <Parameter Name="pwd" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="get_admin1" ReturnType="Collection(FPPModel.get_admin1_Result)" />
+          <FunctionImport Name="get_booking_count_for_sup" ReturnType="Collection(Int32)">
+            <Parameter Name="sup_id" Mode="In" Type="Int64" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="get_booking_Result">
           <Property Type="Int64" Name="b_id" Nullable="false" />
@@ -1452,6 +1458,7 @@ warning 6002: The table/view 'FPP.dbo.admin_table' does not have a primary key d
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_booking_count_for_sup" FunctionName="FPPModel.Store.get_booking_count_for_sup" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

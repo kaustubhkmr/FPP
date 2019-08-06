@@ -33,6 +33,10 @@ export class DashboardService {
     return this.http.get("http://localhost/HouseHelp/api/GetSupplierBooking/"+id);
   }
 
+  getBookingDataRealtime(id,count){
+    return this.http.get("http://localhost/HouseHelp/api/GetSupplierBookingRealtime/?id="+id+'&count='+count);
+  }
+
   updateBookingConfirmation(id,data){
     return this.http.put("http://localhost/HouseHelp/api/AcceptBooking/"+id,data);
   }

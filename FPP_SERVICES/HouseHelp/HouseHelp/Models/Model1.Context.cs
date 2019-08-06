@@ -637,5 +637,14 @@ namespace HouseHelp.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_admin1_Result>("get_admin1");
         }
+    
+        public virtual ObjectResult<Nullable<int>> get_booking_count_for_sup(Nullable<long> sup_id)
+        {
+            var sup_idParameter = sup_id.HasValue ?
+                new ObjectParameter("sup_id", sup_id) :
+                new ObjectParameter("sup_id", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("get_booking_count_for_sup", sup_idParameter);
+        }
     }
 }

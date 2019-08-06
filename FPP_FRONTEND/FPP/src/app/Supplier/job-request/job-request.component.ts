@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { DashboardService } from 'src/app/Services/dashboard.service';
 import { MatSort, MatTableDataSource, MatDialog } from '@angular/material';
 import { SeeCustDetailsComponent } from '../see-cust-details/see-cust-details.component';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-job-request',
@@ -13,6 +14,7 @@ export class JobRequestComponent implements OnInit {
   dataSource: MatTableDataSource<any>;
   supId;
   bookingData: object[] = [];
+  bookingDataLen:number;
   intervalFlag;
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -24,21 +26,24 @@ export class JobRequestComponent implements OnInit {
     this.supId = localStorage.getItem("sup_id");
     this.getData();
     this.intervalFlag=setInterval(()=>{
-      this.serivedashBoard.getBookingData(this.supId).subscribe((bookingObj: object[]) => {
-        bookingObj.forEach((e)=>{
-          e["b_time"] = e["b_time"].substring(0,5);
-        })
-        bookingObj=bookingObj.filter((e)=>{
-          if(e['b_accepted']=='F'){
-            return true;
-          }
-          else{
-            return false;
-          }
-        });
-        this.bookingData = bookingObj;
-        this.dataSource = new MatTableDataSource(this.bookingData);
-        this.dataSource.sort = this.sort;
+      this.serivedashBoard.getBookingDataRealtime(this.supId,this.bookingDataLen).subscribe((bookingObj: object[]) => {
+        if(!isNullOrUndefined(bookingObj)) {
+          this.bookingDataLen = bookingObj.length;
+          bookingObj.forEach((e)=>{
+            e["b_time"] = e["b_time"].substring(0,5);
+          })
+          bookingObj=bookingObj.filter((e)=>{
+            if(e['b_accepted']=='F'){
+              return true;
+            }
+            else{
+              return false;
+            }
+          });
+          this.bookingData = bookingObj;
+          this.dataSource = new MatTableDataSource(this.bookingData);
+          this.dataSource.sort = this.sort;
+        }
       })
     }, 10000);
     
@@ -62,6 +67,7 @@ export class JobRequestComponent implements OnInit {
         }
       });
       this.bookingData = bookingObj;
+      this.bookingDataLen = this.bookingData.length;
       this.dataSource = new MatTableDataSource(this.bookingData);
       this.dataSource.sort = this.sort;
     })
