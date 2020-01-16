@@ -14,6 +14,17 @@ On selecting the signup option, a form shown below is opened. It contains variou
 ![signup form](https://github.com/kaustubhkmr/FPP/blob/master/Images/signp.PNG)
 The form for login is shown below. Similar validations are present here also.
 ![login](https://github.com/kaustubhkmr/FPP/blob/master/Images/loginscreen.PNG)
+# Client Dashboard.
+On successful login/signup as a client, the following dashboard opens.
+![client dash](https://github.com/kaustubhkmr/FPP/blob/master/Images/clientdash.PNG)
+This dashboard contains contains various tabs for creating a new booking, to view pending bookings, active bookings and completed bookings. An option to view client's profile is also provided. In addition to this a paginator to view top active bookings is also provided and caraousel is present which can be used to view advertisements.
+# Service Booking
+Clients can book a service in the following three steps
+![](https://github.com/kaustubhkmr/FPP/blob/master/Images/service%20booking%20step%201.PNG)
+In the first step, the client selects a service from a set of pre defined or custom services which can be added by the supplier. These services can be billed per hour or by per person.
+![](https://github.com/kaustubhkmr/FPP/blob/master/Images/servicebooking2.PNG)
+In the second stepa booking form is required to  be flled by the client which contains various booking details and an option to choose a supplier.
+
 
 
 
