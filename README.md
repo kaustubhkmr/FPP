@@ -10,6 +10,8 @@ It contains three login/signup options. User can login as clients, as suppliers 
 # Signup/Login Form
 On selecting one of the signup/login options, an interactive popup opens as shown below.
 ![signup dialog](https://github.com/kaustubhkmr/FPP/blob/master/Images/signuporlogin.PNG)
+On selecting the signup option, a form shown below is opened. It contains various standard and custom defined validation like password matcher etc.
+![signup form](https://github.com/kaustubhkmr/FPP/blob/master/Images/signuporlogin.PNG)
 
 
 
