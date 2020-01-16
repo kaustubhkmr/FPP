@@ -7,8 +7,6 @@ Below image illustrates how the front page looks like.
 ![welcome page](https://github.com/kaustubhkmr/FPP/blob/master/Images/frontpage1.PNG)
 It contains three login/signup options. User can login as clients, as suppliers or as the admin. Each of the three roles have their own separate flow of control. A brief list of the services which are provided are listed on the front as shown.
 ![service list](https://github.com/kaustubhkmr/FPP/blob/master/Images/front2.png)
-A contact us section is also present on the front page.
-![contact us](https://github.com/kaustubhkmr/FPP/blob/master/Images/front3.png)
 # Signup/Login Form
 On selecting one of the signup/login options, an interactive popup opens as shown below.
 ![signup dialog](https://github.com/kaustubhkmr/FPP/blob/master/Images/signuporlogin.PNG)
